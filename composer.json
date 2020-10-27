@@ -1,0 +1,18 @@
+{
+    "name": "brcas/user",
+    "description": "Package to Laravel",
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "require": {
+        "brcas/user": "^0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BRCas\\User\\": "src/"
+        }
+    }
+}
