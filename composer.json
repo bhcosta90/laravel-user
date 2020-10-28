@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "bhcosta90/package": "^0.0"
+        "bhcosta90/laravel": "^0.0"
     },
     "autoload": {
         "psr-4": {
