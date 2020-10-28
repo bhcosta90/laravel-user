@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "brcas/user": "^0.0"
+        "brcas/package": "^0.0"
     },
     "autoload": {
         "psr-4": {
