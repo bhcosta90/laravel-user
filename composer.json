@@ -1,5 +1,5 @@
 {
-    "name": "brcas/user",
+    "name": "bhcosta90/user",
     "description": "Package to Laravel",
     "authors": [
         {
@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "brcas/package": "^0.0"
+        "bhcosta90/package": "^0.0"
     },
     "autoload": {
         "psr-4": {
