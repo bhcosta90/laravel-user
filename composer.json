@@ -1,6 +1,8 @@
 {
     "name": "bhcosta90/user",
     "description": "Package to Laravel",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Bruno Costa",
@@ -8,7 +10,7 @@
         }
     ],
     "require": {
-        "bhcosta90/laravel": "^0.0"
+        "bhcosta90/laravel": "^0.0.10"
     },
     "autoload": {
         "psr-4": {
