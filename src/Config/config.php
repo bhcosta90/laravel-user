@@ -33,7 +33,7 @@ return [
     ],
     "permissions" => [
         "user" => [
-            "index" =>  null,
+            "index" => null,
             "edit" => null,
             "create" => null,
             "delete" => null,

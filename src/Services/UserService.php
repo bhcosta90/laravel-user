@@ -8,8 +8,9 @@ use BRCas\User\Repositories\UserRepository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
-class UserService  {
-    
+class UserService
+{
+
     /**
      * @var UserRepository
      */
@@ -19,7 +20,7 @@ class UserService  {
     {
         $this->repository = $repository;
     }
-    
+
     public function index()
     {
         return $this->repository->index();

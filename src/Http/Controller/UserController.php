@@ -3,13 +3,7 @@
 namespace BRCas\User\Http\Controller;
 
 use App\Http\Controllers\Controller;
-use BRCas\Laravel\Traits\Controller\Web\{
-    Create,
-    Destroy,
-    Edit,
-    Index,
-    Show
-};
+use BRCas\Laravel\Traits\Controller\Web\{Create, Destroy, Edit, Index, Show};
 use BRCas\Laravel\Traits\Support\Permission;
 
 class UserController extends Controller
@@ -46,7 +40,8 @@ class UserController extends Controller
         return config('user.filters.user');
     }
 
-    public function routeBegging(){
+    public function routeBegging()
+    {
         return 'admin.users.users';
     }
 

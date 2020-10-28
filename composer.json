@@ -1,20 +1,20 @@
 {
-    "name": "bhcosta90/laravel-user",
-    "description": "Package to Laravel",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "authors": [
-        {
-            "name": "Bruno Costa",
-            "email": "bhcosta90@gmail.com"
-        }
-    ],
-    "require": {
-        "bhcosta90/laravel-package": "^0.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "BRCas\\User\\": "src/"
-        }
+  "name": "bhcosta90/laravel-user",
+  "description": "Package to Laravel",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Bruno Costa",
+      "email": "bhcosta90@gmail.com"
     }
+  ],
+  "require": {
+    "bhcosta90/laravel-package": "^0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "BRCas\\User\\": "src/"
+    }
+  }
 }

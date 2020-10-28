@@ -3,11 +3,12 @@
 namespace BRCas\User\Repositories;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use BRCas\Laravel\Exceptions\CustomException;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
-class UserRepository implements Contracts\UserContract{
+class UserRepository implements Contracts\UserContract
+{
     public function index()
     {
         return User::orderName();
@@ -31,7 +32,7 @@ class UserRepository implements Contracts\UserContract{
 
     public function destroy($obj)
     {
-        if(auth()->user() == $obj) throw new CustomException(__('You cannot delete your user'), Response::HTTP_BAD_REQUEST);
+        if (auth()->user() == $obj) throw new CustomException(__('You cannot delete your user'), Response::HTTP_BAD_REQUEST);
         return $obj->delete();
     }
 }

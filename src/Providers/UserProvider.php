@@ -3,7 +3,7 @@
 namespace BRCas\User\Providers;
 
 use BRCas\Laravel\Providers\PackageServiceProvider;
-use BRCas\User\Repositories\{UserRepository, Contracts\UserContract};
+use BRCas\User\Repositories\{Contracts\UserContract, UserRepository};
 use Illuminate\Support\ServiceProvider;
 
 class UserProvider extends ServiceProvider
@@ -26,7 +26,7 @@ class UserProvider extends ServiceProvider
     {
         if (function_exists('config_path')) {
             $this->publishes([
-                realpath(__DIR__.'/../Config/config.php') => config_path('user.php'),
+                realpath(__DIR__ . '/../Config/config.php') => config_path('user.php'),
             ], 'config');
         }
 
@@ -47,7 +47,7 @@ class UserProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/user');
 
-        $sourcePath = __DIR__  . '/../Resources/views';
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
