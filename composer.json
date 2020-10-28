@@ -1,5 +1,5 @@
 {
-    "name": "bhcosta90/user",
+    "name": "bhcosta90/laravel-user",
     "description": "Package to Laravel",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "bhcosta90/laravel": "^0.0.10"
+        "bhcosta90/laravel-package": "^0.0.11"
     },
     "autoload": {
         "psr-4": {
