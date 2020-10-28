@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97fffb59a4f17c85f01e684e8f8c57fc",
+    "content-hash": "d3b183468a9c0fe8b39711766b38069e",
     "packages": [
         {
-            "name": "bhcosta90/laravel",
-            "version": "0.0.10",
+            "name": "bhcosta90/laravel-package",
+            "version": "0.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "28a7094ce84c10efad52e905db86cfef3607dfde"
+                "reference": "1ed5626f5293b49199a13cfb1c00fd7d1e5f02bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/28a7094ce84c10efad52e905db86cfef3607dfde",
-                "reference": "28a7094ce84c10efad52e905db86cfef3607dfde",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/1ed5626f5293b49199a13cfb1c00fd7d1e5f02bf",
+                "reference": "1ed5626f5293b49199a13cfb1c00fd7d1e5f02bf",
                 "shasum": ""
             },
             "require": {
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "Pacote para trabalhar com o laravel",
-            "time": "2020-10-28T00:24:58+00:00"
+            "time": "2020-10-28T01:11:19+00:00"
         },
         {
             "name": "brick/math",
