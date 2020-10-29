@@ -2,12 +2,17 @@
 
 namespace BRCas\User\Http\Controller;
 
-use App\Http\Controllers\Controller;
 use BRCas\Laravel\Traits\Controller\Web\{Create, Destroy, Edit, Index, Show};
 use BRCas\Laravel\Traits\Support\Permission;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     use Index, Edit, Create, Destroy, Show, Permission;
 
     public function permissions()

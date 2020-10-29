@@ -3,12 +3,10 @@
 namespace BRCas\User\Services;
 
 use App\Models\User;
-use BRCas\Laravel\Exceptions\CustomException;
+use BRCas\Laravel\Contracts\{Create, Destroy, Edit, Index, Show};
 use BRCas\User\Repositories\UserRepository;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
-class UserService
+class UserService implements Index, Edit, Show, Create, Destroy
 {
 
     /**
@@ -31,7 +29,7 @@ class UserService
         return $this->repository->find($id);
     }
 
-    public function edit(User $obj, array $data)
+    public function edit($obj, array $data)
     {
         return $this->repository->edit($obj, $data);
     }

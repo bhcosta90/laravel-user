@@ -21,6 +21,9 @@ class UserRepository implements Contracts\UserContract
 
     public function edit($obj, array $data)
     {
+        if(!empty($data['password'])){
+            $data['password'] = Hash::make($data['password']);
+        }
         return $obj->update($data);
     }
 
