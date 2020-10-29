@@ -3,7 +3,12 @@
 namespace BRCas\User\Providers;
 
 use BRCas\Laravel\Providers\PackageServiceProvider;
-use BRCas\User\Repositories\{Contracts\ProfileContract, Contracts\UserContract, ProfileRepository, UserRepository};
+use BRCas\User\Repositories\{Contracts\ProfileContract,
+    Contracts\RoleContract,
+    Contracts\UserContract,
+    ProfileRepository,
+    RoleRepository,
+    UserRepository};
 use Illuminate\Support\ServiceProvider;
 
 class UserProvider extends ServiceProvider
@@ -16,6 +21,11 @@ class UserProvider extends ServiceProvider
 
         $this->app->bind(UserContract::class, UserRepository::class);
         $this->app->bind(ProfileContract::class, ProfileRepository::class);
+        $this->app->bind(RoleContract::class, RoleRepository::class);
+
+        if(class_exists(\Spatie\Permission\PermissionServiceProvider::class)){
+            $this->app->register(\Spatie\Permission\PermissionServiceProvider::class);
+        }
     }
 
     /**

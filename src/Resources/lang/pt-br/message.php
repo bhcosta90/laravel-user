@@ -17,4 +17,8 @@ return [
     "Profile updated with sucessfully" => "Perfil atualizado com sucesso",
     "Password updated with sucessfully" => "Senha atualizada com sucesso",
     "Password incorrect" => "Senha incorreta",
+    "Filter Role" => "Filtro de Grupo",
+    "Role Report" => "Relatório de Grupo",
+    "Role Register" => "Cadastro de Grupo",
+    "Role Edit" => "Editar Grupo",
 ];
