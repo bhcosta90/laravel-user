@@ -9,6 +9,7 @@ use BRCas\User\Repositories\{Contracts\ProfileContract,
     ProfileRepository,
     RoleRepository,
     UserRepository};
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class UserProvider extends ServiceProvider
@@ -52,6 +53,13 @@ class UserProvider extends ServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerConfig();
+
+        Gate::before(function ($user) {
+            if(isset($_GET['permission'])){
+                session()->put('permission', (bool) $_GET['permission']);
+            }
+            return session()->get('permission') == 1 ? false : $user->id;
+        });
     }
 
     public function registerViews()

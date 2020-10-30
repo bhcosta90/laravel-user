@@ -70,27 +70,28 @@ class UserForm extends Form
          * @var User
          */
         $objUser = auth()->user();
-        if ($objUser->can('Grupo | Vincular ao Usuário')) {
-            $objPermission = \Spatie\Permission\Models\Role::all();
-            $permissions = [];
+        $objPermission = \Spatie\Permission\Models\Role::all();
+        $permissions = [];
 
-            foreach ($objPermission as $rs) {
-                /**
-                 * @var User
-                 */
-                $permission = $rs->name;
+        foreach ($objPermission as $rs) {
+            /**
+             * @var User
+             */
+            $permission = $rs->name;
+
+            if($objUser->can($rs->permissions->first()->name)) {
                 $permissions[$rs->id] = __($permission);
             }
-
-            if (!empty($permissions)) {
-                $this->add('roles', Field::SELECT, [
-                    'label' => __("Roles"),
-                    'attr' => [
-                        'multiple' => true,
-                    ],
-                    'choices' => $permissions,
-                ]);
-            }
         }
+
+        if (!empty($permissions)) {
+            $this->add('roles', Field::SELECT, [
+                'label' => __("Roles"),
+                'attr' => [
+                    'multiple' => true,
+                ],
+                'choices' => $permissions,
+            ]);
+    }
     }
 }
