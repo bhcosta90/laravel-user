@@ -43,17 +43,17 @@ class UserRepository implements Contracts\UserContract
         $objUser = config('user.model.user');
 
         $data['password'] = Hash::make($data['password']);
-        $ret = $objUser::create($data);
+        $obj = $objUser::create($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($ret, $data['permissions'] ?: []);
+            $this->registerPermissions($obj, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($ret, $data['roles'] ?: []);
+            $this->registerRoles($obj, $data['roles'] ?: []);
         }
 
-        return $ret;
+        return $obj;
     }
 
     public function destroy($obj)
