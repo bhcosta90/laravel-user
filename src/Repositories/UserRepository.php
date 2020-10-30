@@ -41,7 +41,7 @@ class UserRepository implements Contracts\UserContract
     public function create(array $data)
     {
         $data['password'] = Hash::make($data['password']);
-        $ret = User::create($data);
+        $obj = User::create($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
             $this->registerPermissions($obj, $data['permissions'] ?: []);
@@ -51,7 +51,7 @@ class UserRepository implements Contracts\UserContract
             $this->registerRoles($obj, $data['roles'] ?: []);
         }
 
-        return $ret;
+        return $obj;
     }
 
     public function destroy($obj)
