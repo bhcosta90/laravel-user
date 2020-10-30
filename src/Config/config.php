@@ -64,5 +64,8 @@ return [
             "create" => null,
             "delete" => null,
         ]
+    ],
+    "model" => [
+        "user" => \BRCas\User\Models\User::class
     ]
 ];

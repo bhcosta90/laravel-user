@@ -18,7 +18,7 @@ class RoleForm extends Form
                 'rules' => "required|min:5|unique:roles,name,{$id},id"
             ]);
 
-        $objPermission = \Spatie\Permission\Models\Permission::all();
+        $objPermission = Permission::all();
         $permissions = [];
 
         foreach ($objPermission as $rs) {

@@ -16,5 +16,14 @@
     "psr-4": {
       "BRCas\\User\\": "src/"
     }
+  },
+  "autoload-dev": {
+      "psr-4": {
+          "BRCas\\User\\Test\\": "tests/"
+      }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.3",
+    "spatie/laravel-permission": "^3.17"
   }
 }

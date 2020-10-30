@@ -4,8 +4,7 @@ namespace BRCas\User\Forms;
 
 use App\Models\User;
 use Kris\LaravelFormBuilder\{Field, Form};
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\{Permission, Role};
 
 class UserForm extends Form
 {
@@ -30,8 +29,8 @@ class UserForm extends Form
             ]);
         }
 
-        if(class_exists(\Spatie\Permission\Models\Permission::class)
-            && class_exists(\Spatie\Permission\Models\Role::class)){
+        if(class_exists(Permission::class)
+            && class_exists(Role::class)){
             $this->permissions();
             $this->roles();
         }
@@ -39,7 +38,7 @@ class UserForm extends Form
 
     private function permissions()
     {
-        $objPermission = \Spatie\Permission\Models\Permission::all();
+        $objPermission = Permission::all();
         $permissions = [];
 
         foreach ($objPermission as $rs) {
@@ -70,7 +69,7 @@ class UserForm extends Form
          * @var User
          */
         $objUser = auth()->user();
-        $objPermission = \Spatie\Permission\Models\Role::all();
+        $objPermission = Role::all();
         $permissions = [];
 
         foreach ($objPermission as $rs) {

@@ -40,15 +40,17 @@ class UserRepository implements Contracts\UserContract
 
     public function create(array $data)
     {
+        $objUser = config('user.model.user');
+
         $data['password'] = Hash::make($data['password']);
-        $ret = User::create($data);
+        $ret = $objUser::create($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($obj, $data['permissions'] ?: []);
+            $this->registerPermissions($ret, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($obj, $data['roles'] ?: []);
+            $this->registerRoles($ret, $data['roles'] ?: []);
         }
 
         return $ret;
