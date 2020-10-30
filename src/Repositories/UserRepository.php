@@ -6,6 +6,7 @@ use App\Models\User;
 use BRCas\Laravel\Exceptions\CustomException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\{Permission, Role};
 
 class UserRepository implements Contracts\UserContract
 {
@@ -19,8 +20,11 @@ class UserRepository implements Contracts\UserContract
         return User::find($id);
     }
 
-    public function edit($obj, array $data)
+    public function edit($obj, array $data, $objUserLogin = null)
     {
+        if ($objUserLogin == null)
+            $objUserLogin = auth()->user();
+
         if(!empty($data['password'])){
             $data['password'] = Hash::make($data['password']);
         }
@@ -28,29 +32,32 @@ class UserRepository implements Contracts\UserContract
         $ret = $obj->update($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($obj, $data['permissions'] ?: []);
+            $this->registerPermissions($objUserLogin, $obj, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($obj, $data['roles'] ?: []);
+            $this->registerRoles($objUserLogin, $obj, $data['roles'] ?: []);
         }
 
         return $ret;
     }
 
-    public function create(array $data)
+    public function create(array $data, $objUserLogin = null)
     {
+        if ($objUserLogin == null)
+            $objUserLogin = auth()->user();
+
         $objUser = config('user.model.user');
 
         $data['password'] = Hash::make($data['password']);
         $obj = $objUser::create($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($obj, $data['permissions'] ?: []);
+            $this->registerPermissions($objUserLogin, $obj, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($obj, $data['roles'] ?: []);
+            $this->registerRoles($objUserLogin, $obj, $data['roles'] ?: []);
         }
 
         return $obj;
@@ -62,32 +69,66 @@ class UserRepository implements Contracts\UserContract
         return $obj->delete();
     }
 
-    public function registerPermissions($obj, array $permissions)
+    public function registerPermissions($objUser, $obj, array $permissions)
     {
-        /**
-         * @var User;
-         */
-        if ($objUser = auth()->user()) {
+        foreach ($obj->permissions as $permission) {
+            if ($objUser && $objUser->can($permission->name) == false) $permissions[] = $permission->id;
+        }
 
-            foreach ($obj->permissions as $permission) {
-                if ($objUser->can($permission->name) == false) $permissions[] = $permission->id;
+        if($objUser){
+            foreach($permissions as $k => $per){
+                $objPermission = Permission::find($per);
+                if($objUser->can($objPermission->name) == false) unset($permissions[$k]);
             }
+        }
 
-            $obj->syncPermissions($permissions);
+        $obj->syncPermissions($permissions);
+    }
+
+    public function registerRoles($objUser, $obj, array $groups)
+    {
+        foreach ($obj->roles as $permission) {
+            if ($objUser->hasRole($permission->name) == false) $groups[] = $permission->id;
         }
     }
 
-    public function registerRoles($obj, array $groups)
+    public function getPermissions($obj): array
     {
-        /**
-         * @var User
-         */
-        if (($objUser = auth()->user())) {
-            foreach ($obj->roles as $permission) {
-                if ($objUser->hasRole($permission->name) == false) $groups[] = $permission->id;
-            }
+        $objPermission = Permission::all();
+        $permissions = [];
 
-            $obj->syncRoles($groups);
+        foreach ($objPermission as $rs) {
+            /**
+             * @var User
+             */
+            $obj = auth()->user();
+            list($module, $permission) = explode('|', $rs->name);
+            if ($obj->can($rs->name)) {
+                $permissions[$module][$rs->id] = __($permission);
+            }
         }
+
+        return $permissions;
+    }
+
+    public function getRoles($obj): array
+    {
+        $objPermission = Role::all();
+        $permissions = [];
+
+        foreach ($objPermission as $rs) {
+            $permission = $rs->name;
+
+            if($obj->can(config('user.permissions.role.all')) || 
+                (
+                    $rs->permissions->count() &&
+                    $obj->can($rs->permissions->first()->name)
+                )
+            ) {
+                $permissions[$rs->id] = __($permission);
+            }
+        }
+
+        return $permissions;
     }
 }

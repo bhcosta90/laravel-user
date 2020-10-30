@@ -2,6 +2,7 @@
 
 namespace BRCas\User\Test;
 
+use BRCas\User\Models\User;
 use BRCas\User\Providers\UserProvider;
 use BRCas\User\Providers\UserTestProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -41,6 +42,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
+        $app['config']->set('auth.providers.users.model', User::class);
         $app['config']->set('database.connections.testbench', [
             'driver'   => 'sqlite',
             'database' => ':memory:',

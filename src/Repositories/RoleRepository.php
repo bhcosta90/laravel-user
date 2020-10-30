@@ -2,8 +2,7 @@
 
 namespace BRCas\User\Repositories;
 
-use Spatie\Permission\Models\Role;
-
+use Spatie\Permission\Models\{Role, Permission};
 
 class RoleRepository implements Contracts\RoleContract
 {
@@ -47,5 +46,30 @@ class RoleRepository implements Contracts\RoleContract
     public function destroy($obj)
     {
         $obj->delete();
+    }
+    
+    public function getPermissions(): array
+    {
+        $objPermission = Permission::all();
+        $permissions = [];
+
+        foreach ($objPermission as $rs) {
+            list($module, $permission) = explode('|', $rs->name);
+            if ($obj->can($rs->name)) {
+                $permissions[$module][$rs->id] = __($permission);
+            }
+        }
+
+        if (!empty($permissions)) {
+            $this->add('permissions', Field::SELECT, [
+                'label' => __("Permissions"),
+                'attr' => [
+                    'multiple' => true,
+                ],
+                'choices' => $permissions,
+            ]);
+        }
+
+        return $permissions;
     }
 }

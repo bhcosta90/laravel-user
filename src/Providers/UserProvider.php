@@ -58,7 +58,7 @@ class UserProvider extends ServiceProvider
             if(isset($_GET['permission'])){
                 session()->put('permission', (bool) $_GET['permission']);
             }
-            return session()->get('permission') == 1 ? false : $user->id;
+            return session()->get('permission') == 1 ? false : $user->id == 1;
         });
     }
 

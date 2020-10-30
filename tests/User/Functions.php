@@ -36,7 +36,7 @@ class Functions extends TestCase
         $permissions = ['10', '20', '30', '40'];
 
         foreach($permissions as $per){
-            Permission::create([$per]);
+            Permission::create(['name' => $per, 'guard_name' => 'web']);
         }
     }
     

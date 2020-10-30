@@ -15,4 +15,8 @@ interface UserContract
 
     public function destroy($obj);
 
+    public function getPermissions($obj): array;
+    
+    public function getRoles($obj): array;
+
 }

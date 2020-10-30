@@ -5,7 +5,6 @@ namespace BRCas\User\Services;
 use App\Models\User;
 use BRCas\Laravel\Contracts\{Create, Destroy, Edit, Index, Show};
 use BRCas\User\Repositories\UserRepository;
-use Spatie\Permission\Models\{Permission, Role};
 
 class UserService implements Index, Edit, Show, Create, Destroy
 {
@@ -30,14 +29,14 @@ class UserService implements Index, Edit, Show, Create, Destroy
         return $this->repository->find($id);
     }
 
-    public function edit($obj, array $data)
+    public function edit($obj, array $data, $objUser = null)
     {
-        return $this->repository->edit($obj, $data);
+        return $this->repository->edit($obj, $data, $objUser);
     }
 
-    public function create(array $data)
+    public function create(array $data, $objUser = null)
     {
-        return $this->repository->create($data);
+        return $this->repository->create($data, $objUser);
     }
 
     public function destroy($obj)
@@ -45,43 +44,11 @@ class UserService implements Index, Edit, Show, Create, Destroy
         return $this->repository->destroy($obj);
     }
 
-    public function getPermissions($obj): array
-    {
-        $objPermission = Permission::all();
-        $permissions = [];
-
-        foreach ($objPermission as $rs) {
-            /**
-             * @var User
-             */
-            $obj = auth()->user();
-            list($module, $permission) = explode('|', $rs->name);
-            if ($obj->can($rs->name)) {
-                $permissions[$module][$rs->id] = __($permission);
-            }
-        }
-
-        return $permissions;
+    public function getRoles($obj){
+        return $this->repository->getRoles($obj);
     }
 
-    public function getRoles($obj): array
-    {
-        $objPermission = Role::all();
-        $permissions = [];
-
-        foreach ($objPermission as $rs) {
-            $permission = $rs->name;
-
-            if($obj->can('Visualizar todos os grupos') || 
-                (
-                    $rs->permissions->count() &&
-                    $obj->can($rs->permissions->first()->name)
-                )
-            ) {
-                $permissions[$rs->id] = __($permission);
-            }
-        }
-
-        return $permissions;
+    public function getPermissions($obj){
+        return $this->repository->getPermissions($obj);
     }
 }
