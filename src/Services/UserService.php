@@ -72,7 +72,12 @@ class UserService implements Index, Edit, Show, Create, Destroy
         foreach ($objPermission as $rs) {
             $permission = $rs->name;
 
-            if($obj->can($rs->permissions->first()->name)) {
+            if($obj->can('Visualizar todos os grupos') || 
+                (
+                    $rs->permissions->count() &&
+                    $obj->can($rs->permissions->first()->name)
+                )
+            ) {
                 $permissions[$rs->id] = __($permission);
             }
         }
