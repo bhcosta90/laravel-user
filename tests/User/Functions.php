@@ -72,16 +72,6 @@ class Functions extends TestCase
 
     }
     
-    protected function registerRole()
-    {
-        $objService = app(config('user.services.role'));
-        
-        return $objService->create([
-            'name' => 'Teste de Usuário',
-            'permissions' => [],
-        ]);
-    }
-
     protected function registerPermissions()
     {
         $permissions = [

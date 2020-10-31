@@ -14,5 +14,5 @@ interface RoleContract
 
     public function destroy($obj);
 
-    public function getPermissions(): array;
+    public function getPermissions($obj): array;
 }

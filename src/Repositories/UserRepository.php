@@ -71,10 +71,6 @@ class UserRepository implements Contracts\UserContract
 
     public function registerPermissions($objUser, $obj, array $permissions)
     {
-        foreach ($obj->permissions as $permission) {
-            if ($objUser && $objUser->can($permission->name) == false) $permissions[] = $permission->id;
-        }
-
         $permissionAccept = config('user.permissions.user.permission');
         
         if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
@@ -85,15 +81,15 @@ class UserRepository implements Contracts\UserContract
             }
         }
 
+        foreach ($obj->permissions as $permission) {
+            if ($objUser && $objUser->can($permission->name) == false) $permissions[] = $permission->id;
+        }
+
         $obj->syncPermissions($permissions);
     }
 
     public function registerRoles($objUser, $obj, array $groups)
     {
-        foreach ($obj->roles as $permission) {
-            if ($objUser->hasRole($permission->name) == true) $groups[] = $permission->id;
-        }
-        
         $permissionAccept = config('user.permissions.role.all');
 
         if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
@@ -102,6 +98,10 @@ class UserRepository implements Contracts\UserContract
                 if($objUser->hasRole($objPermission->name) == false) 
                     unset($groups[$k]);
             }
+        }
+
+        foreach ($obj->roles as $permission) {
+            if ($objUser->hasRole($permission->name) == true) $groups[] = $permission->id;
         }
 
         $obj->syncRoles($groups);
@@ -113,13 +113,9 @@ class UserRepository implements Contracts\UserContract
         $permissions = [];
 
         foreach ($objPermission as $rs) {
-            /**
-             * @var User
-             */
-            $obj = auth()->user();
             list($module, $permission) = explode('|', $rs->name);
             if ($obj->can($rs->name)) {
-                $permissions[$module][$rs->id] = __($permission);
+                $permissions[trim($module)][$rs->id] = __(trim($permission));
             }
         }
 

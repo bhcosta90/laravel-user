@@ -48,7 +48,7 @@ class RoleRepository implements Contracts\RoleContract
         $obj->delete();
     }
     
-    public function getPermissions(): array
+    public function getPermissions($obj): array
     {
         $objPermission = Permission::all();
         $permissions = [];
@@ -56,7 +56,7 @@ class RoleRepository implements Contracts\RoleContract
         foreach ($objPermission as $rs) {
             list($module, $permission) = explode('|', $rs->name);
             if ($obj->can($rs->name)) {
-                $permissions[$module][$rs->id] = __($permission);
+                $permissions[trim($module)][$rs->id] = __(trim($permission));
             }
         }
 
