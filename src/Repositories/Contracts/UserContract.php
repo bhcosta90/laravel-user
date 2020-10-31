@@ -15,6 +15,10 @@ interface UserContract
 
     public function destroy($obj);
 
+    public function registerPermissions($obj, array $permissions);
+
+    public function registerRoles($obj, array $groups);
+
     public function getPermissions($obj): array;
     
     public function getRoles($obj): array;

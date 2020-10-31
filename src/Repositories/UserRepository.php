@@ -32,11 +32,11 @@ class UserRepository implements Contracts\UserContract
         $ret = $obj->update($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($objUserLogin, $obj, $data['permissions'] ?: []);
+            $this->registerPermissions($obj, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($objUserLogin, $obj, $data['roles'] ?: []);
+            $this->registerRoles($obj, $data['roles'] ?: []);
         }
 
         return $ret;
@@ -53,11 +53,11 @@ class UserRepository implements Contracts\UserContract
         $obj = $objUser::create($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($objUserLogin, $obj, $data['permissions'] ?: []);
+            $this->registerPermissions($obj, $data['permissions'] ?: []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($objUserLogin, $obj, $data['roles'] ?: []);
+            $this->registerRoles($obj, $data['roles'] ?: []);
         }
 
         return $obj;
@@ -69,41 +69,13 @@ class UserRepository implements Contracts\UserContract
         return $obj->delete();
     }
 
-    public function registerPermissions($objUser, $obj, array $permissions)
+    public function registerPermissions($obj, array $permissions)
     {
-        $permissionAccept = config('user.permissions.user.permission');
-        
-        if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
-            foreach($permissions as $k => $per){
-                $objPermission = Permission::find($per);
-                if($objUser->can($objPermission->name) == false) 
-                    unset($permissions[$k]);
-            }
-        }
-
-        foreach ($obj->permissions as $permission) {
-            if ($objUser && $objUser->can($permission->name) == false) $permissions[] = $permission->id;
-        }
-
         $obj->syncPermissions($permissions);
     }
 
-    public function registerRoles($objUser, $obj, array $groups)
+    public function registerRoles($obj, array $groups)
     {
-        $permissionAccept = config('user.permissions.role.all');
-
-        if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
-            foreach($groups as $k => $per){
-                $objPermission = Role::find($per);
-                if($objUser->hasRole($objPermission->name) == false) 
-                    unset($groups[$k]);
-            }
-        }
-
-        foreach ($obj->roles as $permission) {
-            if ($objUser->hasRole($permission->name) == true) $groups[] = $permission->id;
-        }
-
         $obj->syncRoles($groups);
     }
 
@@ -114,9 +86,7 @@ class UserRepository implements Contracts\UserContract
 
         foreach ($objPermission as $rs) {
             list($module, $permission) = explode('|', $rs->name);
-            if ($obj->can($rs->name)) {
-                $permissions[trim($module)][$rs->id] = __(trim($permission));
-            }
+            $permissions[trim($module)][$rs->id] = __(trim($permission));
         }
 
         return $permissions;
@@ -128,16 +98,7 @@ class UserRepository implements Contracts\UserContract
         $permissions = [];
 
         foreach ($objPermission as $rs) {
-            $permission = $rs->name;
-
-            if($obj->can(config('user.permissions.role.all')) || 
-                (
-                    $rs->permissions->count() &&
-                    $obj->can($rs->permissions->first()->name)
-                )
-            ) {
-                $permissions[$rs->id] = __($permission);
-            }
+            $permissions[$rs->id] = __($rs->name);
         }
 
         return $permissions;

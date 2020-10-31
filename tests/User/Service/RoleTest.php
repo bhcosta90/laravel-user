@@ -4,7 +4,7 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class UserRoleTest extends Functions 
+class RoleTest extends Functions 
 {
     public function testCreate(){
 
