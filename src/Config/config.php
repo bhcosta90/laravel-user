@@ -53,14 +53,12 @@ return [
     ],
     "permissions" => [
         "user" => [
-            "permission" => null,
             "index" => null,
             "edit" => null,
             "create" => null,
             "delete" => null,
         ],
         "role" => [
-            "all" => "",
             "index" => null,
             "edit" => null,
             "create" => null,
