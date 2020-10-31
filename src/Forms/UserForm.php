@@ -38,19 +38,8 @@ class UserForm extends Form
 
     private function permissions()
     {
-        $objPermission = Permission::all();
-        $permissions = [];
-
-        foreach ($objPermission as $rs) {
-            /**
-             * @var User
-             */
-            $user = auth()->user();
-            list($module, $permission) = explode('|', $rs->name);
-            if ($user->can($rs->name)) {
-                $permissions[$module][$rs->id] = __($permission);
-            }
-        }
+        $objService = app(config('user.services.user'));
+        $permissions = $objService->getRoles(auth()->user());
 
         if (!empty($permissions)) {
             $this->add('permissions', Field::SELECT, [
@@ -65,23 +54,8 @@ class UserForm extends Form
 
     private function roles()
     {
-        /**
-         * @var User
-         */
-        $objUser = auth()->user();
-        $objPermission = Role::all();
-        $permissions = [];
-
-        foreach ($objPermission as $rs) {
-            /**
-             * @var User
-             */
-            $permission = $rs->name;
-
-            if($objUser->can($rs->permissions->first()->name)) {
-                $permissions[$rs->id] = __($permission);
-            }
-        }
+        $objService = app(config('user.services.user'));
+        $permissions = $objService->getPermissions(auth()->user());
 
         if (!empty($permissions)) {
             $this->add('roles', Field::SELECT, [
