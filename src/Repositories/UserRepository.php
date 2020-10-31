@@ -75,10 +75,13 @@ class UserRepository implements Contracts\UserContract
             if ($objUser && $objUser->can($permission->name) == false) $permissions[] = $permission->id;
         }
 
-        if($objUser){
+        $permissionAccept = config('user.permissions.user.permission');
+        
+        if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
             foreach($permissions as $k => $per){
                 $objPermission = Permission::find($per);
-                if($objUser->can($objPermission->name) == false) unset($permissions[$k]);
+                if($objUser->can($objPermission->name) == false) 
+                    unset($permissions[$k]);
             }
         }
 
@@ -88,8 +91,20 @@ class UserRepository implements Contracts\UserContract
     public function registerRoles($objUser, $obj, array $groups)
     {
         foreach ($obj->roles as $permission) {
-            if ($objUser->hasRole($permission->name) == false) $groups[] = $permission->id;
+            if ($objUser->hasRole($permission->name) == true) $groups[] = $permission->id;
         }
+        
+        $permissionAccept = config('user.permissions.role.all');
+
+        if($objUser && ($permissionAccept ==null || $objUser->can($permissionAccept) == false)){
+            foreach($groups as $k => $per){
+                $objPermission = Role::find($per);
+                if($objUser->hasRole($objPermission->name) == false) 
+                    unset($groups[$k]);
+            }
+        }
+
+        $obj->syncRoles($groups);
     }
 
     public function getPermissions($obj): array

@@ -4,47 +4,41 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class UserTest extends Functions 
+class UserRoleTest extends Functions 
 {
     public function testCreate(){
 
-        $objUser = $this->registerUser();
+        $objUser = $this->registerRole();
 
-        $this->assertDatabaseHas('users', [
-            'id' => $objUser->id,
+        $this->assertDatabaseHas(config('permission.table_names.roles'), [
             'name' => $objUser->name,
-            'email' => $objUser->email,
         ]);
     }
 
     public function testEdit(){
-        $objService = app(config('user.services.user'));
+        $objService = app(config('user.services.role'));
 
-        $newEmail = time() . $this->faker->email;
-
-        $objService->edit($this->registerUser(), [
+        $objService->edit($this->registerRole(), [
             'name' => 'Edição de Usuário',
-            'email' => $newEmail,
             'permissions' => [],
-            'roles' => [],
         ]);
 
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseHas(config('permission.table_names.roles'), [
             'id' => 1,
             'name' => 'Edição de Usuário',
-            'email' => $newEmail
         ]);
     }
 
     public function testDelete(){
         $objService = app(config('user.services.user'));
 
-        $objService->destroy($this->registerUser());
+        $objService->destroy($this->registerRole());
 
-        $this->assertDatabaseMissing('users', [
+        $this->assertDatabaseMissing(config('permission.table_names.roles'), [
             'id' => 1,
             'name' => 'Edição de Usuário',
             'email' => 'teste@teste.com.br',
         ]);
-    }    
+    }
+    
 }

@@ -7,6 +7,7 @@ use BRCas\User\Providers\UserProvider;
 use BRCas\User\Providers\UserTestProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -48,5 +49,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+    }
+
+    protected function debugSql($table)
+    {
+        dd(DB::table($table)->get()->toArray());
     }
 }
