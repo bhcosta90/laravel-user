@@ -60,16 +60,6 @@ class RoleRepository implements Contracts\RoleContract
             }
         }
 
-        if (!empty($permissions)) {
-            $this->add('permissions', Field::SELECT, [
-                'label' => __("Permissions"),
-                'attr' => [
-                    'multiple' => true,
-                ],
-                'choices' => $permissions,
-            ]);
-        }
-
         return $permissions;
     }
 }

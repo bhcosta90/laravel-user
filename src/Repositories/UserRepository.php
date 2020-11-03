@@ -32,11 +32,11 @@ class UserRepository implements Contracts\UserContract
         $ret = $obj->update($data);
 
         if(class_exists(\Spatie\Permission\Models\Permission::class)){
-            $this->registerPermissions($obj, $data['permissions'] ?: []);
+            $this->registerPermissions($obj, $data['permissions'] ?? []);
         }
 
         if(class_exists(\Spatie\Permission\Models\Role::class)){
-            $this->registerRoles($obj, $data['roles'] ?: []);
+            $this->registerRoles($obj, $data['roles'] ?? []);
         }
 
         return $ret;

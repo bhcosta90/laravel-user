@@ -2,6 +2,7 @@
 
 namespace BRCas\User\Forms;
 
+use BRCas\User\Services\RoleService;
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
 use Spatie\Permission\Models\Permission;
@@ -18,19 +19,8 @@ class RoleForm extends Form
                 'rules' => "required|min:5|unique:roles,name,{$id},id"
             ]);
 
-        $objPermission = Permission::all();
-        $permissions = [];
-
-        foreach ($objPermission as $rs) {
-            /**
-             * @var User
-             */
-            $user = auth()->user();
-            list($module, $permission) = explode('|', $rs->name);
-            if ($user->can($rs->name)) {
-                $permissions[$module][$rs->id] = __($permission);
-            }
-        }
+        $objService = app(config('user.services.role'));
+        $permissions = $objService->getPermissions(auth()->user());
 
         if (!empty($permissions)) {
             $this->add('permissions', Field::SELECT, [

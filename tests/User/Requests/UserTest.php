@@ -1,13 +1,23 @@
 <?php
 
-namespace BRCas\User\Test\User;
+namespace BRCas\User\Test\User\Requests;
 
+use BRCas\Laravel\Tests\TestDelete;
 use BRCas\Laravel\Tests\TestSaves;
 use BRCas\User\Models\User;
+use BRCas\User\Test\User\Functions;
 
-class UerLoginTest extends Functions{
+class UserTest extends Functions {
     
-    use TestSaves;
+    use TestSaves, TestDelete;
+
+    private $user;
+
+    function setUp(): void
+    {
+        parent::setUp();
+        $this->user = $this->registerUser();
+    }
 
     public function testRegisterNewUser()
     {
@@ -50,6 +60,12 @@ class UerLoginTest extends Functions{
         ]);
     }
 
+    public function testDeleteUser()
+    {
+        $this->registerAndLoginUser();
+        $this->assertDelete($this->user->id);
+    }
+
     public function model()
     {
         return User::class;
@@ -62,7 +78,13 @@ class UerLoginTest extends Functions{
 
     public function routeUpdate()
     {
-        $objUser = $this->registerUser();
-        return route('admin.users.users.update', $objUser->id);
+        return route('admin.users.users.update', $this->user->id);
     }
+
+    protected function routeDelete()
+    {
+        return route('admin.users.users.update', $this->user->id);
+    }
+
+
 }

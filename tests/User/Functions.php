@@ -78,7 +78,7 @@ class Functions extends TestCase
         $objService = app(config('user.services.role'));
         
         return $objService->create([
-            'name' => 'Teste de Usuário',
+            'name' => 'Teste de UsuÃ¡rio',
             'permissions' => [],
         ]);
     }

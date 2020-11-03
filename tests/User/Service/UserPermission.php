@@ -4,7 +4,7 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class UserPermissionTest extends Functions 
+class UserPermission extends Functions
 {
 
     public function testUserPermission()
