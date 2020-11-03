@@ -2,7 +2,7 @@
 
 namespace BRCas\User\Repositories;
 
-use App\Models\User;
+use BRCas\User\Models\User;
 use BRCas\Laravel\Exceptions\CustomException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -52,8 +52,8 @@ class UserRepository implements Contracts\UserContract
         $data['password'] = Hash::make($data['password']);
         $obj = $objUser::create($data);
 
-        $this->registerPermissions($obj, $data['permissions'] ?: []);
-        $this->registerRoles($obj, $data['roles'] ?: []);
+        $this->registerPermissions($obj, $data['permissions'] ?? []);
+        $this->registerRoles($obj, $data['roles'] ?? []);
 
         return $obj;
     }

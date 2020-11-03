@@ -7,19 +7,16 @@ use BRCas\User\Providers\UserProvider;
 use BRCas\User\Providers\UserTestProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+// use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends BaseTestCase
 {
     use DatabaseMigrations, WithFaker;
 
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+    public $baseUrl = 'http://localhost';
 
     /**
      * Load package service provider.
@@ -54,5 +51,19 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function debugSql($table)
     {
         dd(DB::table($table)->get()->toArray());
+    }
+
+    protected function registerUser()
+    {
+        return User::create([
+            'name' => $this->faker->name,
+            'email' => $this->faker->companyEmail,
+            'password' => 'password'
+        ]);
+    }
+    protected function registerAndLoginUser()
+    {
+        
+        Auth::login($this->registerUser());
     }
 }
