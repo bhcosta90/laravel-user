@@ -9,8 +9,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
-// use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
+// use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
@@ -33,7 +34,7 @@ class TestCase extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param  Application  $app
+     * @param Application $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -42,9 +43,9 @@ class TestCase extends BaseTestCase
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('auth.providers.users.model', User::class);
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 

@@ -4,7 +4,7 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class UserRoleTest extends Functions 
+class UserRoleTest extends Functions
 {
 
     public function testUserRole()
@@ -12,7 +12,7 @@ class UserRoleTest extends Functions
 
         $objService = app(config('user.services.user'));
         $this->registerRoles();
-        
+
         $objUser = $objService->create([
             'password' => '123456789',
             'name' => $this->faker->name,

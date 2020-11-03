@@ -2,8 +2,6 @@
 
 namespace BRCas\User\Http\Controller;
 
-use BRCas\User\Forms\RoleForm;
-use BRCas\User\Services\RoleService;
 use BRCas\Laravel\Traits\Controller\Web\{Create, Destroy, Edit, Index};
 use BRCas\Laravel\Traits\Support\Permission;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

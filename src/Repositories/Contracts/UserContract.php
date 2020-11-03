@@ -20,7 +20,7 @@ interface UserContract
     public function registerRoles($obj, array $groups);
 
     public function getPermissions($obj): array;
-    
+
     public function getRoles($obj): array;
 
 }

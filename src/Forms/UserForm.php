@@ -29,8 +29,8 @@ class UserForm extends Form
             ]);
         }
 
-        if(class_exists(Permission::class)
-            && class_exists(Role::class)){
+        if (class_exists(Permission::class)
+            && class_exists(Role::class)) {
             $this->permissions();
             $this->roles();
         }
@@ -65,6 +65,6 @@ class UserForm extends Form
                 ],
                 'choices' => $permissions,
             ]);
-    }
+        }
     }
 }

@@ -2,10 +2,9 @@
 
 namespace BRCas\User\Services;
 
+use BRCas\Laravel\Contracts\{Create, Destroy, Edit, Index};
 use BRCas\User\Repositories\Contracts\RoleContract;
 use BRCas\User\Repositories\RoleRepository;
-use BRCas\Laravel\Contracts\{Create, Destroy, Edit, Index};
-use Spatie\Permission\Models\Permission;
 
 class RoleService implements Index, Create, Destroy, Edit
 {
@@ -46,7 +45,8 @@ class RoleService implements Index, Create, Destroy, Edit
         $obj->delete();
     }
 
-    public function getPermissions($obj){
+    public function getPermissions($obj)
+    {
         return $this->repository->getPermissions($obj);
     }
 }

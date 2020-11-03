@@ -12,7 +12,7 @@ class UserPermission extends Functions
 
         $objService = app(config('user.services.user'));
         $this->registerPermissions();
-        
+
         $objUser = $objService->create([
             'password' => '123456789',
             'name' => $this->faker->name,
@@ -53,7 +53,7 @@ class UserPermission extends Functions
         $objService = app(config('user.services.user'));
         $this->registerPermissions();
         $this->registerUser();
-        
+
         $objUser = $objService->create([
             'password' => '123456789',
             'name' => $this->faker->name,
@@ -103,7 +103,7 @@ class UserPermission extends Functions
         $objService = app(config('user.services.user'));
         $this->registerPermissions();
         $this->registerUser();
-        
+
         $objUser = $objService->create([
             'password' => '123456789',
             'name' => $this->faker->name,
@@ -175,7 +175,8 @@ class UserPermission extends Functions
         $this->assertCount(3, $objService->getPermissions($objUser)['PERMISSION']);
     }
 
-    public function testPermissionThaIDontPermission(){
+    public function testPermissionThaIDontPermission()
+    {
         $objService = app(config('user.services.user'));
 
         $this->registerUser();
@@ -215,7 +216,8 @@ class UserPermission extends Functions
         ]);
     }
 
-    public function testPermissionThaIDontRole(){
+    public function testPermissionThaIDontRole()
+    {
         $objService = app(config('user.services.user'));
 
         $this->registerUser();

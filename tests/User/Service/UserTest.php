@@ -4,9 +4,10 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class UserTest extends Functions 
+class UserTest extends Functions
 {
-    public function testCreate(){
+    public function testCreate()
+    {
 
         $objUser = $this->registerUser();
 
@@ -17,7 +18,8 @@ class UserTest extends Functions
         ]);
     }
 
-    public function testEdit(){
+    public function testEdit()
+    {
         $objService = app(config('user.services.user'));
 
         $newEmail = time() . $this->faker->email;
@@ -36,7 +38,8 @@ class UserTest extends Functions
         ]);
     }
 
-    public function testDelete(){
+    public function testDelete()
+    {
         $objService = app(config('user.services.user'));
 
         $objService->destroy($this->registerUser());
@@ -46,5 +49,5 @@ class UserTest extends Functions
             'name' => 'Edicao de Usuario',
             'email' => 'teste@teste.com.br',
         ]);
-    }    
+    }
 }

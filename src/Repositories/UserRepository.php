@@ -2,8 +2,8 @@
 
 namespace BRCas\User\Repositories;
 
-use BRCas\User\Models\User;
 use BRCas\Laravel\Exceptions\CustomException;
+use BRCas\User\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\{Permission, Role};
@@ -25,21 +25,31 @@ class UserRepository implements Contracts\UserContract
         if ($objUserLogin == null)
             $objUserLogin = auth()->user();
 
-        if(!empty($data['password'])){
+        if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
 
         $ret = $obj->update($data);
 
-        if(class_exists(\Spatie\Permission\Models\Permission::class)){
+        if (class_exists(\Spatie\Permission\Models\Permission::class)) {
             $this->registerPermissions($obj, $data['permissions'] ?? []);
         }
 
-        if(class_exists(\Spatie\Permission\Models\Role::class)){
+        if (class_exists(\Spatie\Permission\Models\Role::class)) {
             $this->registerRoles($obj, $data['roles'] ?? []);
         }
 
         return $ret;
+    }
+
+    public function registerPermissions($obj, array $permissions)
+    {
+        $obj->syncPermissions($permissions);
+    }
+
+    public function registerRoles($obj, array $groups)
+    {
+        $obj->syncRoles($groups);
     }
 
     public function create(array $data, $objUserLogin = null)
@@ -62,16 +72,6 @@ class UserRepository implements Contracts\UserContract
     {
         if (auth()->user() == $obj) throw new CustomException(__('You cannot delete your user'), Response::HTTP_BAD_REQUEST);
         return $obj->delete();
-    }
-
-    public function registerPermissions($obj, array $permissions)
-    {
-        $obj->syncPermissions($permissions);
-    }
-
-    public function registerRoles($obj, array $groups)
-    {
-        $obj->syncRoles($groups);
     }
 
     public function getPermissions($obj): array

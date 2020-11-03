@@ -44,11 +44,13 @@ class UserService implements Index, Edit, Show, Create, Destroy
         return $this->repository->destroy($obj);
     }
 
-    public function getRoles($obj){
+    public function getRoles($obj)
+    {
         return $this->repository->getRoles($obj);
     }
 
-    public function getPermissions($obj){
+    public function getPermissions($obj)
+    {
         return $this->repository->getPermissions($obj);
     }
 }

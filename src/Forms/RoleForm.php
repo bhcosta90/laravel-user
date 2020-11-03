@@ -2,10 +2,8 @@
 
 namespace BRCas\User\Forms;
 
-use BRCas\User\Services\RoleService;
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
-use Spatie\Permission\Models\Permission;
 
 class RoleForm extends Form
 {

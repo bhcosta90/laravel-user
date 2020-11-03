@@ -5,11 +5,9 @@ namespace BRCas\User\Http\Controller;
 
 use BRCas\Laravel\Exceptions\CustomException;
 use BRCas\Laravel\Traits\Support\Execute;
-use BRCas\User\Services\ProfileService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
 use Kris\LaravelFormBuilder\FormBuilder;
@@ -17,11 +15,6 @@ use Kris\LaravelFormBuilder\FormBuilder;
 class ProfileController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Execute;
-
-    private function verifyPassword($password): bool
-    {
-        return Hash::check($password, auth()->user()->password);
-    }
 
     public function index(FormBuilder $formBuilder)
     {
@@ -52,7 +45,7 @@ class ProfileController extends BaseController
 
     public function profile(FormBuilder $formBuilder)
     {
-        return $this->execute(function() use($formBuilder){
+        return $this->execute(function () use ($formBuilder) {
             $objForm = $formBuilder->create(config('user.forms.profile'));
             if (!$objForm->isValid()) {
                 return redirect()->back()->withErrors($objForm->getErrors())->withInput();
@@ -61,7 +54,7 @@ class ProfileController extends BaseController
             $objService = app(config('user.services.profile'));
             $data = $objForm->getFieldValues();
 
-            if($this->verifyPassword($data['password']) == false)
+            if ($this->verifyPassword($data['password']) == false)
                 throw new CustomException(__('user::message.Password incorrect'));
 
             $objService->updateProfile($data['name'], $data['email']);
@@ -72,9 +65,14 @@ class ProfileController extends BaseController
         });
     }
 
+    private function verifyPassword($password): bool
+    {
+        return Hash::check($password, auth()->user()->password);
+    }
+
     public function password(FormBuilder $formBuilder)
     {
-        return $this->execute(function() use($formBuilder){
+        return $this->execute(function () use ($formBuilder) {
             $objForm = $formBuilder->create(config('user.forms.password'));
 
             if (!$objForm->isValid()) {
@@ -84,7 +82,7 @@ class ProfileController extends BaseController
             $objService = app(config('user.services.profile'));
             $data = $objForm->getFieldValues();
 
-            if($this->verifyPassword($data['password']) == false)
+            if ($this->verifyPassword($data['password']) == false)
                 throw new CustomException(__('user::message.Password incorrect'));
 
             $objService->updatePassword($data['password']);

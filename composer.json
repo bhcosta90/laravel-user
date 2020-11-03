@@ -19,9 +19,9 @@
     }
   },
   "autoload-dev": {
-      "psr-4": {
-          "BRCas\\User\\Test\\": "tests/"
-      }
+    "psr-4": {
+      "BRCas\\User\\Test\\": "tests/"
+    }
   },
   "require-dev": {
     "orchestra/testbench": "^6.3",

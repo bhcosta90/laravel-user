@@ -4,9 +4,10 @@ namespace BRCas\User\Test\User\Service;
 
 use BRCas\User\Test\User\Functions;
 
-class RoleTest extends Functions 
+class RoleTest extends Functions
 {
-    public function testCreate(){
+    public function testCreate()
+    {
 
         $objUser = $this->registerRole();
 
@@ -15,7 +16,8 @@ class RoleTest extends Functions
         ]);
     }
 
-    public function testEdit(){
+    public function testEdit()
+    {
         $objService = app(config('user.services.role'));
 
         $objService->edit($this->registerRole(), [
@@ -29,7 +31,8 @@ class RoleTest extends Functions
         ]);
     }
 
-    public function testDelete(){
+    public function testDelete()
+    {
         $objService = app(config('user.services.user'));
 
         $objService->destroy($this->registerRole());
@@ -40,5 +43,5 @@ class RoleTest extends Functions
             'email' => 'teste@teste.com.br',
         ]);
     }
-    
+
 }

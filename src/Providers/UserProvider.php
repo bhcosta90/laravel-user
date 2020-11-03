@@ -24,7 +24,7 @@ class UserProvider extends ServiceProvider
         $this->app->bind(ProfileContract::class, ProfileRepository::class);
         $this->app->bind(RoleContract::class, RoleRepository::class);
 
-        if(class_exists(\Spatie\Permission\PermissionServiceProvider::class)){
+        if (class_exists(\Spatie\Permission\PermissionServiceProvider::class)) {
             $this->app->register(\Spatie\Permission\PermissionServiceProvider::class);
         }
     }
@@ -55,8 +55,8 @@ class UserProvider extends ServiceProvider
         $this->registerConfig();
 
         Gate::before(function ($user) {
-            if(isset($_GET['permission'])){
-                session()->put('permission', (bool) $_GET['permission']);
+            if (isset($_GET['permission'])) {
+                session()->put('permission', (bool)$_GET['permission']);
             }
             return session()->get('permission') == 1 ? false : $user->id == 1;
         });

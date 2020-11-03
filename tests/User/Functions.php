@@ -6,7 +6,7 @@ use BRCas\User\Test\TestCase;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\{Permission, Role};
 
-class Functions extends TestCase 
+class Functions extends TestCase
 {
     const PERMISSION_1 = [
         'id' => 1,
@@ -58,25 +58,10 @@ class Functions extends TestCase
         'name' => '05',
     ];
 
-
-    protected function registerUser()
-    {
-        $objService = app(config('user.services.user'));
-        
-        return $objService->create([
-            'password' => '123456789',
-            'name' => $this->faker->name,
-            'email' => $this->faker->safeEmail,
-            'permissions' => [],
-            'roles' => [],
-        ]);
-
-    }
-    
     protected function registerRole()
     {
         $objService = app(config('user.services.role'));
-        
+
         return $objService->create([
             'name' => 'Teste de Usuario',
             'permissions' => [],
@@ -88,56 +73,70 @@ class Functions extends TestCase
         Auth::login($this->registerUser());
     }
 
-    protected function registerPermissions()
+    protected function registerUser()
     {
-        $permissions = [
-            self::PERMISSION_1, 
-            self::PERMISSION_2, 
-            self::PERMISSION_3, 
-            self::PERMISSION_4, 
-            self::PERMISSION_5
-        ];
+        $objService = app(config('user.services.user'));
 
-        foreach($permissions as $per){
-            Permission::create(['id' => $per['id'] , 'name' => $per['name'], 'guard_name' => 'web']);
-        }
+        return $objService->create([
+            'password' => '123456789',
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'permissions' => [],
+            'roles' => [],
+        ]);
+
     }
 
     protected function registerRoles()
     {
         $this->registerPermissions();
-        
+
         $permissions = [
-            self::ROLE_1, 
-            self::ROLE_2, 
-            self::ROLE_3, 
-            self::ROLE_4, 
-            self::ROLE_5, 
+            self::ROLE_1,
+            self::ROLE_2,
+            self::ROLE_3,
+            self::ROLE_4,
+            self::ROLE_5,
         ];
 
-        foreach($permissions as $per){
-            $objGroup = Role::create(['id' => $per['id'] , 'name' => $per['name']]);
+        foreach ($permissions as $per) {
+            $objGroup = Role::create(['id' => $per['id'], 'name' => $per['name']]);
 
-            switch($per['id']){
+            switch ($per['id']) {
                 case self::ROLE_1['id']:
                     $objGroup->permissions()->sync([
                         self::PERMISSION_1['id'],
                         self::PERMISSION_3['id']
                     ]);
-                break;
+                    break;
                 case self::ROLE_2['id']:
                     $objGroup->permissions()->sync([
                         self::PERMISSION_2['id'],
                         self::PERMISSION_4['id']
                     ]);
-                break;
+                    break;
                 case self::ROLE_3['id']:
                     $objGroup->permissions()->sync([
                         self::PERMISSION_5['id'],
                     ]);
-                break;
+                    break;
             }
         }
     }
-    
+
+    protected function registerPermissions()
+    {
+        $permissions = [
+            self::PERMISSION_1,
+            self::PERMISSION_2,
+            self::PERMISSION_3,
+            self::PERMISSION_4,
+            self::PERMISSION_5
+        ];
+
+        foreach ($permissions as $per) {
+            Permission::create(['id' => $per['id'], 'name' => $per['name'], 'guard_name' => 'web']);
+        }
+    }
+
 }

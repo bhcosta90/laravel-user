@@ -17,6 +17,7 @@ class ProfileRepository implements Contracts\ProfileContract
     {
         $this->user = $user;
     }
+
     public function updateProfile($name, $email)
     {
         $obj = auth()->user();
