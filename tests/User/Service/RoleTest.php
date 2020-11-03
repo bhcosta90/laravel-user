@@ -25,7 +25,7 @@ class RoleTest extends Functions
 
         $this->assertDatabaseHas(config('permission.table_names.roles'), [
             'id' => 1,
-            'name' => 'Edi��o de Usu�rio',
+            'name' => 'Edicao de Usuario',
         ]);
     }
 
@@ -36,7 +36,7 @@ class RoleTest extends Functions
 
         $this->assertDatabaseMissing(config('permission.table_names.roles'), [
             'id' => 1,
-            'name' => 'Edi��o de Usu�rio',
+            'name' => 'Edicao de Usuario',
             'email' => 'teste@teste.com.br',
         ]);
     }

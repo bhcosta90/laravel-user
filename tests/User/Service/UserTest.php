@@ -23,7 +23,7 @@ class UserTest extends Functions
         $newEmail = time() . $this->faker->email;
 
         $objService->edit($this->registerUser(), [
-            'name' => 'Edi��o de Usu�rio',
+            'name' => 'Edicao de Usuario',
             'email' => $newEmail,
             'permissions' => [],
             'roles' => [],
@@ -43,7 +43,7 @@ class UserTest extends Functions
 
         $this->assertDatabaseMissing('users', [
             'id' => 1,
-            'name' => 'Edi��o de Usu�rio',
+            'name' => 'Edicao de Usuario',
             'email' => 'teste@teste.com.br',
         ]);
     }    
