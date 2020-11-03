@@ -23,7 +23,7 @@ class UserTest extends Functions
         $newEmail = time() . $this->faker->email;
 
         $objService->edit($this->registerUser(), [
-            'name' => 'Edição de Usuário',
+            'name' => 'Ediï¿½ï¿½o de Usuï¿½rio',
             'email' => $newEmail,
             'permissions' => [],
             'roles' => [],
@@ -31,7 +31,7 @@ class UserTest extends Functions
 
         $this->assertDatabaseHas('users', [
             'id' => 1,
-            'name' => 'Edição de Usuário',
+            'name' => 'Edicao de Usuario',
             'email' => $newEmail
         ]);
     }
@@ -43,7 +43,7 @@ class UserTest extends Functions
 
         $this->assertDatabaseMissing('users', [
             'id' => 1,
-            'name' => 'Edição de Usuário',
+            'name' => 'Ediï¿½ï¿½o de Usuï¿½rio',
             'email' => 'teste@teste.com.br',
         ]);
     }    

@@ -19,13 +19,13 @@ class RoleTest extends Functions
         $objService = app(config('user.services.role'));
 
         $objService->edit($this->registerRole(), [
-            'name' => 'Edição de Usuário',
+            'name' => 'Edicao de Usuario',
             'permissions' => [],
         ]);
 
         $this->assertDatabaseHas(config('permission.table_names.roles'), [
             'id' => 1,
-            'name' => 'Edição de Usuário',
+            'name' => 'Ediï¿½ï¿½o de Usuï¿½rio',
         ]);
     }
 
@@ -36,7 +36,7 @@ class RoleTest extends Functions
 
         $this->assertDatabaseMissing(config('permission.table_names.roles'), [
             'id' => 1,
-            'name' => 'Edição de Usuário',
+            'name' => 'Ediï¿½ï¿½o de Usuï¿½rio',
             'email' => 'teste@teste.com.br',
         ]);
     }

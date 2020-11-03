@@ -237,14 +237,11 @@ class UserPermission extends Functions
             'roles' => [self::ROLE_4['id'], self::ROLE_5['id']],
         ]);
 
-        $this->debugSql(config('permission.table_names.model_has_roles'));
-
         $objService->edit($objUser2, [
             'permissions' => [],
             'roles' => [],
         ], $objUser);
 
-        $this->debugSql(config('permission.table_names.model_has_roles'));
         $this->assertDatabaseHas(config('permission.table_names.model_has_roles'), [
             'role_id' => self::ROLE_4['id'],
             'model_type' => config('user.model.role'),
