@@ -1,12 +1,11 @@
 <?php
 
-namespace BRCas\User\Tests;
+namespace BRCas\User\Test\User;
 
 use BRCas\Laravel\Tests\TestSaves;
 use BRCas\User\Models\User;
-use BRCas\User\Test\TestCase;
 
-class UerLoginTest extends TestCase{
+class UerLoginTest extends Functions{
     
     use TestSaves;
 

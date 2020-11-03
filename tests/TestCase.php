@@ -7,7 +7,6 @@ use BRCas\User\Providers\UserProvider;
 use BRCas\User\Providers\UserTestProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 // use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -51,19 +50,5 @@ class TestCase extends BaseTestCase
     protected function debugSql($table)
     {
         dd(DB::table($table)->get()->toArray());
-    }
-
-    protected function registerUser()
-    {
-        return User::create([
-            'name' => $this->faker->name,
-            'email' => $this->faker->companyEmail,
-            'password' => 'password'
-        ]);
-    }
-    protected function registerAndLoginUser()
-    {
-        
-        Auth::login($this->registerUser());
     }
 }
