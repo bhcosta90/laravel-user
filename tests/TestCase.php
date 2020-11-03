@@ -5,6 +5,7 @@ namespace BRCas\User\Test;
 use BRCas\User\Models\User;
 use BRCas\User\Providers\UserProvider;
 use BRCas\User\Providers\UserTestProvider;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
@@ -20,9 +21,9 @@ class TestCase extends BaseTestCase
     /**
      * Load package service provider.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      *
-     * @return jeremykenedy\laravelusers\LaravelUsersServiceProvider
+     * @return string[]
      */
     protected function getPackageProviders($app)
     {
@@ -32,7 +33,7 @@ class TestCase extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)
