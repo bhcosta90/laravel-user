@@ -39,7 +39,7 @@ class UserForm extends Form
     private function permissions()
     {
         $objService = app(config('user.services.user'));
-        $permissions = $objService->getRoles(auth()->user());
+        $permissions = $objService->getPermissions(auth()->user());
 
         if (!empty($permissions)) {
             $this->add('permissions', Field::SELECT, [
@@ -55,7 +55,7 @@ class UserForm extends Form
     private function roles()
     {
         $objService = app(config('user.services.user'));
-        $permissions = $objService->getPermissions(auth()->user());
+        $permissions = $objService->getRoles(auth()->user());
 
         if (!empty($permissions)) {
             $this->add('roles', Field::SELECT, [
