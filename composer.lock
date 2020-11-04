@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "bhcosta90/laravel-package",
-            "version": "0.0.18",
+            "version": "0.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "d344ce7042c2ed199f28934706cee34a27660c8c"
+                "reference": "a41f7d0a325b49208667a971198dfaa3389b0a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/d344ce7042c2ed199f28934706cee34a27660c8c",
-                "reference": "d344ce7042c2ed199f28934706cee34a27660c8c",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/a41f7d0a325b49208667a971198dfaa3389b0a88",
+                "reference": "a41f7d0a325b49208667a971198dfaa3389b0a88",
                 "shasum": ""
             },
             "require": {
                 "kris/laravel-form-builder": "master",
-                "laravel/framework": "^8.0",
+                "laravel/framework": "^7.0|^8.0",
                 "php": "^7.3"
             },
             "require-dev": {
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "Pacote para trabalhar com o laravel",
-            "time": "2020-11-03T14:15:06+00:00"
+            "time": "2020-11-04T00:05:30+00:00"
         },
         {
             "name": "brick/math",
