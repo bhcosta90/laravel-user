@@ -1,7 +1,6 @@
 {
   "name": "bhcosta90/laravel-user",
   "description": "Package to Laravel",
-  "minimum-stability": "dev",
   "prefer-stable": true,
   "license": "MIT",
   "keywords": ["laravel", "user"],

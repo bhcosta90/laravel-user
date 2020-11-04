@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa8b1cd826a7d50a1a44a5837fd4c27e",
+    "content-hash": "f2b3108ed8f42a9d8370e52b6063f0ed",
     "packages": [
         {
             "name": "bhcosta90/laravel-package",
-            "version": "0.0.19",
+            "version": "0.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "a41f7d0a325b49208667a971198dfaa3389b0a88"
+                "reference": "86e491472bbc190f02e2e682ea30ab08a255d51d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/a41f7d0a325b49208667a971198dfaa3389b0a88",
-                "reference": "a41f7d0a325b49208667a971198dfaa3389b0a88",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/86e491472bbc190f02e2e682ea30ab08a255d51d",
+                "reference": "86e491472bbc190f02e2e682ea30ab08a255d51d",
                 "shasum": ""
             },
             "require": {
-                "kris/laravel-form-builder": "master",
+                "kris/laravel-form-builder": "^1.40",
                 "laravel/framework": "^7.0|^8.0",
                 "php": "^7.3"
             },
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "Pacote para trabalhar com o laravel",
-            "time": "2020-11-04T00:05:30+00:00"
+            "time": "2020-11-04T14:25:33+00:00"
         },
         {
             "name": "brick/math",
@@ -389,7 +389,7 @@
         },
         {
             "name": "kris/laravel-form-builder",
-            "version": "dev-master",
+            "version": "1.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
@@ -3640,68 +3640,6 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
-            "name": "laravel/browser-kit-testing",
-            "version": "v6.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/browser-kit-testing.git",
-                "reference": "288b542a92e2a523ca04ed4d3470389e6c448b05"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/browser-kit-testing/zipball/288b542a92e2a523ca04ed4d3470389e6c448b05",
-                "reference": "288b542a92e2a523ca04ed4d3470389e6c448b05",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
-                "illuminate/contracts": "^7.0|^8.0",
-                "illuminate/database": "^7.0|^8.0",
-                "illuminate/http": "^7.0|^8.0",
-                "illuminate/support": "^7.0|^8.0",
-                "illuminate/testing": "^7.0|^8.0",
-                "mockery/mockery": "^1.0",
-                "php": "^7.2|^8.0",
-                "phpunit/phpunit": "^8.5|^9.0",
-                "symfony/console": "^5.0",
-                "symfony/css-selector": "^5.0",
-                "symfony/dom-crawler": "^5.0",
-                "symfony/http-foundation": "^5.0",
-                "symfony/http-kernel": "^5.0"
-            },
-            "require-dev": {
-                "laravel/framework": "^7.0|^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\BrowserKitTesting\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Provides backwards compatibility for BrowserKit testing in the latest Laravel release.",
-            "keywords": [
-                "laravel",
-                "testing"
-            ],
-            "time": "2020-10-30T09:10:17+00:00"
-        },
-        {
             "name": "mockery/mockery",
             "version": "1.4.2",
             "source": {
@@ -3918,50 +3856,6 @@
                 "testing"
             ],
             "time": "2020-10-28T07:11:27+00:00"
-        },
-        {
-            "name": "orchestra/testbench-browser-kit",
-            "version": "v6.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/orchestral/testbench-browser-kit.git",
-                "reference": "d89c14ed3c88c577a68f374e1bd89a2c8941368f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-browser-kit/zipball/d89c14ed3c88c577a68f374e1bd89a2c8941368f",
-                "reference": "d89c14ed3c88c577a68f374e1bd89a2c8941368f",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/browser-kit-testing": "^6.2",
-                "orchestra/testbench": "^6.3",
-                "php": ">=7.3 || >=8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Orchestra\\Testbench\\BrowserKit\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mior Muhammad Zaki",
-                    "email": "crynobone@gmail.com",
-                    "homepage": "https://github.com/crynobone"
-                }
-            ],
-            "description": "Laravel Browser Kit Testing Helper for Packages Development",
-            "time": "2020-10-31T01:08:50+00:00"
         },
         {
             "name": "orchestra/testbench-core",
@@ -5507,63 +5401,6 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
-            "name": "symfony/dom-crawler",
-            "version": "v5.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "0969122fe144dd8ab2e8c98c7e03eedc621b368c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/0969122fe144dd8ab2e8c98c7e03eedc621b368c",
-                "reference": "0969122fe144dd8ab2e8c98c7e03eedc621b368c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "conflict": {
-                "masterminds/html5": "<2.6"
-            },
-            "require-dev": {
-                "masterminds/html5": "^2.6",
-                "symfony/css-selector": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\DomCrawler\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony DomCrawler Component",
-            "homepage": "https://symfony.com",
-            "time": "2020-10-24T12:01:57+00:00"
-        },
-        {
             "name": "symfony/yaml",
             "version": "v5.1.8",
             "source": {
@@ -5712,7 +5549,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
