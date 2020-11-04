@@ -2,16 +2,15 @@
 
 namespace BRCas\User\Models;
 
-use App\Notifications\{ResetPassword, VerifyEmail};
+use BRCas\User\Notifications\{ResetPassword, VerifyEmail};
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
