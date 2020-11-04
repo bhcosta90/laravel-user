@@ -26,7 +26,6 @@
     }
   },
   "require-dev": {
-    "orchestra/testbench": "^6.3",
-    "orchestra/testbench-browser-kit": "^6.1"
+    "orchestra/testbench": "^6.3"
   }
 }
