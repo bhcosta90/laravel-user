@@ -49,9 +49,9 @@ jobs:
         run: vendor/bin/phpunit
 
       # Upload coverage only for latest versions.
-      - name: Upload coverage to scrutinizer-ci
-        if: matrix.php == '7.4' && matrix.laravel == '8.*' && matrix.dependency-version == 'prefer-stable'
-        run: |
-          vendor/bin/phpunit --coverage-clover=coverage.clover
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+      #- name: Upload coverage to scrutinizer-ci
+      #  if: matrix.php == '7.4' && matrix.laravel == '8.*' && matrix.dependency-version == 'prefer-stable'
+      #  run: |
+      #    vendor/bin/phpunit --coverage-clover=coverage.clover
+      #    wget https://scrutinizer-ci.com/ocular.phar
+      #    php ocular.phar code-coverage:upload --format=php-clover coverage.clover
