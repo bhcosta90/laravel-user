@@ -2,6 +2,7 @@
 
 namespace BRCas\User\Test\User\Service;
 
+use BRCas\User\Services\RoleService;
 use BRCas\User\Test\User\Functions;
 
 class RoleTest extends Functions
@@ -18,6 +19,9 @@ class RoleTest extends Functions
 
     public function testEdit()
     {
+        /**
+         * @var $objService RoleService
+         */
         $objService = app(config('user.services.role'));
 
         $objService->edit($this->registerRole(), [
