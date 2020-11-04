@@ -3,7 +3,6 @@
 namespace BRCas\User\Repositories;
 
 use BRCas\Laravel\Exceptions\CustomException;
-use BRCas\User\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\{Permission, Role};
@@ -12,12 +11,14 @@ class UserRepository implements Contracts\UserContract
 {
     public function index()
     {
-        return User::orderName();
+        $objUser = app(config('user.model.user'));
+        return $objUser->orderName();
     }
 
     public function find($id)
     {
-        return User::find($id);
+        $objUser = app(config('user.model.user'));
+        return $objUser->find($id);
     }
 
     public function edit($obj, array $data, $objUserLogin = null)
@@ -31,13 +32,8 @@ class UserRepository implements Contracts\UserContract
 
         $ret = $obj->update($data);
 
-        if (class_exists(\Spatie\Permission\Models\Permission::class)) {
-            $this->registerPermissions($obj, $data['permissions'] ?? []);
-        }
-
-        if (class_exists(\Spatie\Permission\Models\Role::class)) {
-            $this->registerRoles($obj, $data['roles'] ?? []);
-        }
+        $this->registerPermissions($obj, $data['permissions'] ?? []);
+        $this->registerRoles($obj, $data['roles'] ?? []);
 
         return $ret;
     }
