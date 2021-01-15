@@ -78,11 +78,10 @@ class ProfileController extends BaseController
             if (!$objForm->isValid()) {
                 return redirect()->back()->withErrors($objForm->getErrors())->withInput();
             }
-
             $objService = app(config('user.services.profile'));
             $data = $objForm->getFieldValues();
 
-            if ($this->verifyPassword($data['password']) == false)
+            if ($this->verifyPassword($data['password_old']) == false)
                 throw new CustomException(__('user::message.Password incorrect'));
 
             $objService->updatePassword($data['password']);

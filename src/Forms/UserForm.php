@@ -22,10 +22,11 @@ class UserForm extends Form
                 'rules' => "required|email|min:5|unique:users,email,{$id},id"
             ]);
 
-        if (empty($this->request->route('user'))) {
+        if (empty($this->request->route('user')) || auth()->user()->super_admin) {
             $this->add('password', Field::PASSWORD, [
                 'label' => __('Password'),
-                'rules' => 'required|min:6|max:16'
+                'rules' => 'required|min:6|max:16',
+                'value' => '',
             ]);
         }
 
