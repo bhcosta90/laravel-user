@@ -26,7 +26,7 @@ class UserRepository implements Contracts\UserContract
         if ($objUserLogin == null)
             $objUserLogin = auth()->user();
 
-        if (!empty($data['password']) && auth()->user()->super_admin) {
+        if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
 
