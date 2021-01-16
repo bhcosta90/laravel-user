@@ -2,6 +2,7 @@
 
 namespace Costa\User\Forms;
 
+use Costa\User\Services\UserService;
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
 
@@ -20,7 +21,7 @@ class UserForm extends Form
             'rules' => ['required', "max:255", "unique:users,email,{$uuid},{$field}"]
         ]);
 
-        $verify = $this->canUpdatePassword();
+        $verify = UserService::canUpdatePassword();
 
         if (config('costa_user.send_email') && (empty($uuid) || $verify)) {
             $this->add('send', Field::CHECKBOX, [
@@ -36,17 +37,8 @@ class UserForm extends Form
             $this->add('password_updated', Field::PASSWORD, [
                 'label' => 'Senha',
                 'value' => '',
-                'rules' => ['required', "min:3"]
+                'rules' => ['nullable', "min:3"]
             ]);
         }
-    }
-
-    private function canUpdatePassword()
-    {
-        return app()->isLocal()
-            || (
-                auth()->user()
-                && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
-            );
     }
 }

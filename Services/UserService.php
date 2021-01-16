@@ -83,15 +83,7 @@ class UserService implements Contracts\UserContract
     public function update($id, $data)
     {
         $objUser = $this->show($id);
-        if (!empty($data['password_updated'])
-            && (
-                app()->isLocal()
-                || (
-                    auth()->user()
-                    && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
-                )
-            )
-        ) {
+        if (!empty($data['password_updated']) && self::canUpdatePassword()) {
             $data['password'] = Hash::make($password = $data['password_updated']);
 
             if (!empty($data['send'])
@@ -162,5 +154,14 @@ class UserService implements Contracts\UserContract
             throw new CustomException(__('A sua senha está incorreta'), Response::HTTP_BAD_REQUEST, $typeError);
         }
         return $obj;
+    }
+
+    public static function canUpdatePassword()
+    {
+        return app()->isLocal()
+            || (
+                auth()->user()
+                && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
+            );
     }
 }
