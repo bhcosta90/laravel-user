@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Okipa\LaravelTable\Table;
 
 class UserService implements Contracts\UserContract
@@ -76,6 +75,12 @@ class UserService implements Contracts\UserContract
     public function update($id, $data)
     {
         $objUser = $this->show($id);
+        if(!empty($data['password_updated'])
+            && auth()->user()
+            && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
+        ){
+            $data['password'] = Hash::make($data['password_updated']);
+        }
         return $this->userContract->updateById($objUser->id, $data);
     }
 

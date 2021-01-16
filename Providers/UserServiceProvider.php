@@ -2,6 +2,7 @@
 
 namespace Costa\User\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Costa\User\Repositories\{UserRepository};
 use Costa\User\Repositories\Contracts\{UserContract};
 use Costa\User\Routes\CostaRoutesFacade;
