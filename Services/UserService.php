@@ -4,10 +4,10 @@
 namespace Costa\User\Services;
 
 
+use App\Tables\UserTable;
 use Costa\Package\Exceptions\CustomException;
 use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
-use App\Tables\UserTable;
 use ErrorException;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Okipa\LaravelTable\Table;
 
@@ -53,7 +52,8 @@ class UserService implements Contracts\UserContract
      * @param $id
      * @return UserContract|UserRepository|Model|null
      */
-    public function show($id){
+    public function show($id)
+    {
         return $this->userContract->getByColumn($id, config('costa_user.router.user'));
     }
 
@@ -67,7 +67,9 @@ class UserService implements Contracts\UserContract
             $data + ['password' => Hash::make($password = $this->request->input('password'))]
         );
 
-        if($data['send'] && method_exists($obj, 'sendEmailWithPassword')){
+        if ($data['send']
+            && method_exists($obj, 'sendEmailWithPassword')
+            && config('costa_user.send_email')) {
             $obj->sendEmailWithPassword($password);
         }
         return $obj;
@@ -81,7 +83,7 @@ class UserService implements Contracts\UserContract
     public function update($id, $data)
     {
         $objUser = $this->show($id);
-        if(!empty($data['password_updated'])
+        if (!empty($data['password_updated'])
             && (
                 app()->isLocal()
                 || (
@@ -89,10 +91,13 @@ class UserService implements Contracts\UserContract
                     && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
                 )
             )
-        ){
+        ) {
             $data['password'] = Hash::make($password = $data['password_updated']);
 
-            if($data['send'] && method_exists($objUser, 'sendEmailWithPassword')){
+            if ($data['send']
+                && method_exists($objUser, 'sendEmailWithPassword')
+                && config('costa_user.send_email')
+            ) {
                 $objUser->sendEmailWithPassword($password, false);
             }
         }
@@ -153,7 +158,7 @@ class UserService implements Contracts\UserContract
     private function validateAccess(string $password, string $typeError): ?Authenticatable
     {
         $obj = auth()->user();
-        if(!Auth::attempt(['email' => auth()->user()->email, 'password' => $password])){
+        if (!Auth::attempt(['email' => auth()->user()->email, 'password' => $password])) {
             throw new CustomException(__('A sua senha está incorreta'), Response::HTTP_BAD_REQUEST, $typeError);
         }
         return $obj;
