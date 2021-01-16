@@ -2,11 +2,11 @@
 
 namespace Costa\User\Providers;
 
-use Costa\User\Routes\CostaRoutesFacade;
-use Costa\User\Repositories\Contracts\{UserContract};
 use Costa\User\Repositories\{UserRepository};
-use Illuminate\Support\ServiceProvider;
+use Costa\User\Repositories\Contracts\{UserContract};
+use Costa\User\Routes\CostaRoutesFacade;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -30,7 +30,6 @@ class UserServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
     /**
@@ -71,7 +70,7 @@ class UserServiceProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
 
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -92,7 +91,7 @@ class UserServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
         } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+            $this->loadTranslationsFrom(__DIR__ . "/../Resources/lang", $this->moduleNameLower);
         }
     }
 
