@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Okipa\LaravelTable\Table;
 
@@ -62,9 +63,14 @@ class UserService implements Contracts\UserContract
      */
     public function create(array $data): Model
     {
-        return $this->userContract->create(
-            $data + ['password' => Hash::make($this->request->input('password'))]
+        $obj = $this->userContract->create(
+            $data + ['password' => Hash::make($password = $this->request->input('password'))]
         );
+
+        if($data['send'] && method_exists($obj, 'sendEmailWithPassword')){
+            $obj->sendEmailWithPassword($password);
+        }
+        return $obj;
     }
 
     /**
@@ -85,6 +91,10 @@ class UserService implements Contracts\UserContract
             )
         ){
             $data['password'] = Hash::make($data['password_updated']);
+
+            if($data['send'] && method_exists($obj, 'sendEmailWithPassword')){
+                $obj->sendEmailWithPassword($password);
+            }
         }
         return $this->userContract->updateById($objUser->id, $data);
     }

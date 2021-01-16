@@ -4,6 +4,7 @@ namespace Costa\User\Entities;
 
 use Costa\Package\Model\SerializeDateToIso8001;
 use Costa\User\Notification\ResetPassword;
+use Costa\User\Notification\UserSendPassword;
 use Costa\User\Notification\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,6 +62,9 @@ class User extends Authenticatable
         $this->notify(new VerifyEmail());
     }
 
+    public function sendEmailWithPassword($password){
+        $this->notify(new UserSendPassword($password));
+    }
 
     public function getRouteKeyName()
     {
