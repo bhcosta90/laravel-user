@@ -24,12 +24,16 @@
     },
     "require": {
         "php": "^7.4|^8.0",
-        "bhcosta90/laravel-package": "dev-master"
+        "bhcosta90/laravel-package": "dev-master",
+        "laravel/framework": "^8.22"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/bhcosta90/laravel-package.git"
         }
-    ]
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^6.7"
+    }
 }
