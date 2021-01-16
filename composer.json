@@ -19,5 +19,15 @@
         "psr-4": {
             "Costa\\User\\": ""
         }
-    }
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "bhcosta90/laravel-package": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bhcosta90/laravel-package.git"
+        }
+    ]
 }
