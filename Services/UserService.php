@@ -67,7 +67,7 @@ class UserService implements Contracts\UserContract
             $data + ['password' => Hash::make($password = $this->request->input('password'))]
         );
 
-        if ($data['send']
+        if (!empty($data['send'])
             && method_exists($obj, 'sendEmailWithPassword')
             && config('costa_user.send_email')) {
             $obj->sendEmailWithPassword($password);
@@ -94,7 +94,7 @@ class UserService implements Contracts\UserContract
         ) {
             $data['password'] = Hash::make($password = $data['password_updated']);
 
-            if ($data['send']
+            if (!empty($data['send'])
                 && method_exists($objUser, 'sendEmailWithPassword')
                 && config('costa_user.send_email')
             ) {

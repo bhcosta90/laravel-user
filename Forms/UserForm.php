@@ -22,13 +22,13 @@ class UserForm extends Form
 
         $verify = $this->canUpdatePassword();
 
-        if (empty($uuid) || $verify) {
+        if (config('costa_user.send_email') && (empty($uuid) || $verify)) {
             $this->add('send', Field::CHECKBOX, [
                 'label' => 'Enviar por e-mail a senha do usuário',
                 'attr' => [
                     'checked' => !(bool)$uuid,
                 ],
-                'rules' => ['required', "max:255", "unique:users,email,{$uuid},{$field}"]
+                'rules' => ['nullable']
             ]);
         }
 

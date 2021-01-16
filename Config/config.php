@@ -18,5 +18,5 @@ return [
     'permissions' => [
         'email_reset_password' => [],
     ],
-    'send_email' => false,
+    'send_email' => true,
 ];
