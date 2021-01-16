@@ -1,30 +1,23 @@
 {
-  "name": "bhcosta90/laravel-user",
-  "description": "Package to Laravel",
-  "prefer-stable": true,
-  "license": "MIT",
-  "keywords": ["laravel", "user"],
-  "authors": [
-    {
-      "name": "Bruno Costa",
-      "email": "bhcosta90@gmail.com"
+    "name": "nwidart/user",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Costa\\User\\": ""
+        }
     }
-  ],
-  "require": {
-    "bhcosta90/laravel-package": "^0.0",
-    "spatie/laravel-permission": "^3.17"
-  },
-  "autoload": {
-    "psr-4": {
-      "BRCas\\User\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "BRCas\\User\\Test\\": "tests/"
-    }
-  },
-  "require-dev": {
-    "orchestra/testbench": "^6.3"
-  }
 }
