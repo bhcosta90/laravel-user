@@ -76,8 +76,13 @@ class UserService implements Contracts\UserContract
     {
         $objUser = $this->show($id);
         if(!empty($data['password_updated'])
-            && auth()->user()
-            && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
+            && (
+                app()->isLocal()
+                || (
+                    auth()->user()
+                    && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
+                )
+            )
         ){
             $data['password'] = Hash::make($data['password_updated']);
         }

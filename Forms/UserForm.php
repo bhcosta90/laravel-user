@@ -20,8 +20,13 @@ class UserForm extends Form
             'rules' => ['required', "max:255", "unique:users,email,{$uuid},{$field}"]
         ]);
 
-        if (auth()->user() && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))) {
-            $this->add('password_updated', Field::EMAIL, [
+        if (app()->isLocal()
+            || (
+                auth()->user()
+                && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
+            )
+        ) {
+            $this->add('password_updated', Field::PASSWORD, [
                 'label' => 'Senha',
                 'value' => '',
                 'rules' => ['required', "min:3"]

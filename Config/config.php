@@ -16,6 +16,6 @@ return [
         'profile' => \Costa\User\Http\Controllers\ProfileController::class
     ],
     'permissions' => [
-        'email_reset_password' => ['localhost@local.com'],
+        'email_reset_password' => [],
     ]
 ];

@@ -6,10 +6,10 @@
         <div class="card-body">
             {!! form_start($form) !!}
             <div class="row">
-                <div class="col-6 form-group">
+                <div class="col-6">
                     {!! form_row($form->name) !!}
                 </div>
-                <div class="col-6 form-group">
+                <div class="col-6">
                     {!! form_row($form->email) !!}
                 </div>
             </div>
