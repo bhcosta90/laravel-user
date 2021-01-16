@@ -19,5 +19,13 @@ class UserForm extends Form
             'label' => 'Email',
             'rules' => ['required', "max:255", "unique:users,email,{$uuid},{$field}"]
         ]);
+
+        if(auth()->user()->can(config('costa_user.permissions.reset_password'))){
+            $this->add('password_updated', Field::EMAIL, [
+                'label' => 'Senha',
+                'value' => '',
+                'rules' => ['required', "min:3"]
+            ]);
+        }
     }
 }

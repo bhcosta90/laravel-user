@@ -14,5 +14,8 @@ return [
     'controllers' => [
         'user' => \Costa\User\Http\Controllers\UserController::class,
         'profile' => \Costa\User\Http\Controllers\ProfileController::class
+    ],
+    'permissions' => [
+        'reset_password' => 'reset_password',
     ]
 ];
