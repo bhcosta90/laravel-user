@@ -9,7 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [],
+            "providers": [
+                "Costa\\User\\Providers\\UserServiceProvider"
+            ],
             "aliases": {
 
             }
