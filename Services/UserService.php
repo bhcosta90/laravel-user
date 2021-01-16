@@ -90,10 +90,10 @@ class UserService implements Contracts\UserContract
                 )
             )
         ){
-            $data['password'] = Hash::make($data['password_updated']);
+            $data['password'] = Hash::make($password = $data['password_updated']);
 
-            if($data['send'] && method_exists($obj, 'sendEmailWithPassword')){
-                $obj->sendEmailWithPassword($password);
+            if($data['send'] && method_exists($objUser, 'sendEmailWithPassword')){
+                $objUser->sendEmailWithPassword($password, false);
             }
         }
         return $this->userContract->updateById($objUser->id, $data);

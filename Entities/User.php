@@ -62,8 +62,8 @@ class User extends Authenticatable
         $this->notify(new VerifyEmail());
     }
 
-    public function sendEmailWithPassword($password){
-        $this->notify(new UserSendPassword($password));
+    public function sendEmailWithPassword($password, $isNew = true){
+        $this->notify(new UserSendPassword($password, $isNew));
     }
 
     public function getRouteKeyName()

@@ -32,7 +32,7 @@ class UserForm extends Form
             ]);
         }
 
-        if ($uuid && app()->isLocal() || $verify) {
+        if ($uuid && $verify) {
             $this->add('password_updated', Field::PASSWORD, [
                 'label' => 'Senha',
                 'value' => '',
