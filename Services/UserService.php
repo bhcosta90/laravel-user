@@ -4,7 +4,7 @@
 namespace Costa\User\Services;
 
 
-use App\Tables\UserTable;
+use Costa\User\Tables\UserTable;
 use Costa\Package\Exceptions\CustomException;
 use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
