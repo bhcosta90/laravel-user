@@ -25,7 +25,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "bhcosta90/laravel-package": "dev-master",
-        "laravel/framework": "^8.22"
+        "laravel/framework": "^8.22",
+        "spatie/laravel-permission": "^3.18"
     },
     "repositories": [
         {
