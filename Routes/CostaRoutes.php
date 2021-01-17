@@ -11,7 +11,7 @@ class CostaRoutes
 {
     public static function setRoutes()
     {
-        Route::resource('user', config('costa_user.controllers.user'))->except('show');
+        Route::resource('user', config('costa_user.controllers.user'));
         Route::resource('profile', config('costa_user.controllers.profile'))->only('index', 'store')
             ->middleware('auth');
 

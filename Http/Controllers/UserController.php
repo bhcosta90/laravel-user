@@ -4,8 +4,9 @@ namespace Costa\User\Http\Controllers;
 
 use App\Exceptions\WebException;
 use Costa\Package\Exceptions\CustomException;
+use Costa\Package\Traits\HasPermission;
 use Costa\Package\Util\ExecuteAction;
-use Costa\Package\Http\Controllers\Traits\{CreateTrait, DestroyTrait, EditTrait, IndexTrait, ShowTrait};
+use Costa\Package\Traits\Controllers\{CreateTrait, DestroyTrait, EditTrait, IndexTrait, ShowTrait};
 use Costa\User\Services\Contracts\UserContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    use IndexTrait, ShowTrait, CreateTrait, EditTrait, DestroyTrait;
+    use IndexTrait, ShowTrait, CreateTrait, EditTrait, DestroyTrait, HasPermission;
 
     /**
      * @param Request $request
@@ -95,5 +96,8 @@ class UserController extends Controller
         return 'costa_user::user';
     }
 
-
+    protected function permissions()
+    {
+        return config('costa_user.permissions');
+    }
 }

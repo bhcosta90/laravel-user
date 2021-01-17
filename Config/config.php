@@ -16,7 +16,11 @@ return [
         'profile' => \Costa\User\Http\Controllers\ProfileController::class
     ],
     'permissions' => [
-        'email_reset_password' => [],
+        'index' => null,
+        'show' => null,
+        'edit' => null,
+        'create' => null,
+        'destroy' => null,
     ],
     'send_email' => true,
 ];
