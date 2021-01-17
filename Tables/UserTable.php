@@ -4,6 +4,7 @@ namespace Costa\User\Tables;
 
 use App\Models\User;
 use ErrorException;
+use Illuminate\Support\Facades\Route;
 use Okipa\LaravelTable\Abstracts\AbstractTable;
 use Okipa\LaravelTable\Table;
 
@@ -17,12 +18,15 @@ class UserTable extends AbstractTable
      */
     protected function table(): Table
     {
+        $arrayRoute = explode('.', Route::currentRouteName());
+        array_pop($arrayRoute);
+        $nameRoute = implode('.', $arrayRoute);
         $route = [
-            'index' => ['name' => 'admin.user.user.index'],
-            'show' => ['name' => 'admin.user.user.show'],
-            'create' => ['name' => 'admin.user.user.create'],
-            'edit' => ['name' => 'admin.user.user.edit'],
-            'destroy' => ['name' => 'admin.user.user.destroy'],
+            'index' => ['name' => $nameRoute . '.index'],
+            'show' => ['name' => $nameRoute . '.show'],
+            'create' => ['name' => $nameRoute . '.create'],
+            'edit' => ['name' => $nameRoute . '.edit'],
+            'destroy' => ['name' => $nameRoute . '.destroy'],
         ];
 
         if (config('costa_user.permissions.edit')
