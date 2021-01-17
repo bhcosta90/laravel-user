@@ -164,4 +164,27 @@ class UserService implements Contracts\UserContract
                 && in_array(auth()->user()->email, config('costa_user.permissions.email_reset_password'))
             );
     }
+
+    public function getRoles($obj){
+        $objPermission = \Spatie\Permission\Models\Permission::all();
+        $permissions = [];
+
+        foreach ($objPermission as $rs) {
+            list($module, $permission) = explode('|', $rs->name);
+            $permissions[trim($module)][$rs->id] = __(trim($permission));
+        }
+
+        return $permissions;
+    }
+
+    public function getPermissions($obj){
+        $objPermission = \Spatie\Permission\Models\Role::all();
+        $permissions = [];
+
+        foreach ($objPermission as $rs) {
+            $permissions[$rs->id] = __($rs->name);
+        }
+
+        return $permissions;
+    }
 }

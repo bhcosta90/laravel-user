@@ -23,4 +23,5 @@ return [
         'destroy' => null,
     ],
     'send_email' => true,
+    'permission_active' => true,
 ];

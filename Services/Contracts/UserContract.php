@@ -21,4 +21,8 @@ interface UserContract
     public function updateMyProfile($data);
 
     public function updateMyPassword($data);
+
+    public function getRoles($obj);
+
+    public function getPermissions($obj);
 }

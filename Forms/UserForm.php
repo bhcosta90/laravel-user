@@ -40,5 +40,42 @@ class UserForm extends Form
                 'rules' => ['nullable', "min:3"]
             ]);
         }
+
+        if(config('costa_user.permission_active')){
+            $this->permissions();
+            $this->roles();
+        }
+    }
+
+    private function permissions()
+    {
+        $objService = app(config('costa_user.services.user'));
+        $permissions = $objService->getPermissions(auth()->user());
+
+        if (!empty($permissions)) {
+            $this->add('permissions', Field::SELECT, [
+                'label' => __("Permissions"),
+                'attr' => [
+                    'multiple' => true,
+                ],
+                'choices' => $permissions,
+            ]);
+        }
+    }
+
+    private function roles()
+    {
+        $objService = app(config('costa_user.services.user'));
+        $permissions = $objService->getRoles(auth()->user());
+
+        if (!empty($permissions)) {
+            $this->add('roles', Field::SELECT, [
+                'label' => __("Roles"),
+                'attr' => [
+                    'multiple' => true,
+                ],
+                'choices' => $permissions,
+            ]);
+        }
     }
 }
