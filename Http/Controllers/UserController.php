@@ -98,6 +98,6 @@ class UserController extends Controller
 
     protected function permissions()
     {
-        return config('costa_user.permissions');
+        return config('costa_user.permissions.user');
     }
 }

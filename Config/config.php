@@ -34,11 +34,20 @@ return [
         'profile' => \Costa\User\Http\Controllers\ProfileController::class
     ],
     'permissions' => [
-        'index' => null,
-        'show' => null,
-        'edit' => null,
-        'create' => null,
-        'destroy' => null,
+        'user' => [
+            'index' => null,
+            'show' => null,
+            'edit' => null,
+            'create' => null,
+            'destroy' => null,
+        ],
+        'role' => [
+            'index' => null,
+            'show' => null,
+            'edit' => null,
+            'create' => null,
+            'destroy' => null,
+        ],
     ],
     'send_email' => true,
     'permission_active' => true,
