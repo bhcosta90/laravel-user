@@ -29,26 +29,26 @@ class RoleTable extends AbstractTable
             'destroy' => ['name' => $nameRoute . '.destroy'],
         ];
 
-        if (config('costa_user.permissions.edit')
-            && !auth()->user()->can(config('costa_user.permissions.edit'))
+        if (config('costa_user.permissions.role.edit')
+            && !auth()->user()->can(config('costa_user.permissions.role.edit'))
         ) {
             unset($route['edit']);
         }
 
-        if (config('costa_user.permissions.destroy')
-            && !auth()->user()->can(config('costa_user.permissions.destroy'))
+        if (config('costa_user.permissions.role.destroy')
+            && !auth()->user()->can(config('costa_user.permissions.role.destroy'))
         ) {
             unset($route['destroy']);
         }
 
-        if (config('costa_user.permissions.show')
-            && !auth()->user()->can(config('costa_user.permissions.show'))
+        if (config('costa_user.permissions.role.show')
+            && !auth()->user()->can(config('costa_user.permissions.role.show'))
         ) {
             unset($route['show']);
         }
 
-        if (config('costa_user.permissions.create')
-            && !auth()->user()->can(config('costa_user.permissions.create'))
+        if (config('costa_user.permissions.role.create')
+            && !auth()->user()->can(config('costa_user.permissions.role.create'))
         ) {
             unset($route['create']);
         }
