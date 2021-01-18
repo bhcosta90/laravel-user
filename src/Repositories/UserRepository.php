@@ -28,6 +28,8 @@ class UserRepository implements Contracts\UserContract
 
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
         }
 
         $ret = $obj->update($data);
