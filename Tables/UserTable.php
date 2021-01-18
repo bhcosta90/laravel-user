@@ -54,8 +54,8 @@ class UserTable extends AbstractTable
 
         return (new Table())->model(config('costa_user.models.user'))
             ->routes($route)
-            ->destroyConfirmationHtmlAttributes(fn(User $user) => [
-                'data-confirm' => __('Are you sure you want to delete the line ' . $user->database_attribute . ' ?'),
+            ->destroyConfirmationHtmlAttributes(fn($user) => [
+                'data-confirm' => __('Are you sure you want to delete the line ' . $user->name . ' ?'),
             ]);
     }
 
