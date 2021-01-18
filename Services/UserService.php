@@ -164,7 +164,7 @@ class UserService implements Contracts\UserContract
             );
     }
 
-    public function getRoles($obj){
+    public function getPermissions($obj){
         $objPermission = \Spatie\Permission\Models\Permission::all();
         $permissions = [];
 
@@ -176,7 +176,7 @@ class UserService implements Contracts\UserContract
         return $permissions;
     }
 
-    public function getPermissions($obj){
+    public function getRoles($obj){
         $objPermission = \Spatie\Permission\Models\Role::all();
         $permissions = [];
 
