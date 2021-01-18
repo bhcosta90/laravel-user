@@ -3,8 +3,7 @@
 namespace Costa\User\Providers;
 
 use Illuminate\Support\Facades\Gate;
-use Costa\User\Repositories\{UserRepository};
-use Costa\User\Repositories\Contracts\{UserContract};
+use Costa\User\Repositories\Contracts\{UserContract, RoleContract};
 use Costa\User\Routes\CostaRoutesFacade;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +30,8 @@ class UserServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->app->bind(UserContract::class, config('costa_user.repositories.user'));
+        $this->app->bind(RoleContract::class, config('costa_user.repositories.role'));
     }
 
     /**
@@ -40,7 +41,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserContract::class, UserRepository::class);
+
         $this->app->register(RouteServiceProvider::class);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 

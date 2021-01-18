@@ -6,8 +6,9 @@ use ErrorException;
 use Illuminate\Support\Facades\Route;
 use Okipa\LaravelTable\Abstracts\AbstractTable;
 use Okipa\LaravelTable\Table;
+use Spatie\Permission\Models\Role;
 
-class UserTable extends AbstractTable
+class RoleTable extends AbstractTable
 {
     /**
      * Configure the table itself.
@@ -52,10 +53,10 @@ class UserTable extends AbstractTable
             unset($route['create']);
         }
 
-        return (new Table())->model(config('costa_user.models.user'))
+        return (new Table())->model(config('costa_user.models.role'))
             ->routes($route)
-            ->destroyConfirmationHtmlAttributes(fn(User $user) => [
-                'data-confirm' => __('Are you sure you want to delete the line ' . $user->database_attribute . ' ?'),
+            ->destroyConfirmationHtmlAttributes(fn($obj) => [
+                'data-confirm' => __('Are you sure you want to delete the line ' . $obj->name . ' ?'),
             ]);
     }
 
@@ -70,10 +71,6 @@ class UserTable extends AbstractTable
     {
         $table->column('name')
             ->title('Nome')
-            ->sortable()->searchable();
-
-        $table->column('email')
-            ->title('E-mail')
             ->sortable()->searchable();
     }
 

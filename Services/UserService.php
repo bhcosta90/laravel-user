@@ -21,7 +21,6 @@ use Okipa\LaravelTable\Table;
 
 class UserService implements Contracts\UserContract
 {
-
     private UserContract $userContract;
     private Request $request;
 
