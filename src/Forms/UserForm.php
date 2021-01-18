@@ -25,7 +25,7 @@ class UserForm extends Form
         if (empty($this->request->route('user')) || auth()->user()->super_admin) {
             $this->add('password', Field::PASSWORD, [
                 'label' => __('Password'),
-                'rules' => 'required|min:6|max:16',
+                'rules' => 'nullable|min:6|max:16',
                 'value' => '',
             ]);
         }
