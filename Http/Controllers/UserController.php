@@ -2,7 +2,6 @@
 
 namespace Costa\User\Http\Controllers;
 
-use App\Exceptions\WebException;
 use Costa\Package\Exceptions\CustomException;
 use Costa\Package\Traits\HasPermission;
 use Costa\Package\Util\ExecuteAction;
@@ -20,7 +19,7 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse|RedirectResponse|object
-     * @throws WebException
+     * @throws CustomException
      * @throws CustomException
      */
     public function store(Request $request)

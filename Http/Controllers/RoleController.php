@@ -2,7 +2,6 @@
 
 namespace Costa\User\Http\Controllers;
 
-use App\Exceptions\WebException;
 use Costa\Package\Exceptions\CustomException;
 use Costa\Package\Traits\HasPermission;
 use Costa\Package\Util\ExecuteAction;

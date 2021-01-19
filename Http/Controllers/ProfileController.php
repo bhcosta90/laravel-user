@@ -2,7 +2,6 @@
 
 namespace Costa\User\Http\Controllers;
 
-use App\Exceptions\WebException;
 use Costa\Package\Exceptions\CustomException;
 use Costa\Package\Util\ExecuteAction;
 use Costa\Package\Http\Controllers\Traits\{CreateTrait, DestroyTrait, EditTrait, IndexTrait, ShowTrait};
@@ -19,7 +18,7 @@ class ProfileController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse|RedirectResponse|object
-     * @throws WebException
+     * @throws CustomException
      * @throws CustomException
      */
     public function store(Request $request)
@@ -127,7 +126,7 @@ class ProfileController extends Controller
      * @param Request $request
      * @return JsonResponse|RedirectResponse|object
      * @throws CustomException
-     * @throws WebException
+     * @throws CustomException
      */
     public function password(Request $request){
         return (new ExecuteAction)
