@@ -4,10 +4,19 @@ namespace Costa\User\Http\Controllers;
 
 use Costa\Package\Abstracts\ControllerResource;
 use Costa\Package\Traits\Controller\HasPermission;
+use Exception;
 
 class RoleController extends ControllerResource
 {
     use HasPermission;
+
+    public function __construct()
+    {
+        $this->runPermissions();
+
+        if (config('costa_user.permission_active') == false)
+            throw new Exception(__('Favor ativar o módulo de permissão'));
+    }
 
     public function service(): string
     {
