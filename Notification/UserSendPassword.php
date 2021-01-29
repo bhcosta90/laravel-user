@@ -43,14 +43,14 @@ class UserSendPassword extends Notification
 
         $url = config('app.url');
         $message = $this->isNew
-            ? Lang::get('We create your user in our system with the password: **:password**', ['password' => $password])
-            : Lang::get('We edit the password of the user to **:password**', ['password' => $password]);
+            ? Lang::get('Criamos seu usuário em nosso sistema com a senha: **:password**', ['password' => $password])
+            : Lang::get('Editamos a senha do usuário para **:password**', ['password' => $password]);
 
         return (new MailMessage)
-            ->subject(Lang::get('My Password'))
+            ->subject(Lang::get('Minha senha'))
             ->line($message)
-            ->action(Lang::get('Access system'), $url)
-            ->line(Lang::get('If you did not request a new user, no further action is required.'));
+            ->action(Lang::get('Acesso ao Sistema'), $url)
+            ->line(Lang::get('Se você não solicitou um novo usuário, nenhuma ação adicional é necessária.'));
     }
 
     /**
