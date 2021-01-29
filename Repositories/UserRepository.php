@@ -24,7 +24,7 @@ class UserRepository extends BaseRepository implements Contracts\UserContract
         $obj = $this->makeModel();
 
         if(
-            (count($data['permissions'] ?? []) > 0 || $data['roles'] ?? []) &&
+            (count($data['permissions'] ?? []) > 0 || count($data['roles']) ?? []) &&
             in_array(HasRoles::class, class_uses($obj)) == false
         ){
             throw new \Exception(get_class($obj) . ' do not implemented ' . HasRoles::class);
