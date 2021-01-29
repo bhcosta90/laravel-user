@@ -139,7 +139,8 @@ class UserServiceProvider extends ServiceProvider
         ];
 
         config()->set('laravel-form-builder.defaults', $defaultInput);
-
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('CostaRoutesFacade', CostaRoutes::class);
     }
 
     /**
