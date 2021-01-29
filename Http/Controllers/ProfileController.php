@@ -2,9 +2,9 @@
 
 namespace Costa\User\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseControllerLaravel;
 use Costa\Package\Traits\Controller\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseControllerLaravel;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class ProfileController extends BaseControllerLaravel
@@ -112,5 +112,10 @@ class ProfileController extends BaseControllerLaravel
     public function form(): string
     {
         return config('costa_user.forms.profile');
+    }
+
+    protected function getNameView(): string
+    {
+        return 'costa_user::user.profile.' . $this->getActionName();
     }
 }

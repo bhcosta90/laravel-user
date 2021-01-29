@@ -16,8 +16,8 @@ class RoleController extends ControllerResource
         return config('costa_user.forms.role');
     }
 
-    protected function prefixNameView(): string
+    protected function getNameView(): string
     {
-        return 'costa_user::';
+        return 'costa_user::user.role.' . $this->getActionName();
     }
 }

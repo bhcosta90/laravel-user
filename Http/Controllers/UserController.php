@@ -17,9 +17,9 @@ class UserController extends ControllerResource
         return config('costa_user.forms.user');
     }
 
-    protected function prefixNameView(): string
+    protected function getNameView(): string
     {
-        return 'costa_user::';
+        return 'costa_user::user.user.' . $this->getActionName();
     }
 
 
