@@ -33,28 +33,34 @@
     <div class="card card-outline card-gray">
         <table class="table table-striped my-0 table-hover">
             <thead>
-            <th style="width: 1px">#</th>
+            @if(config('costa_user.router.user') == 'id')
+                <th style="width: 1px">#</th>
+            @endif
             <th>{{__('Nome')}}</th>
             <th>{{__('E-mail')}}</th>
             <th class="text-right" style="width: 200px">{{__('Ações')}}</th>
             </thead>
             @foreach($data as $rs)
+                @php $key = config('costa_user.router.user'); @endphp
                 <tr>
-                    <td>{{ $rs->id }}</td>
+                    @if(config('costa_user.router.user') == 'id')
+                        <td>{{ $rs->id }}</td>
+                    @endif
                     <td>{{ $rs->name }}</td>
                     <td>{{ $rs->email }}</td>
                     <td class="text-right">
                         @if(auth()->user()->can(config('costa_user.permissions.user.edit')))
-                            <a href="{{ route($route_name . '.edit', $rs->id) }}" class="badge badge-warning">Editar</a>
+                            <a href="{{ route($route_name . '.edit', $rs->$key) }}"
+                               class="badge badge-warning">Editar</a>
                         @endif
 
                         @if(auth()->user()->can(config('costa_user.permissions.user.show')))
-                            <a href="{{ route($route_name . '.show', $rs->id) }}"
+                            <a href="{{ route($route_name . '.show', $rs->$key) }}"
                                class="badge badge-secondary">Detalhes</a>
                         @endif
 
                         @if(auth()->user()->can(config('costa_user.permissions.user.destroy')))
-                            <form style="display: inline-block" action="{{route($route_name . '.destroy', $rs->id)}}"
+                            <form style="display: inline-block" action="{{route($route_name . '.destroy', $rs->$key)}}"
                                   method="POST">
                                 @csrf
                                 @method('DELETE')
