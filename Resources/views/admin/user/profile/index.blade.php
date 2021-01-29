@@ -1,6 +1,13 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="m-0 text-dark my-2">
+            {{ __('Listagem de Grupos') }}
+        </h2>
 
-@section('content')
+        @if(Breadcrumbs::exists($route_name . '.index'))
+            {{ Breadcrumbs::render($route_name . '.index') }}
+        @endif
+    </x-slot>
     <div class="card">
         <div class="card-header">{{__('Meus dados')}}</div>
         <div class="card-body">
@@ -22,7 +29,7 @@
             @endif
 
             @if (Session::has('profile_error') && Session::get("profile_error"))
-                <div class="alert-flash alert alert-danger mt-3 text-center" role="alert">
+                <div class="alert-flash alert alert-default-warning mt-3 text-center" role="alert">
                     {{ Session::get("profile_error") }}
                 </div>
             @endif
@@ -52,14 +59,8 @@
                 </div>
             @endif
 
-            @if (Session::has('password_success') && Session::get("password_success"))
-                <div class="alert-flash alert alert-success mt-3 text-center" role="alert">
-                    {{ Session::get("password_success") }}
-                </div>
-            @endif
-
             @if (Session::has('password_error') && Session::get("password_error"))
-                <div class="alert-flash alert alert-danger mt-3 text-center" role="alert">
+                <div class="alert-flash alert alert-default-warning mt-3 text-center" role="alert">
                     {{ Session::get("password_error") }}
                 </div>
             @endif
@@ -67,4 +68,5 @@
             {!! form_end($formPassword) !!}
         </div>
     </div>
-@endsection
+
+</x-app-layout>

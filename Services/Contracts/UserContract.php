@@ -6,23 +6,17 @@ namespace Costa\User\Services\Contracts;
 
 interface UserContract
 {
-    public function all();
+    public function loginFailed($password, $hashPassword): bool;
 
-    public function show($id);
+    public function loginSuccess($password, $hashPassword): bool;
 
-    public function create(array $data);
+    public function updateMyProfile($id, $data, $nameRoute);
 
-    public function update($id, $data);
+    public function updateMyPassword($id, $password, $nameRoute);
 
-    public function delete($id);
+    public function canUpdatePassword(): bool;
 
-    public function myProfile();
+    public function getRoles($obj): array;
 
-    public function updateMyProfile($data);
-
-    public function updateMyPassword($data);
-
-    public function getRoles($obj);
-
-    public function getPermissions($obj);
+    public function getPermissions($obj): array;
 }

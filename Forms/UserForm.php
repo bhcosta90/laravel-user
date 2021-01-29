@@ -21,7 +21,8 @@ class UserForm extends Form
             'rules' => ['required', "max:255", "unique:users,email,{$uuid},{$field}"]
         ]);
 
-        $verify = UserService::canUpdatePassword();
+        $service = app(config('costa_user.services.user'));
+        $verify = $service->canUpdatePassword();
 
         if (config('costa_user.send_email') && (empty($uuid) || $verify)) {
             $this->add('send', Field::CHECKBOX, [

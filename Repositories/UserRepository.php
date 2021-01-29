@@ -16,6 +16,6 @@ class UserRepository extends BaseRepository implements Contracts\UserContract
      */
     public function model()
     {
-        return config('costa_user.models.user');
+        return config('auth.providers.users.model');
     }
 }

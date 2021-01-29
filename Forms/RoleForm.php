@@ -10,12 +10,12 @@ class RoleForm extends Form
 {
     public function buildForm()
     {
-        $uuid = $this->request->route('user');
-        $field = config('costa_user.router.user');
+        $uuid = $this->request->route('role');
+        $field = config('costa_user.router.role');
 
         $this->add('name', Field::TEXT, [
             'label' => 'Nome',
-            'rules' => ['required', 'string', 'max:255'],
+            'rules' => ['required', 'string', 'max:255', "unique:roles,name,{$uuid},{$field}"],
         ]);
 
         $this->permissions();

@@ -4,158 +4,93 @@
 namespace Costa\User\Services;
 
 
-use Costa\User\Tables\UserTable;
-use Costa\Package\Exceptions\CustomException;
+use App\Services\Contracts\WebContract;
 use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
-use ErrorException;
-use Exception;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Okipa\LaravelTable\Table;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class UserService implements Contracts\UserContract
+class UserService implements WebContract, Contracts\UserContract
 {
-    private UserContract $userContract;
+    private UserRepository $repository;
     private Request $request;
 
     /**
      * UserService constructor.
-     * @param UserContract $userContract
+     * @param UserContract $repository
      * @param Request $request
      */
-    public function __construct(UserContract $userContract, Request $request)
+    public function __construct(UserContract $repository, Request $request)
     {
         /**
-         * @var $userContract UserRepository
+         * @var $repository UserRepository
          */
-        $this->userContract = $userContract;
+        $this->repository = $repository;
         $this->request = $request;
     }
 
-    /**
-     * @return Table
-     * @throws ErrorException
-     */
-    public function all(): Table
+    public function webIndex($filter): array
     {
-        return (new UserTable())->setup();
-    }
+        $this->repository->orderBy('name', 'asc');
 
-    /**
-     * @param $id
-     * @return UserContract|UserRepository|Model|null
-     */
-    public function show($id)
-    {
-        return $this->userContract->getByColumn($id, config('costa_user.router.user'));
-    }
-
-    /**
-     * @param array $data
-     * @return Model
-     */
-    public function create(array $data): Model
-    {
-        $obj = $this->userContract->create(
-            $data + ['password' => Hash::make($password = $this->request->input('password'))]
-        );
-
-        if (!empty($data['send'])
-            && method_exists($obj, 'sendEmailWithPassword')
-            && config('costa_user.send_email')) {
-            $obj->sendEmailWithPassword($password);
+        if (isset($filter['name'])) {
+            $this->repository->where('name', $filter['name']);
         }
-        return $obj;
-    }
 
-    /**
-     * @param $id
-     * @param $data
-     * @return Collection|Model
-     */
-    public function update($id, $data)
-    {
-        $objUser = $this->show($id);
-        if (!empty($data['password_updated']) && self::canUpdatePassword()) {
-            $data['password'] = Hash::make($password = $data['password_updated']);
-
-            if (!empty($data['send'])
-                && method_exists($objUser, 'sendEmailWithPassword')
-                && config('costa_user.send_email')
-            ) {
-                $objUser->sendEmailWithPassword($password, false);
-            }
+        if (isset($filter['email'])) {
+            $this->repository->where('email', $filter['email']);
         }
-        return $this->userContract->updateById($objUser->id, $data);
+
+        return [
+            'data' => $this->repository->paginate(),
+            'filter' => $filter,
+        ];
     }
 
-    /**
-     * @param $id
-     * @throws Exception
-     */
-    public function delete($id)
+    public function find($id)
     {
-        $objUser = $this->show($id);
-        $this->userContract->deleteById($objUser->id);
+        return $this->repository->getById($id);
     }
 
-    public function myProfile()
+    public function webDestroy($id, $nameRoute = null)
     {
-        return auth()->user();
+        $this->repository->deleteById($id);
+        return redirect()->route($nameRoute . '.index')
+            ->withSuccess(__('Usuário deletado com sucesso'));
     }
 
-    /**
-     * @param $data
-     * @return Collection|Model
-     * @throws CustomException
-     */
-    public function updateMyProfile($data)
+    public function webUpdate($id, $data, $nameRoute)
     {
-        try {
-            $obj = $this->validateAccess((string)$data['password'], 'profile_error');
-            unset($data['password']);
-            return $this->userContract->updateById($obj->id, $data);
-        } catch (CustomException $e) {
-            throw $e;
+        if($data['password_updated']){
+            $data['password'] = Hash::make($data['password_updated']);
         }
+        $this->repository->updateById($id, $data);
+        return redirect()->route($nameRoute . '.index')
+            ->withSuccess(__('Usuário editado com sucesso'));
     }
 
-    /**
-     * @param $data
-     * @throws CustomException
-     */
-    public function updateMyPassword($data)
+    public function webStore($data, $nameRoute)
     {
-        try {
-            $obj = $this->validateAccess($data['password_actual'], 'password_error');
-            $this->userContract->updateById($obj->id, ['password' => Hash::make($data['password_new'])]);
-        } catch (CustomException $e) {
-            throw $e;
-        }
+        $this->addPasswordInArray($data);
+        $this->repository->create($data);
+        return redirect()->route($nameRoute . '.index')
+            ->withSuccess(__('Usuário cadastrado com sucesso e a senha do usuário é: <b>:password</b>', [
+                'password' => $data['password_old'],
+            ]));
     }
 
-    /**
-     * @param string $password
-     * @param string $typeError
-     * @return Authenticatable|null
-     * @throws CustomException
-     */
-    private function validateAccess(string $password, string $typeError): ?Authenticatable
-    {
-        $obj = auth()->user();
-        if (!Auth::attempt(['email' => auth()->user()->email, 'password' => $password])) {
-            throw new CustomException(__('A sua senha está incorreta'), Response::HTTP_BAD_REQUEST, $typeError);
-        }
-        return $obj;
+    private function addPasswordInArray(&$data){
+        $data['password'] = Hash::make($password = Str::random(10));
+        $data['password_old'] = $password;
+        return $data;
     }
 
-    public static function canUpdatePassword()
+    public function canUpdatePassword(): bool
     {
         return app()->isLocal()
             || (
@@ -164,8 +99,9 @@ class UserService implements Contracts\UserContract
             );
     }
 
-    public function getPermissions($obj){
-        $objPermission = \Spatie\Permission\Models\Permission::all();
+    public function getPermissions($obj): array
+    {
+        $objPermission = Permission::all();
         $permissions = [];
 
         foreach ($objPermission as $rs) {
@@ -176,8 +112,9 @@ class UserService implements Contracts\UserContract
         return $permissions;
     }
 
-    public function getRoles($obj){
-        $objPermission = \Spatie\Permission\Models\Role::all();
+    public function getRoles($obj): array
+    {
+        $objPermission = Role::all();
         $permissions = [];
 
         foreach ($objPermission as $rs) {
@@ -186,4 +123,29 @@ class UserService implements Contracts\UserContract
 
         return $permissions;
     }
+
+    public function updateMyProfile($id, $data, $nameRoute): RedirectResponse
+    {
+        $this->repository->updateById($id, $data);
+        return redirect()->route($nameRoute . '.index')->with('profile_success', __('Profile updated successfully'));
+    }
+    public function updateMyPassword($id, $password, $nameRoute)
+    {
+        $this->repository->updateById($id, [
+            'password' => Hash::make($password),
+        ]);
+        return redirect()->route($nameRoute . '.index')->with('password_success', __('Password updated successfully'));
+    }
+
+    public function loginFailed($password, $hashPassword): bool
+    {
+        return !$this->loginSuccess($password, $hashPassword);
+    }
+
+    public function loginSuccess($password, $hashPassword): bool
+    {
+        return Hash::check($password, $hashPassword);
+    }
+
+
 }

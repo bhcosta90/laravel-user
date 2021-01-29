@@ -2,93 +2,24 @@
 
 namespace Costa\User\Http\Controllers;
 
-use Costa\Package\Exceptions\CustomException;
-use Costa\Package\Util\ExecuteAction;
-use Costa\Package\Http\Controllers\Traits\{CreateTrait, DestroyTrait, EditTrait, IndexTrait, ShowTrait};
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
+use Costa\Package\Traits\Controller\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class ProfileController extends Controller
 {
-    use IndexTrait, ShowTrait, CreateTrait, EditTrait, DestroyTrait;
+    use BaseController;
 
-    /**
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse|object
-     * @throws CustomException
-     * @throws CustomException
-     */
-    public function store(Request $request)
+    protected function index(Request $request)
     {
-        return (new ExecuteAction)->setForm($this->form())
-            ->setFunction($this->functionStore() ?: $this->getNameFunction())
-            ->setRequest($request)
-            ->setService($this->service())
-            ->setSession('profile_success', __('Perfil alterado com sucesso'))
-            ->setNameRoute($this->getNameRoute())
-            ->exec();
-    }
+        $model = $request->user();
 
-    public function service(): string
-    {
-        return config('costa_user.services.user');
-    }
-
-    public function resource(): string
-    {
-        return config('costa_user.resources.user');
-    }
-
-    public function form(): string
-    {
-        return config('costa_user.forms.profile');
-    }
-
-    public function functionIndex(): string
-    {
-        return 'myProfile';
-    }
-
-    public function functionEdit(): string
-    {
-        return 'show';
-    }
-
-    public function functionShow(): string
-    {
-        return 'show';
-    }
-
-    public function functionUpdate(): string
-    {
-        return 'update';
-    }
-
-    public function functionStore()
-    {
-        return 'updateMyProfile';
-    }
-
-    public function functionDestroy()
-    {
-        return 'delete';
-    }
-
-    protected function getView(): ?string
-    {
-        return 'costa_user::profile';
-    }
-
-    protected function returnIndexAction(Model $result): array
-    {
         $formBuilder = app(FormBuilder::class);
 
         $form = $formBuilder->create($this->form(), [
             'method' => 'POST',
-            'model' => $result,
+            'model' => $model,
             'attr' => [
                 'id' => 'formDefault'
             ],
@@ -103,7 +34,7 @@ class ProfileController extends Controller
 
         $formPassword = $formBuilder->create(config('costa_user.forms.password'), [
             'method' => 'POST',
-            'model' => $result,
+            'model' => $model,
             'attr' => [
                 'id' => 'formDefault'
             ],
@@ -116,27 +47,70 @@ class ProfileController extends Controller
             'label' => __('Edit')
         ]);
 
-        return [
-            'form' => $form,
-            'formPassword' => $formPassword,
-        ];
+        return view(
+            $this->getNameView(),
+            compact('form', 'formPassword') + ['route_name' => $this->getNameRoute()]
+        );
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse|object
-     * @throws CustomException
-     * @throws CustomException
-     */
-    public function password(Request $request){
-        return (new ExecuteAction)
-            ->setNameRoute($this->getNameRoute())
-            ->setRequest($request)
-            ->setService($this->service())
-            ->setFunction("updateMyPassword")
-            ->setForm(config('costa_user.forms.password'))
-            ->setSession('password_success', __('Senha alterada com sucesso'))
-            ->exec();
+    public function store(FormBuilder $formBuilder){
+        $form = $formBuilder->create($this->form());
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getFieldValues();
+
+        $service = app($this->service());
+
+        $objUser = auth()->user();
+
+        if($service->loginFailed($data['password'], $objUser->password)){
+            return redirect()
+                ->route($this->getNameRoute() . '.index')
+                ->with('profile_error', __('Credentials incorrect'));
+        }
+
+        unset($data['password']);
+        return $service->updateMyProfile($objUser->id, $data, $this->getNameRoute());
     }
 
+    public function password(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(config('costa_user.forms.password'));
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getFieldValues();
+
+        $service = app($this->service());
+
+        $objUser = auth()->user();
+
+        if($service->loginFailed($data['password_actual'], $objUser->password)){
+            return redirect()
+                ->route($this->getNameRoute() . '.index')
+                ->with('password_error', __('Credentials incorrect'));
+        }
+
+        return $service->updateMyPassword($objUser->id, $data['password_new'], $this->getNameRoute());
+    }
+
+
+    protected function prefixNameView(): string
+    {
+        return 'costa_user::';
+    }
+
+
+    protected function service()
+    {
+        return config('costa_user.services.user');
+    }
+
+    public function form(): string
+    {
+        return config('costa_user.forms.profile');
+    }
 }
