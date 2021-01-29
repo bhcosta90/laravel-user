@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content_header')
-        <h2 class="m-0 text-dark my-2">
-            {{ __('Listagem de Grupos') }}
-        </h2>
+    <h2 class="m-0 text-dark my-2">
+        {{ __('Meu Perfil') }}
+    </h2>
 
-        @if(Breadcrumbs::exists($route_name . '.index'))
-            {{ Breadcrumbs::render($route_name . '.index') }}
-        @endif
+    @if(Breadcrumbs::exists($route_name . '.index'))
+        {{ Breadcrumbs::render($route_name . '.index') }}
+    @endif
 @endsection
 
 @section('content')
