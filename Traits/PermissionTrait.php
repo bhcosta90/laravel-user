@@ -15,14 +15,18 @@ trait PermissionTrait
      */
     public function up()
     {
-        DB::beginTransaction();
+        $tableNames = config('permission.table_names');
+
+        $permissions = [];
+
         foreach ($this->permissions() as $permission) {
-            $obj = app(config('costa_user.models.permission'));
-            $obj->name = $permission;
-            $obj->guard_name = $this->guardName();
-            $obj->save();
+            $permissions[] = [
+                'name' => $permission,
+                'guard_name' => $this->guardName(),
+            ];
         }
-        DB::commit();
+
+        DB::table($tableNames['permissions'])->insert($permissions);
     }
 
     /**
@@ -32,8 +36,11 @@ trait PermissionTrait
      */
     public function down()
     {
-        $obj = app(config('costa_user.models.role'));
-        $obj->whereIn('name', $this->permissions())->where('guard_name', $this->guardName())->delete();
+        $tableNames = config('permission.table_names');
+        DB::table($tableNames['permissions'])
+            ->whereIn('name', $this->permissions())
+            ->where('guard_name', $this->guardName())
+            ->delete();
     }
 
     protected function guardName(): string
