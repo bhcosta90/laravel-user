@@ -67,7 +67,7 @@ class UserService implements WebContract, Contracts\UserContract
 
     public function webUpdate($id, $data, $nameRoute)
     {
-        if ($data['password_updated']) {
+        if ($data['password_updated'] && self::canUpdatePassword()) {
             $data['password'] = Hash::make($data['password_updated']);
         }
         $obj = $this->repository->updateById($id, $data);
