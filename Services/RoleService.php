@@ -48,7 +48,7 @@ class RoleService implements WebContract
 
     public function webDestroy($id, $nameRoute)
     {
-        $this->roleContract->deleteById($id);
+        $this->roleContract->where(config('costa_user.router.role'), $id)->delete($id);
         return redirect()->route($nameRoute . ".index");
     }
 
