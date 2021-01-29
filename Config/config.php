@@ -23,7 +23,6 @@ return [
         'role' => RoleRepository::class,
     ],
     'models' => [
-        'user' => User::class,
         'role' => Role::class,
     ],
     'services' => [
