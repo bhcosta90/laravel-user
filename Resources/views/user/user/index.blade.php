@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content_header')
     <h2 class="m-0 text-dark my-2">
-        @if(auth()->user()->can(config('costa_user.user.create')))
+        @if(auth()->user()->can(config('costa_user.permissions.user.create')))
             <a href="{{route($route_name . '.create')}}" class="btn btn-success">
                 <i class="fa fa-plus"></i>
             </a>
@@ -44,16 +44,16 @@
                     <td>{{ $rs->name }}</td>
                     <td>{{ $rs->email }}</td>
                     <td class="text-right">
-                        @if(auth()->user()->can(config('costa_user.user.edit')))
+                        @if(auth()->user()->can(config('costa_user.permissions.user.edit')))
                             <a href="{{ route($route_name . '.edit', $rs->id) }}" class="badge badge-warning">Editar</a>
                         @endif
 
-                        @if(auth()->user()->can(config('costa_user.user.show')))
+                        @if(auth()->user()->can(config('costa_user.permissions.user.show')))
                             <a href="{{ route($route_name . '.show', $rs->id) }}"
                                class="badge badge-secondary">Detalhes</a>
                         @endif
 
-                        @if(auth()->user()->can(config('costa_user.user.destroy')))
+                        @if(auth()->user()->can(config('costa_user.permissions.user.destroy')))
                             <form style="display: inline-block" action="{{route($route_name . '.destroy', $rs->id)}}"
                                   method="POST">
                                 @csrf
