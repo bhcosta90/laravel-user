@@ -4,7 +4,7 @@
 namespace Costa\User\Services;
 
 
-use App\Services\Contracts\WebContract;
+use Costa\Package\Services\Contracts\WebContract;
 use Costa\User\Repositories\Contracts\RoleContract;
 use Costa\User\Repositories\RoleRepository;
 use Illuminate\Http\Request;

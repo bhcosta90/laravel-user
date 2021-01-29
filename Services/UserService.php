@@ -4,7 +4,7 @@
 namespace Costa\User\Services;
 
 
-use App\Services\Contracts\WebContract;
+use Costa\Package\Services\Contracts\WebContract;
 use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
@@ -129,7 +129,8 @@ class UserService implements WebContract, Contracts\UserContract
         $this->repository->updateById($id, $data);
         return redirect()->route($nameRoute . '.index')->with('profile_success', __('Profile updated successfully'));
     }
-    public function updateMyPassword($id, $password, $nameRoute)
+
+    public function updateMyPassword($id, $password, $nameRoute): RedirectResponse
     {
         $this->repository->updateById($id, [
             'password' => Hash::make($password),
