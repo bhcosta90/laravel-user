@@ -18,7 +18,7 @@
             <p><strong>{{ __('Nome') }}: </strong>{{ $obj->name }}</p>
             <p><strong>{{ __('E-mail') }}: </strong>{{ $obj->email }}</p>
 
-            @if(auth()->user()->can(config('costa_user.user.destroy')))
+            @if(auth()->user()->can(config('costa_user.permissions.user.destroy')))
                 <hr/>
 
                 <form action="{{route($route_name . '.destroy', $obj->id)}}" method="POST">
