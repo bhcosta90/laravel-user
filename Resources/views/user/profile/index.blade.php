@@ -1,5 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
+@extends('layouts.app')
+@section('content_header')
         <h2 class="m-0 text-dark my-2">
             {{ __('Listagem de Grupos') }}
         </h2>
@@ -7,7 +7,9 @@
         @if(Breadcrumbs::exists($route_name . '.index'))
             {{ Breadcrumbs::render($route_name . '.index') }}
         @endif
-    </x-slot>
+@endsection
+
+@section('content')
     <div class="card card-outline card-gray">
         <div class="card-header">{{__('Meus dados')}}</div>
         <div class="card-body">
@@ -69,4 +71,4 @@
         </div>
     </div>
 
-</x-app-layout>
+@endsection
