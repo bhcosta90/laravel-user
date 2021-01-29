@@ -14,8 +14,9 @@ class RoleController extends ControllerResource
     {
         $this->runPermissions();
 
-        if (config('costa_user.permission_active') == false)
+        if (config('costa_user.permission_active') == false) {
             throw new Exception(__('Favor ativar o módulo de permissão'));
+        }
     }
 
     public function service(): string
