@@ -5,11 +5,13 @@ namespace Costa\User\Services;
 
 
 use Costa\Package\Services\Contracts\WebContract;
+use Costa\User\Notification\UserSendPassword;
 use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -68,7 +70,12 @@ class UserService implements WebContract, Contracts\UserContract
         if ($data['password_updated']) {
             $data['password'] = Hash::make($data['password_updated']);
         }
-        $this->repository->updateById($id, $data);
+        $obj = $this->repository->updateById($id, $data);
+
+        if(!empty($data['send'])){
+            $this->sendPassword($obj, $data['password_updated'], false);
+        }
+
         return redirect()->route($nameRoute . '.index')
             ->withSuccess(__('Usuário editado com sucesso'));
     }
@@ -76,11 +83,19 @@ class UserService implements WebContract, Contracts\UserContract
     public function webStore($data, $nameRoute)
     {
         $this->addPasswordInArray($data);
-        $this->repository->create($data);
+        $obj = $this->repository->create($data);
+
+        if(!empty($data['send'])){
+            $this->sendPassword($obj, $data['password_old'], true);
+        }
         return redirect()->route($nameRoute . '.index')
             ->withSuccess(__('Usuário cadastrado com sucesso e a senha do usuário é: <b>:password</b>', [
                 'password' => $data['password_old'],
             ]));
+    }
+
+    public function sendPassword($obj, $password, bool $isNew): void{
+        Notification::send($obj, new UserSendPassword($password, $isNew));
     }
 
     private function addPasswordInArray(&$data)

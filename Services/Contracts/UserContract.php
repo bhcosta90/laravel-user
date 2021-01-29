@@ -19,4 +19,6 @@ interface UserContract
     public function getRoles($obj): array;
 
     public function getPermissions($obj): array;
+
+    public function sendPassword($obj, $password, bool $isNew): void;
 }

@@ -11,13 +11,11 @@ class UserSendPassword extends Notification
 {
     use Queueable;
 
-    private $email;
     private $password;
     private $isNew;
 
-    public function __construct(string $email, string $password, bool $isNew = true)
+    public function __construct(string $password, bool $isNew = true)
     {
-        $this->email = $email;
         $this->password = $password;
         $this->isNew = $isNew;
     }
@@ -42,7 +40,6 @@ class UserSendPassword extends Notification
     public function toMail($notifiable)
     {
         $password = $this->password;
-        $email = $this->email;
 
         $url = config('app.url');
         $message = $this->isNew
@@ -50,7 +47,6 @@ class UserSendPassword extends Notification
             : Lang::get('We edit the password of the user to **:password**', ['password' => $password]);
 
         return (new MailMessage)
-            ->to($email)
             ->subject(Lang::get('My Password'))
             ->line($message)
             ->action(Lang::get('Access system'), $url)
