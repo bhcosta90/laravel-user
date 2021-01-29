@@ -27,7 +27,7 @@ class UserController extends ControllerResource
 
     protected function permissions()
     {
-        return config('costa_user.permissions.role');
+        return config('costa_user.permissions.user');
     }
 
 
