@@ -64,9 +64,7 @@
                                   method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button href="{{ route($route_name . '.show', $rs->id) }}"
-                                        class="badge badge-danger" style="border:0">Deletar
-                                </button>
+                                <button class="badge badge-danger" style="border:0">Deletar</button>
                             </form>
                         @endif
                     </td>
