@@ -76,6 +76,11 @@ class UserService implements WebContract, Contracts\UserContract
             $this->sendPassword($obj, $data['password_updated'], false);
         }
 
+        $this->repository->verifySpatiePermission($data);
+
+        $obj->syncPermissions($data['permissions'] ?? []);
+        $obj->syncRoles($data['roles'] ?? []);
+
         return redirect()->route($nameRoute . '.index')
             ->withSuccess(__('Usuário editado com sucesso'));
     }
@@ -88,6 +93,12 @@ class UserService implements WebContract, Contracts\UserContract
         if(!empty($data['send'])){
             $this->sendPassword($obj, $data['password_old'], true);
         }
+
+        $this->repository->verifySpatiePermission($data);
+
+        $ret->syncPermissions($data['permissions'] ?? []);
+        $ret->syncRoles($data['roles'] ?? []);
+
         return redirect()->route($nameRoute . '.index')
             ->withSuccess(__('Usuário cadastrado com sucesso e a senha do usuário é: <b>:password</b>', [
                 'password' => $data['password_old'],
