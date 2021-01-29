@@ -9,7 +9,6 @@ use Costa\User\Repositories\Contracts\UserContract;
 use Costa\User\Repositories\UserRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
@@ -66,7 +65,7 @@ class UserService implements WebContract, Contracts\UserContract
 
     public function webUpdate($id, $data, $nameRoute)
     {
-        if($data['password_updated']){
+        if ($data['password_updated']) {
             $data['password'] = Hash::make($data['password_updated']);
         }
         $this->repository->updateById($id, $data);
@@ -84,7 +83,8 @@ class UserService implements WebContract, Contracts\UserContract
             ]));
     }
 
-    private function addPasswordInArray(&$data){
+    private function addPasswordInArray(&$data)
+    {
         $data['password'] = Hash::make($password = Str::random(10));
         $data['password_old'] = $password;
         return $data;

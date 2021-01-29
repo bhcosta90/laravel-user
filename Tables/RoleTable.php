@@ -6,7 +6,6 @@ use ErrorException;
 use Illuminate\Support\Facades\Route;
 use Okipa\LaravelTable\Abstracts\AbstractTable;
 use Okipa\LaravelTable\Table;
-use Spatie\Permission\Models\Role;
 
 class RoleTable extends AbstractTable
 {

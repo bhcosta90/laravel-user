@@ -4,14 +4,13 @@
 namespace Costa\User\Routes;
 
 
-use Costa\User\Http\Controllers\{ProfileController, UserController};
 use Illuminate\Support\Facades\Route;
 
 class CostaRoutes
 {
     public static function setRoutes()
     {
-        Route::group(['prefix' => 'user'], function(){
+        Route::group(['prefix' => 'user'], function () {
             Route::resource('user', config('costa_user.controllers.user'));
             Route::resource('role', config('costa_user.controllers.role'));
 

@@ -19,11 +19,11 @@
                 <input type="text" class="form-control" placeholder="Nome do Grupo" name="name"
                        value="{{ $filter['name'] ?? '' }}">
                 <div class="input-group">
-                        <button class="btn btn-success">Pesquisar</button>
-                    </div>
+                    <button class="btn btn-success">Pesquisar</button>
                 </div>
-            </form>
         </div>
+        </form>
+    </div>
     </div>
     <div class="card">
         <table class="table table-striped my-0 table-hover">

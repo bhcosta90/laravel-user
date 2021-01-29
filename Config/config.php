@@ -1,37 +1,53 @@
 <?php
 
 
+use Costa\User\Entities\User;
+use Costa\User\Forms\Profile\PasswordForm;
+use Costa\User\Forms\Profile\ProfileForm;
+use Costa\User\Forms\RoleForm;
+use Costa\User\Forms\UserForm;
+use Costa\User\Http\Controllers\ProfileController;
+use Costa\User\Http\Controllers\RoleController;
+use Costa\User\Http\Controllers\UserController;
+use Costa\User\Http\Resources\RoleResource;
+use Costa\User\Http\Resources\UserResource;
+use Costa\User\Repositories\RoleRepository;
+use Costa\User\Repositories\UserRepository;
+use Costa\User\Services\RoleService;
+use Costa\User\Services\UserService;
+use Spatie\Permission\Models\Role;
+
 return [
     'repositories' => [
-        'user' => \Costa\User\Repositories\UserRepository::class,
-        'role' => \Costa\User\Repositories\RoleRepository::class,
+        'user' => UserRepository::class,
+        'role' => RoleRepository::class,
     ],
     'models' => [
-        'user' => \Costa\User\Entities\User::class,
-        'role' => \Spatie\Permission\Models\Role::class,
+        'user' => User::class,
+        'role' => Role::class,
     ],
     'services' => [
-        'user' => \Costa\User\Services\UserService::class,
-        'role' => \Costa\User\Services\RoleService::class,
+        'user' => UserService::class,
+        'role' => RoleService::class,
     ],
     'resources' => [
-        'user' => \Costa\User\Http\Resources\UserResource::class,
-        'role' => \Costa\User\Http\Resources\RoleResource::class,
+        'user' => UserResource::class,
+        'role' => RoleResource::class,
     ],
     'forms' => [
-        'user' => \Costa\User\Forms\UserForm::class,
-        'role' => \Costa\User\Forms\RoleForm::class,
-        'password' => \Costa\User\Forms\Profile\PasswordForm::class,
-        'profile' => \Costa\User\Forms\Profile\ProfileForm::class
+        'user' => UserForm::class,
+        'role' => RoleForm::class,
+        'password' => PasswordForm::class,
+        'profile' => ProfileForm::class
     ],
     'router' => [
         'user' => 'id',
         'role' => 'id',
     ],
     'controllers' => [
-        'user' => \Costa\User\Http\Controllers\UserController::class,
-        'role' => \Costa\User\Http\Controllers\RoleController::class,
-        'profile' => \Costa\User\Http\Controllers\ProfileController::class
+        'user' => UserController::class,
+        'role' => RoleController::class,
+        'profile' => ProfileController::class
     ],
     'permissions' => [
         'user' => [

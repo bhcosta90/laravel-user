@@ -2,7 +2,6 @@
 
 namespace Costa\User\Forms;
 
-use Costa\User\Services\UserService;
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
 

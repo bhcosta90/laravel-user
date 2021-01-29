@@ -11,6 +11,56 @@ class ProfileController extends BaseControllerLaravel
 {
     use BaseController;
 
+    public function store(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create($this->form());
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getFieldValues();
+
+        $service = app($this->service());
+
+        $objUser = auth()->user();
+
+        if ($service->loginFailed($data['password'], $objUser->password)) {
+            return redirect()
+                ->route($this->getNameRoute() . '.index')
+                ->with('profile_error', __('Credentials incorrect'));
+        }
+
+        unset($data['password']);
+        return $service->updateMyProfile($objUser->id, $data, $this->getNameRoute());
+    }
+
+    protected function service()
+    {
+        return config('costa_user.services.user');
+    }
+
+    public function password(FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create(config('costa_user.forms.password'));
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $data = $form->getFieldValues();
+
+        $service = app($this->service());
+
+        $objUser = auth()->user();
+
+        if ($service->loginFailed($data['password_actual'], $objUser->password)) {
+            return redirect()
+                ->route($this->getNameRoute() . '.index')
+                ->with('password_error', __('Credentials incorrect'));
+        }
+
+        return $service->updateMyPassword($objUser->id, $data['password_new'], $this->getNameRoute());
+    }
+
     protected function index(Request $request)
     {
         $model = $request->user();
@@ -51,55 +101,6 @@ class ProfileController extends BaseControllerLaravel
             $this->getNameView(),
             compact('form', 'formPassword') + ['route_name' => $this->getNameRoute()]
         );
-    }
-
-    public function store(FormBuilder $formBuilder){
-        $form = $formBuilder->create($this->form());
-        if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
-        }
-
-        $data = $form->getFieldValues();
-
-        $service = app($this->service());
-
-        $objUser = auth()->user();
-
-        if($service->loginFailed($data['password'], $objUser->password)){
-            return redirect()
-                ->route($this->getNameRoute() . '.index')
-                ->with('profile_error', __('Credentials incorrect'));
-        }
-
-        unset($data['password']);
-        return $service->updateMyProfile($objUser->id, $data, $this->getNameRoute());
-    }
-
-    public function password(FormBuilder $formBuilder)
-    {
-        $form = $formBuilder->create(config('costa_user.forms.password'));
-        if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
-        }
-
-        $data = $form->getFieldValues();
-
-        $service = app($this->service());
-
-        $objUser = auth()->user();
-
-        if($service->loginFailed($data['password_actual'], $objUser->password)){
-            return redirect()
-                ->route($this->getNameRoute() . '.index')
-                ->with('password_error', __('Credentials incorrect'));
-        }
-
-        return $service->updateMyPassword($objUser->id, $data['password_new'], $this->getNameRoute());
-    }
-
-    protected function service()
-    {
-        return config('costa_user.services.user');
     }
 
     public function form(): string

@@ -2,8 +2,9 @@
 
 namespace Costa\User\Providers;
 
-use Illuminate\Support\Facades\Gate;
-use Costa\User\Repositories\Contracts\{UserContract, RoleContract};
+use Config;
+use Illuminate\Foundation\AliasLoader;
+use Costa\User\Repositories\Contracts\{RoleContract, UserContract};
 use Costa\User\Routes\CostaRoutesFacade;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
@@ -35,17 +36,19 @@ class UserServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register translations.
      *
      * @return void
      */
-    public function register()
+    public function registerTranslations()
     {
+        $langPath = resource_path('lang/vendor/' . $this->moduleNameLower);
 
-        $this->app->register(RouteServiceProvider::class);
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-
-        $loader->alias('CostaRoutes', CostaRoutesFacade::class);
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
+        } else {
+            $this->loadTranslationsFrom(__DIR__ . "/../Resources/lang", $this->moduleNameLower);
+        }
     }
 
     /**
@@ -56,10 +59,10 @@ class UserServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__."/../Config/config.php" => config_path($this->moduleNameLower . '.php'),
+            __DIR__ . "/../Config/config.php" => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__."/../Config/config.php", $this->moduleNameLower
+            __DIR__ . "/../Config/config.php", $this->moduleNameLower
         );
     }
 
@@ -81,20 +84,51 @@ class UserServiceProvider extends ServiceProvider
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
 
+    private function getPublishableViewPaths(): array
+    {
+        $paths = [];
+        foreach (Config::get('view.paths') as $path) {
+            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
+                $paths[] = $path . '/modules/' . $this->moduleNameLower;
+            }
+        }
+        return $paths;
+    }
+
     /**
-     * Register translations.
+     * Register the service provider.
      *
      * @return void
      */
-    public function registerTranslations()
+    public function register()
     {
-        $langPath = resource_path('lang/vendor/' . $this->moduleNameLower);
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-        } else {
-            $this->loadTranslationsFrom(__DIR__ . "/../Resources/lang", $this->moduleNameLower);
-        }
+        $this->app->register(RouteServiceProvider::class);
+        $loader = AliasLoader::getInstance();
+
+        $loader->alias('CostaRoutes', CostaRoutesFacade::class);
+
+        $defaultInput = [
+            'radio' => [
+                'wrapper_class'   => 'form-group icheck-primary',
+                'choice_options' => [
+                    'wrapper' => ['class' => 'form-radio'],
+                    'label' => ['class' => 'form-radio-label'],
+                    'field' => ['class' => 'form-radio-field'],
+                ],
+            ],
+            'checkbox' => [
+                'wrapper_class'   => 'form-group icheck-primary',
+                'choice_options' => [
+                    'wrapper' => ['class' => 'form-radio'],
+                    'label' => ['class' => 'form-radio-label'],
+                    'field' => ['class' => 'form-radio-field'],
+                ],
+            ]
+        ];
+
+        config()->set('laravel-form-builder.defaults.radio', $defaultInput['radio']);
+        config()->set('laravel-form-builder.defaults.checkbox', $defaultInput['checkbox']);
     }
 
     /**
@@ -105,16 +139,5 @@ class UserServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }
