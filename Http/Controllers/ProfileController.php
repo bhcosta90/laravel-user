@@ -97,13 +97,6 @@ class ProfileController extends BaseControllerLaravel
         return $service->updateMyPassword($objUser->id, $data['password_new'], $this->getNameRoute());
     }
 
-
-    protected function prefixNameView(): string
-    {
-        return 'costa_user::';
-    }
-
-
     protected function service()
     {
         return config('costa_user.services.user');
