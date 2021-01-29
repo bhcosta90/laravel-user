@@ -66,5 +66,5 @@ return [
         ],
     ],
     'send_email' => true,
-    'permission_active' => true,
+    'permission_active' => false,
 ];
