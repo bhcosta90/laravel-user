@@ -72,7 +72,7 @@ class UserService implements WebContract, Contracts\UserContract
         }
         $obj = $this->repository->updateById($this->find($id)->id, $data);
 
-        if(!empty($data['send'])){
+        if (!empty($data['send'])) {
             $this->sendPassword($obj, $data['password_updated'], false);
         }
 
@@ -90,7 +90,7 @@ class UserService implements WebContract, Contracts\UserContract
         $this->addPasswordInArray($data);
         $obj = $this->repository->create($data);
 
-        if(!empty($data['send'])){
+        if (!empty($data['send'])) {
             $this->sendPassword($obj, $data['password_old'], true);
         }
 
@@ -105,8 +105,11 @@ class UserService implements WebContract, Contracts\UserContract
             ]));
     }
 
-    public function sendPassword($obj, $password, bool $isNew): void{
-        Notification::send($obj, new UserSendPassword($password, $isNew));
+    public function sendPassword($obj, $password, bool $isNew): void
+    {
+        if ($password) {
+            Notification::send($obj, new UserSendPassword($password, $isNew));
+        }
     }
 
     private function addPasswordInArray(&$data)
