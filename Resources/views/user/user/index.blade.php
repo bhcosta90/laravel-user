@@ -1,19 +1,19 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="m-0 text-dark my-2">
-            @if(auth()->user()->can(config('costa_user.user.create')))
-                <a href="{{route($route_name . '.create')}}" class="btn btn-success">
-                    <i class="fa fa-plus"></i>
-                </a>
-            @endif
-            {{ __('Listagem de Usuários') }}
-        </h2>
-
-        @if(Breadcrumbs::exists($route_name . '.index'))
-            {{ Breadcrumbs::render($route_name . '.index') }}
+@extends('layouts.app')
+@section('content_header')
+    <h2 class="m-0 text-dark my-2">
+        @if(auth()->user()->can(config('costa_user.user.create')))
+            <a href="{{route($route_name . '.create')}}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+            </a>
         @endif
-    </x-slot>
+        {{ __('Listagem de Usuários') }}
+    </h2>
 
+    @if(Breadcrumbs::exists($route_name . '.index'))
+        {{ Breadcrumbs::render($route_name . '.index') }}
+    @endif
+@endsection
+@section('content')
     <div class="card card-outline card-gray">
         <div class="card-header">Relatório</div>
         <div class="card-body">
@@ -67,4 +67,4 @@
         </table>
         <x-paginator :data="$data">{!! $data->links() !!}</x-paginator>
     </div>
-</x-app-layout>
+@endsection

@@ -10,14 +10,13 @@ class CostaRoutes
 {
     public static function setRoutes()
     {
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user', 'middleware' =>  'auth'], function () {
             Route::resource('user', config('costa_user.controllers.user'));
             Route::resource('role', config('costa_user.controllers.role'));
 
-            Route::resource('profile', config('costa_user.controllers.profile'))->only('index', 'store')
-                ->middleware('auth');
+            Route::resource('profile', config('costa_user.controllers.profile'))->only('index', 'store');
+            Route::post('/profile/password', [config('costa_user.controllers.profile'), 'password'])->name('profile.password');
         });
 
-        Route::post('/profile/password', [config('costa_user.controllers.profile'), 'password'])->name('profile.password');
     }
 }
