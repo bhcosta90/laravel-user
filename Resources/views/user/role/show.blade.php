@@ -1,6 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="m-0 text-dark my-2">
+@extends('layouts.app')
+@section('content_header')
+    <h2 class="m-0 text-dark my-2">
             {{ __('Usuário: ') }}{{ $obj->name }}
         </h2>
 
@@ -8,7 +8,8 @@
             {{ Breadcrumbs::render($route_name . '.show', $obj) }}
         @endif
 
-    </x-slot>
+@endsection
+@section('content')
 
     <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Grupo: ') }}{{ $obj->name }}</div>
@@ -27,4 +28,4 @@
             @endif
         </div>
     </div>
-</x-app-layout>
+@endsection

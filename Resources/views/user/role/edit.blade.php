@@ -1,6 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="m-0 text-dark my-2">
+@extends('layouts.app')
+@section('content_header')
+    <h2 class="m-0 text-dark my-2">
             {{ __('Editar Grupo: ') }} {{ $form->getModel()->name }}
         </h2>
 
@@ -8,7 +8,8 @@
             {{ Breadcrumbs::render($route_name . '.edit', $form->getModel()) }}
         @endif
 
-    </x-slot>
+@endsection
+@section('content')
 
     <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Editar Grupo: ') }} {{ $form->getModel()->name }}</div>
@@ -16,4 +17,4 @@
             {!! form($form) !!}
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -1,5 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
+@extends('layouts.app')
+@section('content_header')
         <h2 class="m-0 text-dark my-2">
             {{ __('Cadastro de Grupo') }}
         </h2>
@@ -8,7 +8,8 @@
             {{ Breadcrumbs::render($route_name . '.create') }}
         @endif
 
-    </x-slot>
+@endsection
+@section('content')
 
     <div class="card card-outline card-gray">
         <div class="card-header">Cadastrar Grupo</div>
@@ -16,4 +17,4 @@
             {!! form($form) !!}
         </div>
     </div>
-</x-app-layout>
+@endsection

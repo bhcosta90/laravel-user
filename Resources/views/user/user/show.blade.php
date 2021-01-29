@@ -1,14 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="m-0 text-dark my-2">
-            {{ __('Usuário: ') }}{{ $obj->name }}
-        </h2>
+@extends('layouts.app')
+@section('content_header')
+    <h2 class="m-0 text-dark my-2">
+        {{ __('Usuário: ') }}{{ $obj->name }}
+    </h2>
 
-        @if(Breadcrumbs::exists($route_name . '.show'))
-            {{ Breadcrumbs::render('admin.users.users.show', $obj) }}
-        @endif
+    @if(Breadcrumbs::exists($route_name . '.show'))
+        {{ Breadcrumbs::render('admin.users.users.show', $obj) }}
+    @endif
 
-    </x-slot>
+@endsection
+@section('content')
 
     <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Usuário: ') }}{{ $obj->name }}</div>
@@ -28,4 +29,4 @@
             @endif
         </div>
     </div>
-</x-app-layout>
+@endsection

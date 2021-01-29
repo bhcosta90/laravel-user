@@ -54,11 +54,13 @@
                         @endif
 
                         @if(auth()->user()->can(config('costa_user.user.destroy')))
-                            <form style="display: inline-block" action="{{route($route_name . '.destroy', $rs->id)}}" method="POST">
+                            <form style="display: inline-block" action="{{route($route_name . '.destroy', $rs->id)}}"
+                                  method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button href="{{ route($route_name . '.show', $rs->id) }}"
-                                   class="badge badge-danger">Deletar</button>
+                                        class="badge badge-danger" style="border:0">Deletar
+                                </button>
                             </form>
                         @endif
                     </td>
