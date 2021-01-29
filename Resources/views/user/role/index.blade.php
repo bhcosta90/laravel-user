@@ -14,7 +14,7 @@
         @endif
     </x-slot>
 
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">Relatório</div>
         <div class="card-body">
             <form action="{{ route($route_name . '.index') }}" class="form form-inline" method="get">
@@ -28,7 +28,7 @@
             </form>
         </div>
     </div>
-    <div class="card">
+    <div class="card card-outline card-gray">
         <table class="table table-striped my-0 table-hover">
             <thead>
             <th style="width: 1px">#</th>

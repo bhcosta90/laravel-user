@@ -10,7 +10,7 @@
 
     </x-slot>
 
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">Cadastrar Usuário</div>
         <div class="card-body">
             {!! form($form) !!}

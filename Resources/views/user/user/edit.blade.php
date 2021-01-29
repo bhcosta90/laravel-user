@@ -10,7 +10,7 @@
 
     </x-slot>
 
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Editar Usuário: ') }} {{ $form->getModel()->name }}</div>
         <div class="card-body">
             {!! form($form) !!}

@@ -8,7 +8,7 @@
             {{ Breadcrumbs::render($route_name . '.index') }}
         @endif
     </x-slot>
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">{{__('Meus dados')}}</div>
         <div class="card-body">
             {!! form_start($form) !!}
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">{{__('Alterar minha senha')}}</div>
         <div class="card-body">
             {!! form_start($formPassword) !!}

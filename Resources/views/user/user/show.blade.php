@@ -10,7 +10,7 @@
 
     </x-slot>
 
-    <div class="card">
+    <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Usuário: ') }}{{ $obj->name }}</div>
         <div class="card-body">
             <p><strong>{{ __('ID') }}: </strong>{{ $obj->id }}</p>
