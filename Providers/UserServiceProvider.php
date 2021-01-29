@@ -112,6 +112,14 @@ class UserServiceProvider extends ServiceProvider
         $loader->alias('CostaRoutes', CostaRoutesFacade::class);
 
         $defaultInput = [
+            'wrapper_class'       => 'form-group',
+            'wrapper_error_class' => 'has-error',
+            'label_class'         => 'control-label',
+            'field_class'         => 'form-control',
+            'field_error_class'   => '',
+            'help_block_class'    => 'help-block',
+            'error_class'         => 'text-danger',
+            'required_class'      => 'required',
             'radio' => [
                 'wrapper_class'   => 'form-group icheck-primary',
                 'choice_options' => [
@@ -130,8 +138,7 @@ class UserServiceProvider extends ServiceProvider
             ]
         ];
 
-        config()->set('laravel-form-builder.defaults.radio', $defaultInput['radio']);
-        config()->set('laravel-form-builder.defaults.checkbox', $defaultInput['checkbox']);
+        config()->set('laravel-form-builder.defaults', $defaultInput);
 
     }
 

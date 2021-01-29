@@ -17,13 +17,15 @@
             <p><strong>{{ __('Nome') }}: </strong>{{ $obj->name }}</p>
             <p><strong>{{ __('E-mail') }}: </strong>{{ $obj->email }}</p>
 
-            <hr/>
+            @if(auth()->user()->can(config('costa_user.user.destroy')))
+                <hr/>
 
-            <form action="{{route($route_name . '.destroy', $obj->id)}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger">{{ __('Deletar') }}</button>
-            </form>
+                <form action="{{route($route_name . '.destroy', $obj->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">{{ __('Deletar') }}</button>
+                </form>
+            @endif
         </div>
     </div>
 </x-app-layout>
