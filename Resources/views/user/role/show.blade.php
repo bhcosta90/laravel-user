@@ -18,9 +18,10 @@
             <p><strong>{{ __('Nome') }}: </strong>{{ $obj->name }}</p>
 
             @if(auth()->user()->can(config('costa_user.permissions.role.destroy')))
+                @php $key = config('costa_user.router.role'); @endphp
                 <hr/>
 
-                <form action="{{route($route_name . '.destroy', $obj->id)}}" method="POST">
+                <form action="{{route($route_name . '.destroy', $obj->$key)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger">{{ __('Deletar') }}</button>
