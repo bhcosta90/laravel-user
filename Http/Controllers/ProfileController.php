@@ -2,12 +2,12 @@
 
 namespace Costa\User\Http\Controllers;
 
+use Illuminate\Routing\Controller as BaseControllerLaravel;
 use Costa\Package\Traits\Controller\BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Kris\LaravelFormBuilder\FormBuilder;
 
-class ProfileController extends Controller
+class ProfileController extends BaseControllerLaravel
 {
     use BaseController;
 
