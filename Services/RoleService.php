@@ -54,7 +54,7 @@ class RoleService implements WebContract
 
     public function webUpdate($id, $data, $nameRoute)
     {
-        $obj = $this->roleContract->updateById($id, $data);
+        $obj = $this->roleContract->updateById($this->find($id)->id, $data);
         $obj->syncPermissions($data['permissions'] ?? []);
         return redirect()->route($nameRoute . ".index");
     }
