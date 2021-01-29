@@ -70,7 +70,7 @@ class UserService implements WebContract, Contracts\UserContract
         if ($data['password_updated'] && self::canUpdatePassword()) {
             $data['password'] = Hash::make($data['password_updated']);
         }
-        $obj = $this->repository->updateById($id, $data);
+        $obj = $this->repository->updateById($this->find($id)->id, $data);
 
         if(!empty($data['send'])){
             $this->sendPassword($obj, $data['password_updated'], false);
