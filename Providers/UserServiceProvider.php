@@ -3,7 +3,6 @@
 namespace Costa\User\Providers;
 
 use Config;
-use Costa\User\Routes\CostaRoutes;
 use Costa\User\View\Components\PaginatorComponent;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
@@ -108,10 +107,6 @@ class UserServiceProvider extends ServiceProvider
     {
 
         $this->app->register(RouteServiceProvider::class);
-        $loader = AliasLoader::getInstance();
-
-        $loader->alias('CostaRoutes', CostaRoutesFacade::class);
-
         $defaultInput = [
             'wrapper_class'       => 'form-group',
             'wrapper_error_class' => 'has-error',
