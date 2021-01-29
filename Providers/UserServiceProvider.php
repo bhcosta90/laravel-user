@@ -3,7 +3,9 @@
 namespace Costa\User\Providers;
 
 use Config;
+use Costa\User\View\Components\PaginatorComponent;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Blade;
 use Costa\User\Repositories\Contracts\{RoleContract, UserContract};
 use Costa\User\Routes\CostaRoutesFacade;
 use Illuminate\Database\Eloquent\Factory;
@@ -31,6 +33,7 @@ class UserServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        Blade::component('paginator', PaginatorComponent::class);
         $this->app->bind(UserContract::class, config('costa_user.repositories.user'));
         $this->app->bind(RoleContract::class, config('costa_user.repositories.role'));
     }
@@ -129,6 +132,7 @@ class UserServiceProvider extends ServiceProvider
 
         config()->set('laravel-form-builder.defaults.radio', $defaultInput['radio']);
         config()->set('laravel-form-builder.defaults.checkbox', $defaultInput['checkbox']);
+
     }
 
     /**

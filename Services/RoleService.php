@@ -46,9 +46,10 @@ class RoleService implements WebContract
         ];
     }
 
-    public function webDestroy($id)
+    public function webDestroy($id, $nameRoute)
     {
-        // TODO: Implement webDestroy() method.
+        $this->roleContract->deleteById($id);
+        return redirect()->route($nameRoute . ".index");
     }
 
     public function webUpdate($id, $data, $nameRoute)

@@ -50,6 +50,6 @@
                 </tr>
             @endforeach
         </table>
-        <div class="card-footer">{!! $data->links() !!}</div>
+        <x-paginator :data="$data">{!! $data->links() !!}</x-paginator>
     </div>
 </x-app-layout>
