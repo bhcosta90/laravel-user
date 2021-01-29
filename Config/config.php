@@ -1,7 +1,6 @@
 <?php
 
 
-use Costa\User\Entities\User;
 use Costa\User\Forms\Profile\PasswordForm;
 use Costa\User\Forms\Profile\ProfileForm;
 use Costa\User\Forms\RoleForm;
