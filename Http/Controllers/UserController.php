@@ -4,9 +4,12 @@ namespace Costa\User\Http\Controllers;
 
 
 use Costa\Package\Abstracts\ControllerResource;
+use Costa\Package\Traits\Controller\HasPermission;
 
 class UserController extends ControllerResource
 {
+    use HasPermission;
+
     public function service(): string
     {
         return config('costa_user.services.user');
@@ -20,6 +23,11 @@ class UserController extends ControllerResource
     protected function getNameView(): string
     {
         return 'costa_user::user.user.' . $this->getActionName();
+    }
+
+    protected function permissions()
+    {
+        return config('costa_user.permissions.role');
     }
 
 
