@@ -55,12 +55,12 @@ class UserService implements WebContract, Contracts\UserContract
 
     public function find($id)
     {
-        return $this->repository->getById($id);
+        return $this->repository->getByColumn($id, config('costa_user.router.user'));
     }
 
     public function webDestroy($id, $nameRoute = null)
     {
-        $this->repository->deleteById($id);
+        $this->repository->where(config('costa_user.router.user'), $id)->delete($id);
         return redirect()->route($nameRoute . '.index')
             ->withSuccess(__('Usuário deletado com sucesso'));
     }
