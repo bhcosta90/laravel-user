@@ -3,6 +3,7 @@
 namespace Costa\User\Providers;
 
 use Config;
+use Costa\User\Routes\CostaRoutes;
 use Costa\User\View\Components\PaginatorComponent;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
@@ -140,7 +141,7 @@ class UserServiceProvider extends ServiceProvider
 
         config()->set('laravel-form-builder.defaults', $defaultInput);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('CostaRoutesFacade', CostaRoutes::class);
+        $loader->alias('CostaRoutesFacade', CostaRoutesFacade::class);
     }
 
     /**
