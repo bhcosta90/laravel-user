@@ -22,7 +22,7 @@ class UserController extends ControllerResource
 
     protected function getNameView(): string
     {
-        return 'costa_user::user.user.' . $this->getActionName();
+        return 'costa_user::user.user.';
     }
 
     protected function permissions()

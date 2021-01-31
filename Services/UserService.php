@@ -35,21 +35,20 @@ class UserService implements WebContract, Contracts\UserContract
         $this->request = $request;
     }
 
-    public function webIndex($filter): array
+    public function index($params): array
     {
         $this->repository->orderBy('name', 'asc');
 
-        if (isset($filter['name'])) {
-            $this->repository->where('name', $filter['name']);
+        if (isset($params['name'])) {
+            $this->repository->where('name', $params['name']);
         }
 
-        if (isset($filter['email'])) {
-            $this->repository->where('email', $filter['email']);
+        if (isset($params['email'])) {
+            $this->repository->where('email', $params['email']);
         }
 
         return [
             'data' => $this->repository->paginate(),
-            'filter' => $filter,
         ];
     }
 
@@ -58,14 +57,12 @@ class UserService implements WebContract, Contracts\UserContract
         return $this->repository->getByColumn($id, config('costa_user.router.user'));
     }
 
-    public function webDestroy($id, $nameRoute = null)
+    public function destroy($id)
     {
         $this->repository->where(config('costa_user.router.user'), $id)->delete($id);
-        return redirect()->route($nameRoute . '.index')
-            ->withSuccess(__('Usuário deletado com sucesso'));
     }
 
-    public function webUpdate($id, $data, $nameRoute)
+    public function update($id, $data)
     {
         if ($data['password_updated'] && self::canUpdatePassword()) {
             $data['password'] = Hash::make($data['password_updated']);
@@ -80,12 +77,9 @@ class UserService implements WebContract, Contracts\UserContract
 
         $obj->syncPermissions($data['permissions'] ?? []);
         $obj->syncRoles($data['roles'] ?? []);
-
-        return redirect()->route($nameRoute . '.index')
-            ->withSuccess(__('Usuário editado com sucesso'));
     }
 
-    public function webStore($data, $nameRoute)
+    public function store($data)
     {
         $this->addPasswordInArray($data);
         $obj = $this->repository->create($data);
@@ -96,13 +90,8 @@ class UserService implements WebContract, Contracts\UserContract
 
         $this->repository->verifySpatiePermission($data);
 
-        $ret->syncPermissions($data['permissions'] ?? []);
-        $ret->syncRoles($data['roles'] ?? []);
-
-        return redirect()->route($nameRoute . '.index')
-            ->withSuccess(__('Usuário cadastrado com sucesso e a senha do usuário é: <b>:password</b>', [
-                'password' => $data['password_old'],
-            ]));
+        $obj->syncPermissions($data['permissions'] ?? []);
+        $obj->syncRoles($data['roles'] ?? []);
     }
 
     public function sendPassword($obj, $password, bool $isNew): void

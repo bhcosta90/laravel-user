@@ -33,37 +33,34 @@ class RoleService implements WebContract
         return $this->roleContract->getByColumn($id, config('costa_user.router.role'));
     }
 
-    public function webIndex($filter): array
+    public function index($params): array
     {
         $this->roleContract->orderBy('name', 'asc');
-        if (isset($filter['name'])) {
-            $this->roleContract->where('name', $filter['name']);
+        if (isset($params['name'])) {
+            $this->roleContract->where('name', $params['name']);
         }
 
         return [
             'data' => $this->roleContract->paginate(),
-            'filter' => $filter,
         ];
     }
 
-    public function webDestroy($id, $nameRoute)
+    public function destroy($id)
     {
         $this->roleContract->where(config('costa_user.router.role'), $id)->delete($id);
         return redirect()->route($nameRoute . ".index");
     }
 
-    public function webUpdate($id, $data, $nameRoute)
+    public function update($id, $data)
     {
         $obj = $this->roleContract->updateById($this->find($id)->id, $data);
         $obj->syncPermissions($data['permissions'] ?? []);
-        return redirect()->route($nameRoute . ".index");
     }
 
-    public function webStore($data, $nameRoute)
+    public function store($data)
     {
         $obj = $this->roleContract->create($data);
         $obj->syncPermissions($data['permissions'] ?? []);
-        return redirect()->route($nameRoute . ".index");
     }
 
 

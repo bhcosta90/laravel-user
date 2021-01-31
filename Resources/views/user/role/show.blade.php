@@ -14,7 +14,9 @@
     <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Grupo: ') }}{{ $obj->name }}</div>
         <div class="card-body">
-            <p><strong>{{ __('ID') }}: </strong>{{ $obj->id }}</p>
+            @if(config('costa_user.router.role') == 'id')
+                <p><strong>{{ __('ID') }}: </strong>{{ $obj->id }}</p>
+            @endif
             <p><strong>{{ __('Nome') }}: </strong>{{ $obj->name }}</p>
 
             @if(auth()->user()->can(config('costa_user.permissions.role.destroy')))

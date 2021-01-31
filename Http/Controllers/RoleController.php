@@ -31,7 +31,7 @@ class RoleController extends ControllerResource
 
     protected function getNameView(): string
     {
-        return 'costa_user::user.role.' . $this->getActionName();
+        return 'costa_user::user.role.';
     }
 
     protected function permissions()

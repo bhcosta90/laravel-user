@@ -14,7 +14,9 @@
     <div class="card card-outline card-gray">
         <div class="card-header">{{ __('Usuário: ') }}{{ $obj->name }}</div>
         <div class="card-body">
-            <p><strong>{{ __('ID') }}: </strong>{{ $obj->id }}</p>
+            @if(config('costa_user.router.user') == 'id')
+                <p><strong>{{ __('ID') }}: </strong>{{ $obj->id }}</p>
+            @endif
             <p><strong>{{ __('Nome') }}: </strong>{{ $obj->name }}</p>
             <p><strong>{{ __('E-mail') }}: </strong>{{ $obj->email }}</p>
 
