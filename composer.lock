@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "2487e324c9b20bb1c87196268fda5983cf87ec1e"
+                "reference": "db1ed0dffbe1cbce453729810dd21c1358c09bef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/2487e324c9b20bb1c87196268fda5983cf87ec1e",
-                "reference": "2487e324c9b20bb1c87196268fda5983cf87ec1e",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/db1ed0dffbe1cbce453729810dd21c1358c09bef",
+                "reference": "db1ed0dffbe1cbce453729810dd21c1358c09bef",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "issues": "https://github.com/bhcosta90/laravel-package/issues",
                 "source": "https://github.com/bhcosta90/laravel-package/tree/master"
             },
-            "time": "2021-01-31T14:58:51+00:00"
+            "time": "2021-02-01T16:53:44+00:00"
         },
         {
             "name": "brick/math",
@@ -7035,19 +7035,20 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.10.1",
+            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "b90f0a60b796d44a6c901652432d0b9483edc07f"
+                "reference": "7db9aef5a8f5809ce22545f40ad083a1acfa5703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/b90f0a60b796d44a6c901652432d0b9483edc07f",
-                "reference": "b90f0a60b796d44a6c901652432d0b9483edc07f",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/7db9aef5a8f5809ce22545f40ad083a1acfa5703",
+                "reference": "7db9aef5a8f5809ce22545f40ad083a1acfa5703",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "illuminate/contracts": "^7.20|^8.0",
                 "illuminate/database": "^7.20|^8.13",
                 "illuminate/queue": "^7.20|^8.13",
@@ -7059,7 +7060,6 @@
                 "zbateson/mail-mime-parser": "^1.3.1"
             },
             "require-dev": {
-                "ext-json": "*",
                 "facade/ignition": "^2.5",
                 "laravel/framework": "^7.20|^8.19",
                 "orchestra/testbench-core": "^5.0|^6.0",
@@ -7099,7 +7099,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.10.1"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.11.1"
             },
             "funding": [
                 {
@@ -7111,7 +7111,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-01-31T11:23:11+00:00"
+            "time": "2021-02-01T16:39:18+00:00"
         },
         {
             "name": "spatie/macroable",
