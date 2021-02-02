@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "a168fca795bffea9135b5b711a316e0f8672fb04"
+                "reference": "9a7d39a0c7f8d478800f80b0171d8487e7905240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/a168fca795bffea9135b5b711a316e0f8672fb04",
-                "reference": "a168fca795bffea9135b5b711a316e0f8672fb04",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/9a7d39a0c7f8d478800f80b0171d8487e7905240",
+                "reference": "9a7d39a0c7f8d478800f80b0171d8487e7905240",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "issues": "https://github.com/bhcosta90/laravel-package/issues",
                 "source": "https://github.com/bhcosta90/laravel-package/tree/master"
             },
-            "time": "2021-02-02T15:44:10+00:00"
+            "time": "2021-02-02T18:12:55+00:00"
         },
         {
             "name": "brick/math",
@@ -7165,16 +7165,16 @@
         },
         {
             "name": "spatie/ray",
-            "version": "1.17.2",
+            "version": "1.17.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ray.git",
-                "reference": "7f09e274aca0dac12835d5705ef6fd97d538cfb9"
+                "reference": "99f75219c31c531c2493a3aae743d1e305fffaae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ray/zipball/7f09e274aca0dac12835d5705ef6fd97d538cfb9",
-                "reference": "7f09e274aca0dac12835d5705ef6fd97d538cfb9",
+                "url": "https://api.github.com/repos/spatie/ray/zipball/99f75219c31c531c2493a3aae743d1e305fffaae",
+                "reference": "99f75219c31c531c2493a3aae743d1e305fffaae",
                 "shasum": ""
             },
             "require": {
@@ -7224,7 +7224,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/ray/issues",
-                "source": "https://github.com/spatie/ray/tree/1.17.2"
+                "source": "https://github.com/spatie/ray/tree/1.17.3"
             },
             "funding": [
                 {
@@ -7236,7 +7236,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2021-02-02T07:40:31+00:00"
+            "time": "2021-02-02T16:05:42+00:00"
         },
         {
             "name": "symfony/stopwatch",
