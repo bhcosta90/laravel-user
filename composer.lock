@@ -11,7 +11,9 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
+
                 "url": "https://github.com/bhcosta90/laravel-package.git",
+
                 "reference": "ecbcf19b10a49bc75c1e451f136ab920f7cdf5d1"
             },
             "dist": {
