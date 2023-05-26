@@ -39,6 +39,7 @@ return [
     ],
     'role' => [
         'title' => 'Grupo de acesso',
+        'filter' => 'Filtrar grupo de acesso',
         'name' => "Nome",
         'new' => 'Cadastrar grupo de acesso',
         'edit' => 'Editar grupo de acesso',
