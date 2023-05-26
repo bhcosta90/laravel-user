@@ -28,7 +28,7 @@ class LaravelUserServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         Blade::component('permission', PermissionComponent::class);
     }
 
@@ -50,10 +50,11 @@ class LaravelUserServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
+            __DIR__ . '/../Config/config.php' => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            __DIR__ . '/../Config/config.php',
+            $this->moduleNameLower
         );
     }
 
@@ -66,7 +67,7 @@ class LaravelUserServiceProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/vendor/' . $this->moduleNameLower);
 
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -88,8 +89,8 @@ class LaravelUserServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
             $this->loadJsonTranslationsFrom($langPath);
         } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'Resources/lang'));
+            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', $this->moduleNameLower);
+            $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/lang');
         }
     }
 
