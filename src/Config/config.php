@@ -1,7 +1,9 @@
 <?php
 
+use BRCas\LaravelUser\Forms\Profile\ProfileForm;
 use BRCas\LaravelUser\Forms\UserCreateForm;
 use BRCas\LaravelUser\Forms\UserEditForm;
+use BRCas\LaravelUser\Services\ProfileService;
 use BRCas\LaravelUser\Services\UserService;
 use Illuminate\Validation\Rules\Password;
 
@@ -52,5 +54,12 @@ return [
             // 'edit' => 'Grupo - Editar',
             // 'delete' => 'Grupo - Deletar',
         ],
+    ],
+    'profile' => [
+        'form' => ProfileForm::class,
+        'title' => 'Editar meu perfil',
+        'password' => 'Alterar minha senha',
+        'save' => 'Atualizar meu perfil',
+        'service' => ProfileService::class,
     ]
 ];
