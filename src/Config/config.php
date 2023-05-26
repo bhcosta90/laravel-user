@@ -10,7 +10,7 @@ return [
     'title' => 'pt-1 pb-0 title',
     'button' => ['add' => 'btn btn-light btn-sm'],
     'user' => [
-        'table' => [__('Nome') => ['field' => 'name'], __('E-mail') => ['field' => 'email']],
+        'table' => ['Nome' => ['field' => 'name'], 'E-mail' => ['field' => 'email']],
         'service' => UserService::class,
         'model' => \App\Models\User::class,
         'permission' => [

@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BRCas\\LaravelUser\\": ""
+            "BRCas\\LaravelUser\\": "src/"
         }
     },
     "license": "MIT"
