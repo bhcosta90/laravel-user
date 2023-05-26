@@ -22,5 +22,8 @@
             "BRCas\\LaravelUser\\": "src/"
         }
     },
-    "license": "MIT"
+    "license": "MIT",
+    "require": {
+        "bhcosta90/laravel-package": "^3.0"
+    }
 }
