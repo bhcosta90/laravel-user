@@ -1,0 +1,11 @@
+{
+    "name": "LaravelUser",
+    "alias": "laraveluser",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "BRCas\\LaravelUser\\Providers\\LaravelUserServiceProvider"
+    ],
+    "files": []
+}

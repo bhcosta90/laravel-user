@@ -1,0 +1,26 @@
+{
+    "name": "bhcosta90/laravel-user",
+    "description": "",
+    "authors": [
+        {
+            "name": "Bruno Costa",
+            "email": "bhcosta90@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BRCas\\LaravelUser\\Providers\\LaravelUserServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "BRCas\\LaravelUser\\": ""
+        }
+    },
+    "license": "MIT"
+}
