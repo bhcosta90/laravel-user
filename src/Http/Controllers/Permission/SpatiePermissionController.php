@@ -2,14 +2,16 @@
 
 namespace BRCas\LaravelUser\Http\Controllers\Permission;
 
+use BRCas\Laravel\Abstracts\Traits\PostTrait;
 use BRCas\Laravel\Support\RouteSupport;
 use BRCas\Laravel\Traits\Support\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class SpatiePermissionController extends Controller
 {
-    use Permission;
+    use Permission, PostTrait;
 
     public function permissions()
     {
@@ -53,32 +55,29 @@ class SpatiePermissionController extends Controller
         ));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         $data = $request->all();
         $groupPermission = $data['group'];
-        $objModel = app(base64_decode($data['name_model']))->findOrFail($id);
+        $allParameters = request()->route()->parameters();
+
+        $objModel = app(base64_decode($data['name_model']))->findOrFail(end($allParameters));
 
         $modelPermissions = app(config('permission.models.permission'));
         $allPermissionGroup = $modelPermissions->select()
             ->where('name', 'like', $groupPermission . "%")
             ->pluck('id');
 
-        $objModel->revokePermissionTo($allPermissionGroup)
-            ->givePermissionTo($data['permission'][$groupPermission] ?? []);
+        return DB::transaction(function() use($objModel, $data, $groupPermission, $allPermissionGroup){
+            $objModel->revokePermissionTo($allPermissionGroup)
+                ->givePermissionTo($data['permission'][$groupPermission] ?? []);
 
-        $message = __("Permissões vinculadas com sucesso");
+            return $this->responsePost("update", $objModel, config('bhcosta90-user.user.message.permission'));
+        });
+    }
 
-        if (!$request->isJson() && empty($request->get('__ajax'))) {
-            session()->flash('success', $message);
-            return method_exists($this, 'redirectCreate')
-                ? $this->redirectCreate($objModel)
-                : redirect()->route(RouteSupport::getRouteActual() . ".index", $request->route()->parameters());
-        }
-
-        return response()->json([
-            'data' => $objModel,
-            'msg' => $message,
-        ], Response::HTTP_CREATED);
+    public function service()
+    {
+        return config('bhcosta90-user.user.service');
     }
 }

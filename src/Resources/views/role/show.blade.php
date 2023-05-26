@@ -6,15 +6,10 @@
         <table class="table m-0">
             <tbody>
                 <tr>
-                    <td><strong>{!! __('Nome') !!}</strong></td>
-                    <td>{{$obj->name}}</td>
+                    <td><strong>{!! __('E-Mail Address') !!}</strong></td>
+                    <td>{{$obj->email}}</td>
                 </tr>
             <tbody>
         </table>
-    </x-card>
-
-    <x-card>
-        <x-card-header title="Permissões" />
-        <x-card-body>{{implode(', ', $obj->permissions()->pluck('name')->toArray())}}</x-card-body>
     </x-card>
 @endsection

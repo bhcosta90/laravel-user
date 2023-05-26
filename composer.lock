@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "bhcosta90/laravel-package",
-            "version": "3.0.8",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "46f8006ca0afc965a153d5a123cb8af02c76c6dc"
+                "reference": "1ed1ad50740cc3d8b5ac496af34bab7418c061f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/46f8006ca0afc965a153d5a123cb8af02c76c6dc",
-                "reference": "46f8006ca0afc965a153d5a123cb8af02c76c6dc",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/1ed1ad50740cc3d8b5ac496af34bab7418c061f0",
+                "reference": "1ed1ad50740cc3d8b5ac496af34bab7418c061f0",
                 "shasum": ""
             },
             "require": {
-                "kris/laravel-form-builder": "^1.52",
-                "laravel/framework": "^10.10"
+                "kris/laravel-form-builder": ">=1.52",
+                "laravel/framework": ">=10.10"
             },
             "type": "library",
             "extra": {
@@ -33,9 +33,6 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
                 "psr-4": {
                     "BRCas\\Laravel\\": "src/"
                 }
@@ -52,9 +49,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bhcosta90/laravel-package/issues",
-                "source": "https://github.com/bhcosta90/laravel-package/tree/3.0.8"
+                "source": "https://github.com/bhcosta90/laravel-package/tree/3.0.9"
             },
-            "time": "2023-05-26T15:53:01+00:00"
+            "time": "2023-05-26T21:25:13+00:00"
         },
         {
             "name": "brick/math",

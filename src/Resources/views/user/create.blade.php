@@ -2,7 +2,7 @@
 
 @section('content')
     <x-card>
-        <x-card-header title="Cadastrar usuário" />
+        <x-card-header title="{{config('bhcosta90-user.user.view.create')}}" />
         <x-card-body>{!! form($form) !!}</x-card-body>
     </x-card>
 @endsection

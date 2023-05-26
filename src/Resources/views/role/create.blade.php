@@ -2,7 +2,7 @@
 
 @section('content')
     <x-card>
-        <x-card-header title="{{config('bhcosta90-user.role.new')}}" />
+        <x-card-header title="{{config('bhcosta90-user.role.view.create')}}" />
         <x-card-body>
             {!! form_start($form) !!}
             {!! form_row($form->name) !!}

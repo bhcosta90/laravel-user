@@ -2,40 +2,24 @@
 
 namespace BRCas\LaravelUser\Http\Controllers;
 
+use BRCas\Laravel\Abstracts\LaravelPackageController;
 use BRCas\Laravel\Support\RouteSupport;
-use BRCas\Laravel\Traits\Controller\CreateTrait;
-use BRCas\Laravel\Traits\Controller\EditTrait;
-use BRCas\Laravel\Traits\Controller\IndexTrait;
-use BRCas\Laravel\Traits\Controller\ShowTrait;
-use BRCas\Laravel\Traits\Controller\Write\DestroyTrait;
 use BRCas\Laravel\Traits\Support\Permission;
-use Illuminate\Routing\Controller;
+use BRCas\LaravelUser\Forms\UserCreateForm;
+use BRCas\LaravelUser\Forms\UserEditForm;
 
-class UserController extends Controller
+class UserController extends LaravelPackageController
 {
-    use IndexTrait, CreateTrait, EditTrait, DestroyTrait, Permission, ShowTrait;
+    use Permission;
 
     public function permissions()
     {
         return config('bhcosta90-user.user.permission');
     }
 
-    protected $indexView = 'bhcosta90-user::user.index';
-    protected $createView = 'bhcosta90-user::user.create';
-    protected $editView = 'bhcosta90-user::user.edit';
-    protected $showView = 'bhcosta90-user::user.show';
-
     public function service()
     {
         return config('bhcosta90-user.user.service');
-    }
-
-    public function filters()
-    {
-        return [
-            'like_users|name' => 'Nome do usuário',
-            'equal_email' => 'E-mail do usuário',
-        ];
     }
 
     public function table()
@@ -48,7 +32,7 @@ class UserController extends Controller
             && auth()->user()
             && auth()->user()->can(config('bhcosta90-user.user.permission.permission'))
         ) {
-            $table[__('_Permissões')] = [
+            $table['_Permissões'] = [
                 'action' => fn ($obj) => '<a href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" class="btn-warning btn-sm btn-show"><i class="fas fa-key"></i></a>',
                 'class' => 'min-column',
             ];
@@ -57,13 +41,46 @@ class UserController extends Controller
         return $table;
     }
 
-    public function formCreate()
+    public function namespaceView()
     {
-        return config('bhcosta90-user.user.form.create');
+        return 'bhcosta90-user::';
     }
 
-    public function formEdit()
+    protected function getFilter()
     {
-        return config('bhcosta90-user.user.form.edit');
+        return [
+            'like_users|name' => 'Nome do usuário',
+            'equal_email' => 'E-mail do usuário',
+        ];
+    }
+
+    protected function createForm()
+    {
+        return UserCreateForm::class;
+    }
+
+    protected function editForm()
+    {
+        return UserEditForm::class;
+    }
+
+    protected function addDataInStore()
+    {
+        return ['a' => 'b'];
+    }
+
+    protected function messageStore()
+    {
+        return config('bhcosta90-user.user.message.store');
+    }
+
+    protected function messageUpdate()
+    {
+        return config('bhcosta90-user.user.message.update');
+    }
+
+    protected function messageDestroy()
+    {
+        return config('bhcosta90-user.user.message.destroy');
     }
 }

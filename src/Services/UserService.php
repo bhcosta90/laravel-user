@@ -16,14 +16,14 @@ class UserService
 
     public function index()
     {
-        return $this->user->select();
+        return $this->user->select()->orderBy('name')->orderBy('created_at');
     }
 
-    public function create(array $data)
+    public function store(array $data)
     {
         $user = $this->user->create($data);
         event(new Registered($user));
-        $this->registerRoles($user, $data['roles'] ?: []);
+        $this->registerRoles($user, $data['roles'] ?? []);
         return $user;
     }
 
@@ -32,10 +32,10 @@ class UserService
         return $this->user->find($id);
     }
 
-    public function edit($obj, array $data)
+    public function update($obj, array $data)
     {
         $obj->update($data);
-        $this->registerRoles($obj, $data['roles'] ?: []);
+        $this->registerRoles($obj, $data['roles'] ?? []);
         return $obj;
     }
 

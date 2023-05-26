@@ -14,6 +14,7 @@
 
     </head>
     <body>
+        {!! session('success')!!}
         @if(request()->user())
             <h4>{!! __('Seja bem vindo: :name', ['name' => request()->user()?->name])!!}</h4>
         @endif

@@ -18,7 +18,7 @@ class RoleService
         return $this->role->select();
     }
 
-    public function create(array $data)
+    public function store(array $data)
     {
         $user = $this->role->create($data);
         $user->syncPermissions($data['permission'] ?? []);
@@ -30,7 +30,7 @@ class RoleService
         return $this->role->find($id);
     }
 
-    public function edit($obj, array $data)
+    public function update($obj, array $data)
     {
         $obj->update($data);
         $obj->syncPermissions($data['permission'] ?? []);

@@ -2,7 +2,7 @@
 
 @section('content')
     <x-card>
-        <x-card-header title="Editar usuário" />
+        <x-card-header title="{{config('bhcosta90-user.user.view.edit')}}" />
         <x-card-body>{!! form($form) !!}</x-card-body>
     </x-card>
 @endsection
