@@ -14,11 +14,11 @@ return [
         'service' => UserService::class,
         'model' => \App\Models\User::class,
         'permission' => [
-            'index' => 'Usuário - Listar',
-            'create' => 'Usuário - Cadastrar',
-            'edit' => 'Usuário - Editar',
-            'delete' => 'Usuário - Deletar',
-            'permission' => 'Usuário - Vincular permissão'
+            // 'index' => 'Usuário - Listar',
+            // 'create' => 'Usuário - Cadastrar',
+            // 'edit' => 'Usuário - Editar',
+            // 'delete' => 'Usuário - Deletar',
+            // 'permission' => 'Usuário - Vincular permissão'
         ],
         'rules' => [
             'create' => [
@@ -47,10 +47,10 @@ return [
             'name' => ['required', 'string', 'min:2', 'max:150'],
         ],
         'permission' => [
-            'index' => 'Grupo - Listar',
-            'create' => 'Grupo - Cadastrar',
-            'edit' => 'Grupo - Editar',
-            'delete' => 'Grupo - Deletar',
+            // 'index' => 'Grupo - Listar',
+            // 'create' => 'Grupo - Cadastrar',
+            // 'edit' => 'Grupo - Editar',
+            // 'delete' => 'Grupo - Deletar',
         ],
     ]
 ];
