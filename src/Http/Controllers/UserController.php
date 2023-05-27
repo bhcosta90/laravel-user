@@ -31,7 +31,7 @@ class UserController extends LaravelPackageController
             && auth()->user()->can(config('bhcosta90-user.user.permission.permission'))
         ) {
             $table['_Permissões'] = [
-                'action' => fn ($obj) => '<a href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" class="btn-warning btn-sm btn-show"><i class="fas fa-key"></i></a>',
+                'action' => fn ($obj) => '<a href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" class="btn-warning btn-sm btn-permission"><i class="fas fa-key"></i></a>',
                 'class' => 'min-column',
             ];
         }
