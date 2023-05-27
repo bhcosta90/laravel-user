@@ -40,6 +40,9 @@ return [
     ],
     "role" => [
         'permission' => [],
+        'rules' => [
+            'name' => ['required', 'min:3', 'max:150', 'string'],
+        ],
         'view' => [
             'label' => 'Grupo de acesso',
             'index' => 'Relatório do grupo de acesso',
