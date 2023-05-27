@@ -8,6 +8,7 @@ class PermissionComponent extends Component
 {
     public function __construct(
         public string $model,
+        public bool $fieldset = false,
         public array $permissions = [],
         public array $myPermissions = [],
         public string $name = "",

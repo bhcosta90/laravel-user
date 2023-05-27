@@ -102,7 +102,7 @@ class SpatieRoleController extends LaravelPackageController
     public function addDataInStore(array $data)
     {
         return [
-            'permission' => $data['permission'],
+            'permission' => $data['permission'] ?? [],
         ];
     }
 }

@@ -41,6 +41,7 @@ return [
     "role" => [
         'permission' => [],
         'view' => [
+            'label' => 'Grupo de acesso',
             'index' => 'Relatório do grupo de acesso',
             'search' => 'Buscar grupo de acesso',
             'register' => 'Novo grupo de acesso',

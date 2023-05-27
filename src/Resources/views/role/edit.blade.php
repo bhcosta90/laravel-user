@@ -6,7 +6,7 @@
         <x-card-body>
             {!! form_start($form) !!}
             {!! form_row($form->name) !!}
-            <x-permission :model="config('permission.models.role')" :permissions="$permissions" :my-permissions="$modelHasPermission" />
+            <x-permission fieldset=1 :model="config('permission.models.role')" :permissions="$permissions" :my-permissions="$modelHasPermission" />
             {!! form_end($form) !!}
         </x-card-body>
     </x-card>

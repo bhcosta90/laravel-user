@@ -33,7 +33,7 @@ class UserEditForm extends Form
             $data = app(config('permission.models.role'))->orderBy('name')->pluck('name', 'id')->toArray();
             if (count($data)) {
                 $select = [
-                    'label' => __('Grupo de acesso'),
+                    'label' => config('bhcosta90-user.role.view.label'),
                     'choices' => app(config('permission.models.role'))->orderBy('name')->pluck('name', 'id')->toArray(),
                     'attr' => [
                         'multiple' => config('bhcosta90-user.user.form.role_multiple')
