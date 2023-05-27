@@ -62,7 +62,7 @@ class UserController extends LaravelPackageController
         $obj = app(config('bhcosta90-user.user.model'));
         $model = $obj->findOrFail(end($params));
 
-        $fieldActive = config('bhcosta90-user.field.active');
+        $fieldActive = config('bhcosta90-user.user.field.active');
 
         if ($model->$fieldActive) {
             $message = config('bhcosta90-user.user.message.disable');
