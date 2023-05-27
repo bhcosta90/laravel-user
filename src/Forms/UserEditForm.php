@@ -30,20 +30,23 @@ class UserEditForm extends Form
         ]);
 
         if (in_array('Spatie\Permission\Traits\HasRoles', $implements)) {
-            $select = [
-                'label' => __('Grupo de acesso'),
-                'choices' => app(config('permission.models.role'))->orderBy('name')->pluck('name', 'id')->toArray(),
-                'attr' => [
-                    'multiple' => config('bhcosta90-user.user.form.role_multiple')
-                ]
-            ];
-
-            if (empty(config('bhcosta90-user.user.form.role_multiple'))) {
-                $select += [
-                    'empty_value' => __('Selecione') . '...',
+            $data = app(config('permission.models.role'))->orderBy('name')->pluck('name', 'id')->toArray();
+            if (count($data)) {
+                $select = [
+                    'label' => __('Grupo de acesso'),
+                    'choices' => app(config('permission.models.role'))->orderBy('name')->pluck('name', 'id')->toArray(),
+                    'attr' => [
+                        'multiple' => config('bhcosta90-user.user.form.role_multiple')
+                    ]
                 ];
+
+                if (empty(config('bhcosta90-user.user.form.role_multiple'))) {
+                    $select += [
+                        'empty_value' => __('Selecione') . '...',
+                    ];
+                }
+                $this->add('roles', 'select', $select);
             }
-            $this->add('roles', 'select', $select);
         }
     }
 }
