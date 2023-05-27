@@ -37,7 +37,7 @@ class SpatieRoleController extends LaravelPackageController
 
     public function namespaceView()
     {
-        return 'bhcosta90-user::';
+        return 'bhcosta90-user::role.';
     }
 
     public function createForm()

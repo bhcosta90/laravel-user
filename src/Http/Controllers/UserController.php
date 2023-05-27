@@ -41,7 +41,7 @@ class UserController extends LaravelPackageController
 
     public function namespaceView()
     {
-        return 'bhcosta90-user::';
+        return 'bhcosta90-user::user.';
     }
 
     protected function getFilter()
