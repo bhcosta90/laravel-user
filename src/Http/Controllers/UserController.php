@@ -73,7 +73,9 @@ class UserController extends LaravelPackageController
         $model->$fieldActive = !$model->$fieldActive;
         $model->save();
 
-        return $this->responsePost("active", $model, $message);
+        return $this->responsePost("active", $model, $message, [
+            'active' => $model->$fieldActive
+        ]);
     }
 
     public function destroy(Request $request)
