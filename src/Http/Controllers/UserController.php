@@ -5,8 +5,6 @@ namespace BRCas\LaravelUser\Http\Controllers;
 use BRCas\Laravel\Abstracts\LaravelPackageController;
 use BRCas\Laravel\Support\RouteSupport;
 use BRCas\Laravel\Traits\Support\Permission;
-use BRCas\LaravelUser\Forms\UserCreateForm;
-use BRCas\LaravelUser\Forms\UserEditForm;
 
 class UserController extends LaravelPackageController
 {
@@ -48,25 +46,17 @@ class UserController extends LaravelPackageController
 
     protected function getFilter()
     {
-        return [
-            'like_users|name' => 'Nome do usuário',
-            'equal_email' => 'E-mail do usuário',
-        ];
+        return config('bhcosta90-user.user.filter');
     }
 
     protected function createForm()
     {
-        return UserCreateForm::class;
+        return config('bhcosta90-user.user.form.create');
     }
 
     protected function editForm()
     {
-        return UserEditForm::class;
-    }
-
-    protected function addDataInStore()
-    {
-        return ['a' => 'b'];
+        return config('bhcosta90-user.user.form.edit');
     }
 
     protected function messageStore()

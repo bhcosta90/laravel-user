@@ -13,8 +13,6 @@ class UserRoute
     public static function defaults($excepts = [])
     {
         Route::resource('user', UserController::class)->except($excepts);
-        Route::resource('profile', ProfileController::class)->middleware('auth')->only('index', 'store');
-        Route::post('update-password', [ProfileController::class, 'password'])->middleware('auth')->name('profile.password');
 
         $implements = class_uses(config('bhcosta90-user.user.model'));
         if (in_array('Spatie\Permission\Traits\HasRoles', $implements)) {

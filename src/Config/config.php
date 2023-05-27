@@ -5,6 +5,10 @@ return [
         'service' => '\BRCas\LaravelUser\Services\UserService',
         'model' => '\App\Models\User',
         'table' => ['Nome' => ['field' => 'name'], 'E-mail' => ['field' => 'email']],
+        'filter' => [
+            'like_users|name' => 'Nome do usuário',
+            'equal_email' => 'E-mail do usuário',
+        ],
         'permission' => [],
         'view' => [
             'index' => 'Relatório do usuário',
@@ -18,6 +22,10 @@ return [
             'update' => 'Usuário atualizado com sucesso',
             'destroy' => 'Usuário deletado com sucesso',
             'permission' => 'Permissões do usuário vinculadas com sucesso',
+        ],
+        'form' => [
+            'create' => '\BRCas\LaravelUser\Forms\UserCreateForm',
+            'edit' => '\BRCas\LaravelUser\Forms\UserEditForm'
         ]
     ],
     "role" => [
@@ -28,6 +36,18 @@ return [
             'register' => 'Novo grupo de acesso',
             'create' => 'Cadastrar grupo de acesso',
             'edit' => 'Editar grupo de acesso',
+        ],
+    ],
+    'profile' => [
+        'form' => '\BRCas\LaravelUser\Forms\Profile\ProfileForm',
+        'service' => '\BRCas\LaravelUser\Services\ProfileService',
+        'message' => [
+            'update' => 'Perfil atualizado com sucesso',
+            'password' => 'Senha alterada com sucesso',
+        ],
+        'view' => [
+            'profile' => 'Alterar meus dados',
+            'password' => 'Alterar minha senha',
         ],
     ]
 ];
