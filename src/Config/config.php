@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'template' => env('USER_TEMPLATE'),
     'user' => [
         'service' => '\BRCas\LaravelUser\Services\UserService',
         'model' => '\App\Models\User',
