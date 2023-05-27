@@ -8,17 +8,27 @@ class UserEditForm extends Form
 {
     public function buildForm()
     {
+        $id = request()->route()->parameter('user');
+
+        $implements = class_uses(config('bhcosta90-user.user.model'));
+
         $this->add('name', 'text', [
-            'rules' => config('bhcosta90-user.user.rules.edit.name'),
+            'rules' => config('bhcosta90-user.user.rules.name'),
             'label' => __('Nome'),
         ]);
 
+        $filterEmail = "unique:users,email,{$id},id";
+
+        if (in_array('Stancl\Tenancy\Database\Concerns\BelongsToTenant', $implements)) {
+            $tenant = tenant('id');
+            $filterEmail .= ",tenant_id,{$tenant}";
+        }
+
         $this->add('email', 'email', [
-            'rules' => config('bhcosta90-user.user.rules.edit.email'),
+            'rules' => array_merge(config('bhcosta90-user.user.rules.email'), $filterEmail),
             'label' => __('E-mail'),
         ]);
 
-        $implements = class_uses(config('bhcosta90-user.user.model'));
         if (in_array('Spatie\Permission\Traits\HasRoles', $implements)) {
             $select = [
                 'label' => __('Grupo de acesso'),

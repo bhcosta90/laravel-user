@@ -10,6 +10,10 @@ return [
             'equal_email' => 'E-mail do usuário',
         ],
         'permission' => [],
+        'rules' => [
+            'name' => ['required', 'min:3', 'max:150', 'string'],
+            'email' => ['required', 'email'],
+        ],
         'view' => [
             'index' => 'Relatório do usuário',
             'search' => 'Buscar usuário',
