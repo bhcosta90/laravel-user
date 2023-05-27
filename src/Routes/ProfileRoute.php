@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Route;
 
 class ProfileRoute
 {
-    public static function defaults($excepts = [])
+    public static function defaults()
     {
-        Route::resource('profile', ProfileController::class)->middleware('auth')->only('index', 'store');
-        Route::post('update-password', [ProfileController::class, 'password'])->middleware('auth')->name('profile.password');
+        Route::middleware(['auth'])->group(function () {
+            Route::resource('profile', ProfileController::class)->middleware('auth')->only('index', 'store');
+            Route::post('update-password', [ProfileController::class, 'password'])->middleware('auth')->name('profile.password');
+        });
     }
 }

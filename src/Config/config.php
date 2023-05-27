@@ -27,6 +27,8 @@ return [
             'update' => 'Usuário atualizado com sucesso',
             'destroy' => 'Usuário deletado com sucesso',
             'permission' => 'Permissões do usuário vinculadas com sucesso',
+            'enable' => "Usuário ativo com sucesso",
+            'disable' => "Usuário inativado com sucesso",
         ],
         'form' => [
             'create' => '\BRCas\LaravelUser\Forms\UserCreateForm',

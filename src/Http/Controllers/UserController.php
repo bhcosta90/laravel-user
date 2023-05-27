@@ -5,6 +5,8 @@ namespace BRCas\LaravelUser\Http\Controllers;
 use BRCas\Laravel\Abstracts\LaravelPackageController;
 use BRCas\Laravel\Support\RouteSupport;
 use BRCas\Laravel\Traits\Support\Permission;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends LaravelPackageController
 {
@@ -40,7 +42,34 @@ class UserController extends LaravelPackageController
         return $table;
     }
 
-    public function namespaceView()
+    public function active(Request $request)
+    {
+        $params = $request->route()->parameters();
+        $this->validateUser($request);
+
+        $obj = app(config('bhcosta90-user.user.model'));
+        $model = $obj->findOrFail(end($params));
+
+
+        if ($model->is_active) {
+            $message = config('bhcosta90-user.user.message.disable');
+        } else {
+            $message = config('bhcosta90-user.user.message.enable');
+        }
+
+        $model->is_active = !$model->is_active;
+        $model->save();
+
+        return $this->responsePost("active", $model, $message);
+    }
+
+    public function destroy(Request $request)
+    {
+        $this->validateUser($request);
+        return parent::destroy($request);
+    }
+
+    protected function namespaceView()
     {
         return 'bhcosta90-user::user.';
     }
@@ -73,5 +102,16 @@ class UserController extends LaravelPackageController
     protected function messageDestroy()
     {
         return config('bhcosta90-user.user.message.destroy');
+    }
+
+    protected function validateUser(Request $request)
+    {
+        $params = $request->route()->parameters();
+
+        if (request()->user()->id === end($params)) {
+            throw ValidationException::withMessages([
+                'is_active' => __('Admin user cannot be deleted or inactivated')
+            ]);
+        }
     }
 }
