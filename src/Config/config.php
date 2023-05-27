@@ -6,6 +6,9 @@ return [
         'service' => '\BRCas\LaravelUser\Services\UserService',
         'model' => '\App\Models\User',
         'table' => ['Nome' => ['field' => 'name'], 'E-mail' => ['field' => 'email']],
+        'field' => [
+            'active' => 'is_active'
+        ],
         'filter' => [
             'like_users|name' => 'Nome do usuário',
             'equal_email' => 'E-mail do usuário',
