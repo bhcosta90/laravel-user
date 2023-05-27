@@ -41,6 +41,7 @@ class UserController extends LaravelPackageController
 
         if (
             auth()->user()
+            && config('bhcosta90-user.user.permission.active')
             && auth()->user()->can(config('bhcosta90-user.user.permission.active'))
         ) {
             $table[__('Ativo') . "?"] = [
