@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bhcosta90/laravel-package",
-            "version": "3.0.24",
+            "version": "3.0.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bhcosta90/laravel-package.git",
-                "reference": "37afae936116170dc520c00681f7542fa16e06ce"
+                "reference": "62a741fff2af1e700047ea3acca64c1449a6a498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/37afae936116170dc520c00681f7542fa16e06ce",
-                "reference": "37afae936116170dc520c00681f7542fa16e06ce",
+                "url": "https://api.github.com/repos/bhcosta90/laravel-package/zipball/62a741fff2af1e700047ea3acca64c1449a6a498",
+                "reference": "62a741fff2af1e700047ea3acca64c1449a6a498",
                 "shasum": ""
             },
             "require": {
@@ -49,9 +49,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bhcosta90/laravel-package/issues",
-                "source": "https://github.com/bhcosta90/laravel-package/tree/3.0.24"
+                "source": "https://github.com/bhcosta90/laravel-package/tree/3.0.26"
             },
-            "time": "2023-05-27T19:30:08+00:00"
+            "time": "2023-05-27T19:36:52+00:00"
         },
         {
             "name": "brick/math",
