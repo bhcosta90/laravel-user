@@ -7,7 +7,7 @@
     <input type="hidden" name="{{$name}}name_model" value="{{base64_encode($model)}}" />
     @if(empty($fieldset))
     <x-card>
-        <x-card-header :title="$groupPermission['title']" :register="$save" type-register="submit" keep-open="1" text-register="Vincular permissões" />
+        <x-card-header :title="$groupPermission['title']" :register="$save" type-register="submit" text-register="Vincular permissões" />
         <x-card-body>
             <div class='row'>
                 @foreach($groupPermission['permissions'] as $id => $permission)

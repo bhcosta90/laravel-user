@@ -46,7 +46,7 @@ class UserController extends LaravelPackageController
         ) {
             $title = __('Vincular permissões');
             $table['_Permissões'] = [
-                'action' => fn ($obj) => '<a data-card-title="' . $title . '" href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" class="btn-warning btn-sm btn-show btn-permission"><i class="fas fa-key"></i></a>',
+                'action' => fn ($obj) => '<a data-card-title="' . $title . '" href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" data-keep-open=1 class="btn-warning btn-sm btn-show btn-permission"><i class="fas fa-key"></i></a>',
                 'class' => 'min-column',
             ];
         }
