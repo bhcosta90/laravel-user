@@ -39,6 +39,16 @@ class UserController extends LaravelPackageController
             ];
         }
 
+        if (
+            auth()->user()
+            && auth()->user()->can(config('bhcosta90-user.user.permission.active'))
+        ) {
+            $table[__('Ativo') . "?"] = [
+                'action' => fn ($obj) => is_active("user", route(RouteSupport::getRouteActual() . '.permission.index', $obj->id), $obj->is_active),
+                'class' => 'min-column',
+            ];
+        }
+
         return $table;
     }
 
