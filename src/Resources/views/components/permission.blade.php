@@ -19,9 +19,9 @@
                                 @endif
                                 type="checkbox"
                                 value="{{$id}}"
-                                name="{{$name}}permission[{{$groupPermission['title']}}][{{$id}}]" id="{{$name.$id}}"
+                                name="{{$name}}permission[{{$groupPermission['title']}}][{{$id}}]" id="{{sha1($name.$id)}}"
                             />
-                            <label for="{{$name.$id}}">
+                            <label for="{{sha1($name.$id)}}">
                                 {{ __($permission) }}
                             </label>
                         </div>
