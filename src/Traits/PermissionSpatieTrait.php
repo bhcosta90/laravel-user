@@ -31,7 +31,13 @@ trait PermissionSpatieTrait
     public function down()
     {
         $tableNames = config('permission.table_names');
+        $title = $this->title();
+        $permissions = [];
 
-        DB::table($tableNames['permissions'])->whereIn('name', $this->permissions())->delete();
+        foreach ($this->permissions() as $permission) {
+            $permissions[] = "{$title} - {$permission}";
+        }
+
+        DB::table($tableNames['permissions'])->whereIn('name', $permissions)->delete();
     }
 }
