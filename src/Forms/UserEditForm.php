@@ -25,7 +25,7 @@ class UserEditForm extends Form
         }
 
         $this->add('email', 'email', [
-            'rules' => array_merge(config('bhcosta90-user.user.rules.email'), $filterEmail),
+            'rules' => array_merge(config('bhcosta90-user.user.rules.email'), [$filterEmail]),
             'label' => __('E-mail'),
         ]);
 
