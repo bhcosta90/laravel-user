@@ -27,6 +27,18 @@ class UserController extends LaravelPackageController
         $table = config('bhcosta90-user.user.table');
 
         $implements = class_uses(config('bhcosta90-user.user.model'));
+
+        if (
+            auth()->user()
+            && config('bhcosta90-user.user.field.active')
+            && auth()->user()->can(config('bhcosta90-user.user.permission.active'))
+        ) {
+            $table[__('Ativo') . "?"] = [
+                'action' => fn ($obj) => is_active("user", route(RouteSupport::getRouteActual() . '.permission.index', $obj->id), $obj->is_active),
+                'class' => 'min-column',
+            ];
+        }
+
         if (
             in_array('Spatie\Permission\Traits\HasRoles', $implements)
             && auth()->user()
@@ -35,17 +47,6 @@ class UserController extends LaravelPackageController
             $title = __('Vincular permissões');
             $table['_Permissões'] = [
                 'action' => fn ($obj) => '<a data-card-title="' . $title . '" href="' . route(RouteSupport::getRouteActual() . '.permission.index', $obj->id) . '" class="btn-warning btn-sm btn-show btn-permission"><i class="fas fa-key"></i></a>',
-                'class' => 'min-column',
-            ];
-        }
-
-        if (
-            auth()->user()
-            && config('bhcosta90-user.user.permission.active')
-            && auth()->user()->can(config('bhcosta90-user.user.permission.active'))
-        ) {
-            $table[__('Ativo') . "?"] = [
-                'action' => fn ($obj) => is_active("user", route(RouteSupport::getRouteActual() . '.permission.index', $obj->id), $obj->is_active),
                 'class' => 'min-column',
             ];
         }
