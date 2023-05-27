@@ -125,7 +125,7 @@ class UserController extends LaravelPackageController
 
         if (request()->user()->id === end($params)) {
             throw ValidationException::withMessages([
-                'is_active' => __('Admin user cannot be deleted or inactivated')
+                'is_active' => __('This user cannot be deleted or inactivated')
             ]);
         }
     }
