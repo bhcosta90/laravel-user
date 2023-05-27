@@ -121,9 +121,13 @@ class UserController extends LaravelPackageController
 
     protected function validateUser(Request $request)
     {
+        $obj = app(config('bhcosta90-user.user.model'));
+        $params = $request->route()->parameters();
+        $model = $obj->findOrFail(end($params));
+
         $params = $request->route()->parameters();
 
-        if (request()->user()->id === end($params)) {
+        if (request()->user()->id === end($params) || $model->is_admin) {
             throw ValidationException::withMessages([
                 'is_active' => __('This user cannot be deleted or inactivated')
             ]);
